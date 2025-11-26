@@ -2,7 +2,26 @@
    ANIMACIONES GSAP
    ============================================ */
 
-// Animación removida
+// Animaciones de entrada inicial: se mueven al cargar y quedan estáticos
+document.addEventListener('DOMContentLoaded', () => {
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const targets = ['.logo-container', '#flow-text', '.subtitle-text', '.explore-btn', '.bottom-text'];
+
+    if (prefersReduced) {
+        gsap.set(targets, { clearProps: 'all', opacity: 1, y: 0 });
+        return;
+    }
+
+    gsap.set(targets, { opacity: 0, y: 20 });
+
+    const tl = gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } });
+        tl.to('.logo-container', { opacity: 1, y: 0 })
+            .to('#flow-text', { opacity: 1, y: 0 }, '-=0.4')
+      .to('.subtitle-text', { opacity: 1, y: 0 }, '-=0.35')
+      .to('.explore-btn', { opacity: 1, y: 0 }, '-=0.3')
+      .to('.bottom-text', { opacity: 1, y: 0 }, '-=0.35');
+});
 
 /* ============================================
    MODAL GALERÍA
