@@ -64,9 +64,8 @@ html {
     width: 100vw;
     height: 100vh;
     background-color: var(--color-black);
-    background-image: radial-gradient(var(--color-text-secondary) 1px, transparent 1px);
-    background-size: 4px 4px;
-    opacity: 0.4;
+    
+    opacity: 0.2;
     z-index: 1;
 }
 
@@ -97,11 +96,10 @@ html {
     font-style: normal;
     font-weight: 300;
     letter-spacing: 0;
-    margin-top: -30px;
 }
 
-.yellow-text {
-    color: var(--color-yellow);
+.color-text {
+    color: #000;
 }
 
 /* ============================================
