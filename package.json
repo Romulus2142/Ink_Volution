@@ -5,7 +5,9 @@
   "main": "src/index.html",
   "scripts": {
     "start": "python -m http.server 8000 --directory src",
-    "dev": "start http://localhost:8000 && python -m http.server 8000 --directory src"
+    "dev": "start http://localhost:8000 && python -m http.server 8000 --directory src",
+    "serve": "npx http-server src -p 8000",
+    "optimize-video": "ffmpeg -i src/assets/videos/bg_vid.mp4 -vcodec libx264 -crf 28 -preset veryfast -movflags +faststart src/assets/videos/bg_vid.optim.mp4"
   },
   "keywords": [
     "portfolio",
