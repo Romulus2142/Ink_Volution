@@ -1,0 +1,226 @@
+/* ============================================
+   VARIABLES Y CONFIGURACIÓN
+   ============================================ */
+
+:root {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-yellow: yellow;
+    --color-text-secondary: rgba(189, 189, 189, 0.12);
+    --font-sans: "Albert Sans", sans-serif;
+    --font-serif: "Noto Serif Display", serif;
+    --transition-smooth: 120ms ease;
+}
+
+/* ============================================
+   RESET Y ESTILOS BASE
+   ============================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ============================================
+   LAYOUT PRINCIPAL
+   ============================================ */
+
+/* Fondo con patrón de puntos */
+.bg-color {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-black);
+    background-image: radial-gradient(var(--color-text-secondary) 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* ============================================
+   SECCIÓN PRINCIPAL DE CONTENIDO
+   ============================================ */
+
+/* Contenedor de texto principal */
+.principal-text {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Título "flow creative" */
+.principal-text {
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-weight: 900;
+    font-size: 14rem;
+    letter-spacing: -0.05em;
+}
+
+/* Subtítulo */
+.principal-text .subtitle-text {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0;
+    margin-top: -30px;
+}
+
+/* Texto con color de acento */
+.yellow-text {
+    color: var(--color-yellow);
+}
+
+/* ============================================
+   COMPONENTES UI
+   ============================================ */
+
+/* Botón en la esquina superior derecha */
+.top-right-btn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--color-white);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform var(--transition-smooth);
+    z-index: 60;
+}
+
+.top-right-btn:hover {
+    transform: translateY(-2px);
+}
+
+.top-right-btn:active {
+    transform: translateY(0);
+}
+
+/* Texto en la parte inferior centrado */
+.bottom-text {
+    position: fixed;
+    bottom: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    text-align: center;
+    z-index: 30;
+    pointer-events: none;
+}
+
+/* ============================================
+   MEDIA QUERIES - DISEÑO RESPONSIVO
+   ============================================ */
+
+/* Dispositivos móviles (hasta 768px) */
+@media (max-width: 768px) {
+    .principal-text {
+        top: 35%;
+        font-size: 4rem;
+    }
+
+    .principal-text .subtitle-text {
+        font-size: 0.9rem;
+        margin-top: -15px;
+        padding: 0 20px;
+    }
+
+    .top-right-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+
+    .bottom-text {
+        bottom: 12px;
+        font-size: 0.5rem;
+    }
+}
+
+/* Tablets (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .principal-text {
+        top: 38%;
+        font-size: 8rem;
+    }
+
+    .principal-text .subtitle-text {
+        font-size: 1.1rem;
+        margin-top: -25px;
+    }
+
+    .top-right-btn {
+        font-size: 1rem;
+        padding: 7px 12px;
+    }
+
+    .bottom-text {
+        font-size: 0.55rem;
+    }
+}
+
+/* Desktop (1025px - 1919px) */
+@media (min-width: 1025px) and (max-width: 1919px) {
+    .principal-text {
+        font-size: 14rem;
+    }
+
+    .principal-text .subtitle-text {
+        font-size: 1.4rem;
+    }
+
+    .top-right-btn {
+        font-size: 1.2rem;
+    }
+
+    .bottom-text {
+        font-size: 0.6rem;
+    }
+}
+
+/* Pantallas muy grandes - 4K (1920px+) */
+@media (min-width: 1920px) {
+    .principal-text {
+        font-size: 18rem;
+    }
+
+    .principal-text .subtitle-text {
+        font-size: 1.8rem;
+    }
+
+    .top-right-btn {
+        top: 20px;
+        right: 20px;
+        padding: 10px 18px;
+        font-size: 1.4rem;
+    }
+
+    .bottom-text {
+        bottom: 20px;
+        font-size: 0.8rem;
+    }
+}

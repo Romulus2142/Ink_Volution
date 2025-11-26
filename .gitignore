@@ -1,0 +1,22 @@
+# Archivos y carpetas a ignorar
+node_modules/
+.DS_Store
+*.log
+*.tmp
+.env
+.env.local
+.vscode/
+.idea/
+dist/
+build/
+*.swp
+*.swo
+*~
+.cache/
+Thumbs.db
+desktop.ini
+npm-debug.log*
+coverage/
+/.vs/
+*.psd
+*.ai

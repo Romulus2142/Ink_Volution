@@ -1,0 +1,28 @@
+{
+  "name": "Ink_Volution",
+  "version": "1.0.0",
+  "description": "Portafolio digital profesional - Julio Guadarrama",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "python -m http.server 8000 --directory src",
+    "dev": "start http://localhost:8000 && python -m http.server 8000 --directory src"
+  },
+  "keywords": [
+    "portfolio",
+    "diseño",
+    "web",
+    "creativo",
+    "responsive"
+  ],
+  "author": "Julio Guadarrama",
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.12.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Romulus2142/Ink_Volution.git"
+  },
+  "homepage": "https://github.com/Romulus2142/Ink_Volution"
+}

@@ -1,0 +1,505 @@
+/* ============================================
+   VARIABLES Y CONFIGURACIÓN
+   ============================================ */
+
+:root {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-yellow: yellow;
+    --color-text-secondary: rgba(189, 189, 189, 0.12);
+    --font-sans: "Albert Sans", sans-serif;
+    --font-serif: "Noto Serif Display", serif;
+    --transition-smooth: 120ms ease;
+}
+
+/* ============================================
+   ANIMACIONES KEYFRAMES
+   ============================================ */
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titleFloat {
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        transform: translate(-50%, -48%);
+    }
+}
+
+/* ============================================
+   RESET Y ESTILOS BASE
+   ============================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ============================================
+   LAYOUT PRINCIPAL - FONDO
+   ============================================ */
+
+.bg-color {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-black);
+    background-image: radial-gradient(var(--color-text-secondary) 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* ============================================
+   SECCIÓN PRINCIPAL - CONTENIDO HEROICO
+   ============================================ */
+
+.principal-text {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-weight: 900;
+    font-size: 14rem;
+    letter-spacing: -0.05em;
+}
+
+.principal-text .subtitle-text {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0;
+    margin-top: -30px;
+}
+
+.yellow-text {
+    color: var(--color-yellow);
+}
+
+/* ============================================
+   COMPONENTES UI - BOTONES Y ELEMENTOS
+   ============================================ */
+
+/* Botón Menú - Esquina Superior Derecha */
+.top-right-btn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--color-white);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform var(--transition-smooth);
+    z-index: 60;
+}
+
+.top-right-btn:hover {
+    transform: translateY(-2px);
+}
+
+.top-right-btn:active {
+    transform: translateY(0);
+}
+
+/* Ícono - Esquina Superior Izquierda */
+.top-left-icon {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.top-left-icon img {
+    width: 30px;
+    height:30px;
+    object-fit: contain;
+    transition: transform 200ms ease;
+}
+
+.top-left-icon:hover img {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* Texto Pie de Página */
+.bottom-text {
+    position: fixed;
+    bottom: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    text-align: center;
+    z-index: 30;
+    pointer-events: none;
+}
+
+/* ============================================
+   MENÚ FULLSCREEN
+   ============================================ */
+
+/* Overlay de fondo del menú */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 100;
+    display: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    backdrop-filter: blur(4px);
+    overflow-y: auto;
+}
+
+.menu-overlay.active {
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor de secciones del menú */
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+/* Sección individual del menú */
+.menu-section {
+    width: 100%;
+    text-align: center;
+    animation: slideUp 400ms ease-out;
+}
+
+.menu-section h2 {
+    color: var(--color-yellow);
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Lista de elementos del menú */
+.menu-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.menu-section li {
+    margin: 0;
+}
+
+/* Enlaces del menú */
+.menu-section a {
+    color: var(--color-white);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 200ms ease;
+    position: relative;
+    display: inline-block;
+}
+
+/* Efecto subrayado en enlaces del menú */
+.menu-section a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--color-yellow);
+    transition: all 300ms ease;
+    transform: translateX(-50%);
+}
+
+.menu-section a:hover {
+    color: var(--color-yellow);
+}
+
+.menu-section a:hover::after {
+    width: 100%;
+}
+
+/* Botón Cerrar Menú */
+.menu-close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 101;
+    transition: transform 200ms ease;
+}
+
+.menu-close:hover {
+    transform: rotate(90deg);
+}
+
+/* ============================================
+   MEDIA QUERIES - DISEÑO RESPONSIVO
+   ============================================ */
+
+/* ===== MOBILE (hasta 768px) ===== */
+@media (max-width: 768px) {
+    /* Título Principal */
+    .principal-text {
+        top: 38%;
+        font-size: 3.2rem;
+        animation: titleFloat 3s ease-in-out infinite;
+    }
+
+    /* Subtítulo */
+    .principal-text .subtitle-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-top: -12px;
+        padding: 0 15px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+    }
+
+    /* Botón Menú */
+    .top-right-btn {
+        top: 12px;
+        right: 12px;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .top-right-btn:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Ícono Instagram */
+    .top-left-icon {
+        top: 12px;
+        left: 12px;
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 300ms ease;
+    }
+
+    .top-left-icon:active {
+        background: rgba(255, 255, 255, 0.15);
+        transform: scale(0.95);
+    }
+
+    .top-left-icon img {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Texto Inferior */
+    .bottom-text {
+        bottom: 16px;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.8px;
+        opacity: 0.8;
+    }
+
+    /* Menú Fullscreen */
+    .menu-content {
+        gap: 60px;
+        padding: 100px 20px;
+    }
+
+    .menu-section {
+        animation: slideUp 500ms ease-out;
+    }
+
+    .menu-section:nth-child(1) {
+        animation-delay: 50ms;
+    }
+
+    .menu-section:nth-child(2) {
+        animation-delay: 100ms;
+    }
+
+    .menu-section:nth-child(3) {
+        animation-delay: 150ms;
+    }
+
+    .menu-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+        font-weight: 800;
+    }
+
+    .menu-section ul {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .menu-section a {
+        font-size: 1.05rem;
+        font-weight: 500;
+    }
+
+    .menu-close {
+        top: 16px;
+        right: 16px;
+        font-size: 2.5rem;
+        opacity: 0.8;
+    }
+
+    .menu-close:active {
+        transform: rotate(90deg) scale(0.9);
+    }
+}
+
+/* ===== TABLET (769px - 1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Título Principal */
+    .principal-text {
+        top: 38%;
+        font-size: 8rem;
+    }
+
+    /* Subtítulo */
+    .principal-text .subtitle-text {
+        font-size: 1.1rem;
+        margin-top: -25px;
+    }
+
+    /* Botón Menú */
+    .top-right-btn {
+        font-size: 1rem;
+        padding: 7px 12px;
+    }
+
+    /* Texto Inferior */
+    .bottom-text {
+        font-size: 0.55rem;
+    }
+
+    /* Menú Fullscreen */
+    .menu-content {
+        gap: 70px;
+        padding: 60px 20px;
+    }
+
+    .menu-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    .menu-section a {
+        font-size: 1.1rem;
+    }
+}
+
+/* ===== DESKTOP (1025px - 1919px) ===== */
+@media (min-width: 1025px) and (max-width: 1919px) {
+    /* Título Principal */
+    .principal-text {
+        font-size: 14rem;
+    }
+
+    /* Subtítulo */
+    .principal-text .subtitle-text {
+        font-size: 1.4rem;
+    }
+
+    /* Botón Menú */
+    .top-right-btn {
+        font-size: 1.2rem;
+    }
+
+    /* Texto Inferior */
+    .bottom-text {
+        font-size: 0.6rem;
+    }
+}
+
+/* ===== 4K (1920px+) ===== */
+@media (min-width: 1920px) {
+    /* Título Principal */
+    .principal-text {
+        font-size: 18rem;
+    }
+
+    /* Subtítulo */
+    .principal-text .subtitle-text {
+        font-size: 1.8rem;
+    }
+
+    /* Botón Menú */
+    .top-right-btn {
+        top: 20px;
+        right: 20px;
+        padding: 10px 18px;
+        font-size: 1.4rem;
+    }
+
+    /* Texto Inferior */
+    .bottom-text {
+        bottom: 20px;
+        font-size: 0.8rem;
+    }
+}
