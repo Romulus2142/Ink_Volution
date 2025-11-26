@@ -102,6 +102,23 @@ html {
     color: #000;
 }
 
+/* Botón Explorar */
+.explore-btn {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color 200ms ease, transform 200ms ease;
+    cursor: pointer;
+}
+
+.explore-btn:hover {
+    color: #000;
+    transform: scale(1.05);
+}
+
 /* ============================================
    COMPONENTES UI - BOTONES Y ELEMENTOS
    ============================================ */
