@@ -172,8 +172,26 @@ html {
 }
 
 .explore-btn:hover {
-    color: #a29fab;
     transform: translateX(-50%) scale(1.05);
+    
+}
+
+/* Subrayar solo el texto interno del CTA en hover */
+.explore-btn .explore-label {
+    text-decoration: none;
+}
+
+.explore-btn:hover .explore-label {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+}
+
+/* Accesibilidad: subrayado al enfocar con teclado */
+.explore-btn:focus-visible .explore-label {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
 }
 
 /* ============================================
