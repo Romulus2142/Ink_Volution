@@ -21,6 +21,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -28,9 +29,12 @@
 }
 
 @keyframes titleFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(-50%, -50%);
     }
+
     50% {
         transform: translate(-50%, -48%);
     }
@@ -64,9 +68,38 @@ html {
     width: 100vw;
     height: 100vh;
     background-color: var(--color-black);
-    
-    opacity: 0.1;
+    opacity: 0.5;
     z-index: 1;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+
+.logo-container {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.1);
+}
+
+.site-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.site-logo:hover {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
 /* ============================================
@@ -99,24 +132,122 @@ html {
 }
 
 .color-text {
-    color: #000;
+    color:rgb(203, 203, 189);
 }
 
 /* Botón Explorar */
 .explore-btn {
-    display: inline-block;
+    display: block;
     margin-top: 20px;
-    font-family: var(--font-serif);
-    font-size: 1rem;
+    font-family: "Mr Dafoe", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3rem;
     color: var(--color-white);
     text-decoration: none;
     transition: color 200ms ease, transform 200ms ease;
     cursor: pointer;
+    letter-spacing: 1px;
+    pointer-events: auto;
 }
 
 .explore-btn:hover {
     color: #000;
     transform: scale(1.05);
+}
+
+/* ============================================
+   MODAL GALERÍA
+   ============================================ */
+
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.gallery-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 20px 40px;
+}
+
+.gallery-close-btn {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.2s ease, color 0.2s ease;
+    line-height: 1;
+    font-weight: 300;
+}
+
+.gallery-close-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+    color: var(--color-yellow);
+}
+
+.gallery-title {
+    font-family: var(--font-sans);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+    background: rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
 }
 
 /* ============================================
@@ -178,6 +309,7 @@ html {
 
 /* ===== MOBILE (hasta 768px) ===== */
 @media (max-width: 768px) {
+
     /* Título Principal */
     .principal-text {
         top: 38%;
@@ -195,10 +327,39 @@ html {
         letter-spacing: 0.5px;
     }
 
+    /* Logo */
+    .logo-container {
+        top: 20px;
+        left: 20px;
+    }
+
+    .site-logo {
+        width: 40px;
+        height: 40px;
+    }
+
     /* Botón Explorar */
     .explore-btn {
+
         font-size: 0.9rem;
         margin-top: 15px;
+    }
+
+    /* Modal Galería */
+    .gallery-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .gallery-close-btn {
+        font-size: 2.5rem;
+        top: 15px;
+        right: 20px;
     }
 
     /* Portafolio */
@@ -227,6 +388,7 @@ html {
 
 /* ===== TABLET (769px - 1024px) ===== */
 @media (min-width: 769px) and (max-width: 1024px) {
+
     /* Título Principal */
     .principal-text {
         top: 38%;
@@ -244,6 +406,11 @@ html {
         font-size: 0.95rem;
     }
 
+    /* Modal Galería */
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
     /* Portafolio */
     .portfolio-section h2 {
         font-size: 2.5rem;
@@ -257,6 +424,7 @@ html {
 
 /* ===== DESKTOP (1025px - 1919px) ===== */
 @media (min-width: 1025px) and (max-width: 1919px) {
+
     /* Título Principal */
     .principal-text {
         font-size: 14rem;
@@ -275,6 +443,7 @@ html {
 
 /* ===== 4K (1920px+) ===== */
 @media (min-width: 1920px) {
+
     /* Título Principal */
     .principal-text {
         font-size: 18rem;

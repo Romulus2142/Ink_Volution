@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>flow creative</title>
+    <title>Ink_Volution</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Google Fonts: Albert Sans (400,700,900) + Noto Serif Display (300,400,700) -->
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700;900&family=Noto+Serif+Display:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700;900&family=Noto+Serif+Display:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap" rel="stylesheet">
     <style>
         body,
         html {
@@ -53,28 +60,57 @@
 
     <!-- Video de fondo -->
     <video class="video-background" autoplay loop muted playsinline>
-        <source src="assets/videos/bg_vid.optim.mp4" type="video/mp4">
+        <source src="assets/videos/bg_vid_1.mp4" type="video/mp4">
         Tu navegador no soporta el video.
     </video>
     <div class="bg-color"></div>
 
-
+    <!-- Logo superior izquierdo -->
+    <div class="logo-container">
+        <a href="https://www.instagram.com/julio.guadarrama.2026/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/images/ico-instagram.png" alt="Logo" class="site-logo">
+        </a>
+    </div>
 
     <!-- Contenido principal -->
     <div class="principal-text">
         <span id="flow-text"><span class="color-text">i</span>nk_<span class="color-text">v</span>olution</span>
-        <div class="subtitle-text">Más que blanco y negro. Es emoción. Es Ink_Volution. Explora mi colección.</div>
-        <a href="#portfolio" class="explore-btn">[Explora mi colección]</a>
+        <div class="subtitle-text">Más que blanco y negro. Es emoción.</div>
+        <div><a href="#" class="explore-btn" id="openGalleryBtn">[Explora mi colección]</a></div>
     </div>
 
     <!-- Texto en la parte inferior -->
     <div class="bottom-text">2026 JULIO GUADARRAMA</div>
 
-    <!-- Sección Portafolio -->
-    <section id="portfolio" class="portfolio-section">
-        <h2>Portafolio</h2>
-        <p>Mi colección de trabajos y proyectos creativos.</p>
-    </section>
+    <!-- Modal Galería -->
+    <div id="galleryModal" class="gallery-modal">
+        <div class="gallery-modal-content">
+            <button class="gallery-close-btn" id="closeGalleryBtn">&times;</button>
+            <h2 class="gallery-title">Mi Colección</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="assets/images/photo1.jpg" alt="Fotografía 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/photo2.jpg" alt="Fotografía 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/photo3.jpg" alt="Fotografía 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/photo4.jpg" alt="Fotografía 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/photo5.jpg" alt="Fotografía 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/photo6.jpg" alt="Fotografía 6">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
