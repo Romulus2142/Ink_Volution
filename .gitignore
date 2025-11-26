@@ -20,3 +20,4 @@ coverage/
 /.vs/
 *.psd
 *.ai
+tools/
