@@ -205,7 +205,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgb(255, 255, 255);
     z-index: 1000;
     overflow-y: auto;
     opacity: 0;
@@ -231,8 +231,8 @@ html {
     right: 30px;
     background: transparent;
     border: none;
-    color: var(--color-white);
-    font-size: 3rem;
+    color: var(--color-black);
+    font-size: 9rem;
     cursor: pointer;
     z-index: 1001;
     transition: transform 0.2s ease, color 0.2s ease;
@@ -242,14 +242,14 @@ html {
 
 .gallery-close-btn:hover {
     transform: rotate(90deg) scale(1.1);
-    color: var(--color-yellow);
+    color:#a9a9a9;
 }
 
 .gallery-title {
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 900;
-    color: var(--color-white);
+    color:#000000;
     text-align: center;
     margin-bottom: 40px;
     letter-spacing: -0.02em;
@@ -258,16 +258,17 @@ html {
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 40px;
     width: 100%;
 }
 
 .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 2px;
     aspect-ratio: 3 / 4;
     background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgb(118, 118, 118);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -286,6 +287,23 @@ html {
 
 .gallery-item:hover img {
     transform: scale(1.1);
+}
+
+/* Pie de foto en cada elemento de galería */
+.gallery-caption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    line-height: 1;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 /* ============================================
