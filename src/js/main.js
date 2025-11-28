@@ -31,10 +31,66 @@ const galleryModal = document.getElementById('galleryModal');
 const openGalleryBtn = document.getElementById('openGalleryBtn');
 const closeGalleryBtn = document.getElementById('closeGalleryBtn');
 
+// Variables del carrusel
+let currentSlide = 0;
+const track = document.querySelector('.carousel-track');
+const items = document.querySelectorAll('.gallery-item');
+const totalSlides = items.length;
+const dotsContainer = document.querySelector('.carousel-dots');
+
+// Crear puntos indicadores
+for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('carousel-dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+}
+
+const dots = document.querySelectorAll('.carousel-dot');
+
+// Función para ir a un slide específico
+function goToSlide(index) {
+    currentSlide = index;
+    const offset = -currentSlide * 100;
+    track.style.transform = `translateX(${offset}%)`;
+    
+    // Actualizar dots
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+}
+
+// Navegación con botones
+document.querySelector('.carousel-prev').addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    goToSlide(currentSlide);
+});
+
+document.querySelector('.carousel-next').addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    goToSlide(currentSlide);
+});
+
+// Navegación con teclado
+document.addEventListener('keydown', (e) => {
+    if (galleryModal.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(currentSlide);
+        } else if (e.key === 'ArrowRight') {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }
+    }
+});
+
 // Abrir modal
 openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
     galleryModal.style.display = 'flex';
+    currentSlide = 0;
+    goToSlide(0);
     
     // Animación de apertura con GSAP
     gsap.fromTo(galleryModal, 
@@ -45,12 +101,6 @@ openGalleryBtn.addEventListener('click', (e) => {
     gsap.fromTo('.gallery-modal-content', 
         { scale: 0.8, opacity: 0 }, 
         { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)", delay: 0.1 }
-    );
-    
-    // Animar cada item de la galería
-    gsap.fromTo('.gallery-item', 
-        { opacity: 0, y: 30 }, 
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out", delay: 0.2 }
     );
     
     // Prevenir scroll del body
