@@ -259,11 +259,11 @@ html {
 .gallery-carousel {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 0px;
 }
 
 .carousel-wrapper {
@@ -290,14 +290,12 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 500px;
+    min-height: 300px;
     max-height: 75vh;
 }
 
 .carousel-btn {
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px solid rgb(118, 118, 118);
-    color: var(--color-white);
+    color: rgb(0, 0, 0);
     font-size: 3rem;
     width: 50px;
     height: 50px;
@@ -310,23 +308,26 @@ html {
     flex-shrink: 0;
     line-height: 1;
     padding: 0;
+    background: transparent;
+    border: none;
+    position: relative;
+    bottom: 50px;
 }
 
 .carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
     transform: scale(1.1);
 }
 
 .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 30px;
     margin-top: 20px;
 }
 
 .carousel-dot {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgb(118, 118, 118);
@@ -352,20 +353,17 @@ html {
 /* Ajuste responsive según orientación de la imagen */
 @supports (aspect-ratio: 1) {
     .gallery-item-image img[src] {
-        max-width: min(60%, 500px);
-        min-height: 500px;
+        max-width: min(50%, 400px);
+        min-height: 400px;
     }
     
     @media (orientation: landscape) {
         .gallery-item-image img[src] {
             max-width: 100%;
             min-height: auto;
+            max-height: 450px;
         }
     }
-}
-
-.gallery-item:hover .gallery-item-image img {
-    transform: scale(1.1);
 }
 
 /* Pie de foto fuera del contenedor */
@@ -373,11 +371,13 @@ html {
     position: relative;
     color: var(--color-black);
     font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 10px 0;
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding: 40px;
     text-align: center;
     background: transparent;
+    display: inline-block;
+    width: auto;
 }
 
 /* ============================================
