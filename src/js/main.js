@@ -30,57 +30,39 @@ document.addEventListener('DOMContentLoaded', () => {
 const galleryModal = document.getElementById('galleryModal');
 const openGalleryBtn = document.getElementById('openGalleryBtn');
 const closeGalleryBtn = document.getElementById('closeGalleryBtn');
+const galleryGrid = document.querySelector('.gallery-grid');
+const galleryItems = document.querySelectorAll('.gallery-item');
+const arrowLeft = document.getElementById('galleryArrowLeft');
+const arrowRight = document.getElementById('galleryArrowRight');
 
-// Variables del carrusel
-let currentSlide = 0;
-const track = document.querySelector('.carousel-track');
-const items = document.querySelectorAll('.gallery-item');
-const totalSlides = items.length;
-const dotsContainer = document.querySelector('.carousel-dots');
+let currentIndex = 0;
 
-// Crear puntos indicadores
-for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement('div');
-    dot.classList.add('carousel-dot');
-    if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goToSlide(i));
-    dotsContainer.appendChild(dot);
-}
-
-const dots = document.querySelectorAll('.carousel-dot');
-
-// Función para ir a un slide específico
-function goToSlide(index) {
-    currentSlide = index;
-    const offset = -currentSlide * 100;
-    track.style.transform = `translateX(${offset}%)`;
+// Función para ir a un índice específico
+function goToIndex(index) {
+    if (index < 0) index = 0;
+    if (index >= galleryItems.length) index = galleryItems.length - 1;
     
-    // Actualizar dots
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
-    });
+    currentIndex = index;
+    const offset = -currentIndex * 100;
+    galleryGrid.style.transform = `translateX(${offset}%)`;
 }
 
-// Navegación con botones
-document.querySelector('.carousel-prev').addEventListener('click', () => {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    goToSlide(currentSlide);
+// Navegación con flechas
+arrowLeft.addEventListener('click', () => {
+    goToIndex(currentIndex - 1);
 });
 
-document.querySelector('.carousel-next').addEventListener('click', () => {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    goToSlide(currentSlide);
+arrowRight.addEventListener('click', () => {
+    goToIndex(currentIndex + 1);
 });
 
 // Navegación con teclado
 document.addEventListener('keydown', (e) => {
     if (galleryModal.style.display === 'flex') {
         if (e.key === 'ArrowLeft') {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            goToSlide(currentSlide);
+            goToIndex(currentIndex - 1);
         } else if (e.key === 'ArrowRight') {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            goToSlide(currentSlide);
+            goToIndex(currentIndex + 1);
         }
     }
 });
@@ -89,8 +71,8 @@ document.addEventListener('keydown', (e) => {
 openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
     galleryModal.style.display = 'flex';
-    currentSlide = 0;
-    goToSlide(0);
+    currentIndex = 0;
+    goToIndex(0);
     
     // Animación de apertura con GSAP
     gsap.fromTo(galleryModal, 
