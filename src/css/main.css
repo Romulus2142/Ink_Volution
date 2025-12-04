@@ -276,7 +276,7 @@ html {
 .gallery-grid {
     display: flex;
     gap: 10px;
-    padding: 20px;
+    padding: 0px;
     scroll-behavior: smooth;
     transition: transform 0.5s ease;
 }
@@ -340,12 +340,16 @@ html {
     font-size: 0.8rem;
     font-weight: 300;
     padding: 20px;
-    text-align: center;
+    text-align: left;
     background: transparent;
+    border: 1px solid rgb(135, 135, 135);
+    max-width: 407px;
+    margin: 0 auto;
 }
 
 .gallery-caption strong {
     font-weight: 700;
+    font-size: 1.3rem;
 }
 
 /* ============================================
