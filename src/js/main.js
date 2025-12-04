@@ -1,4 +1,58 @@
 /* ============================================
+   PRELOADER
+   ============================================ */
+
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    const video1 = document.getElementById('video-background-1');
+    
+    // Wait for first video to be ready
+    const hidePreloader = () => {
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+        }, 500);
+    };
+    
+    if (video1.readyState >= 3) {
+        hidePreloader();
+    } else {
+        video1.addEventListener('canplaythrough', hidePreloader, { once: true });
+    }
+});
+
+/* ============================================
+   VIDEO BACKGROUND ROTATION
+   ============================================ */
+
+let currentVideoIndex = 0;
+const videos = [
+    document.getElementById('video-background-1'),
+    document.getElementById('video-background-2')
+];
+
+function rotateVideos() {
+    const currentVideo = videos[currentVideoIndex];
+    const nextVideoIndex = (currentVideoIndex + 1) % videos.length;
+    const nextVideo = videos[nextVideoIndex];
+    
+    // Start playing next video and prepare it
+    nextVideo.currentTime = 0;
+    nextVideo.play();
+    
+    // Fade in next video (cross-fade)
+    nextVideo.classList.add('active');
+    
+    // Wait for transition to complete, then fade out current video
+    setTimeout(() => {
+        currentVideo.classList.remove('active');
+        currentVideo.pause();
+        currentVideoIndex = nextVideoIndex;
+    }, 2000);
+}
+// Rotate videos every 15 seconds
+setInterval(rotateVideos, 15000);
+
+/* ============================================
    ANIMACIONES GSAP
    ============================================ */
 
@@ -13,6 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const span = document.createElement('span');
         if (char === 'D' || char === 'S') {
             span.classList.add('color-text');
+        }
+        // Add extra space after "Daily"
+        if (char === ' ') {
+            span.style.marginRight = '0.1em';
         }
         span.textContent = char;
         span.style.display = 'inline-block';
