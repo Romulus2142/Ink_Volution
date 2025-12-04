@@ -6,19 +6,42 @@
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const targets = ['.logo-container', '#flow-text', '.subtitle-text', '.explore-btn', '.bottom-text'];
+    // Crear letras de "Daily Sketch"
+    const flowText = document.getElementById('flow-text');
+    const text = 'Daily Sketch';
+    const letters = text.split('').map((char, index) => {
+        const span = document.createElement('span');
+        if (char === 'D' || char === 'S') {
+            span.classList.add('color-text');
+        }
+        span.textContent = char;
+        span.style.display = 'inline-block';
+        flowText.appendChild(span);
+        return span;
+    });
+
+    const targets = ['.logo-container', '.subtitle-text', '.explore-btn', '.bottom-text'];
 
     if (prefersReduced) {
-        gsap.set(targets, { clearProps: 'all', opacity: 1, y: 0 });
+        gsap.set([...targets, ...letters], { clearProps: 'all', opacity: 1, x: 0 });
         return;
     }
 
-    gsap.set(targets, { opacity: 0, y: 20 });
+    // Configurar estado inicial
+    gsap.set(targets, { opacity: 0, y: 220 });
+    gsap.set(letters, { opacity: 0, x: 220 });
 
     const tl = gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } });
-        tl.to('.logo-container', { opacity: 1, y: 0 })
-            .to('#flow-text', { opacity: 1, y: 0 }, '-=0.4')
-      .to('.subtitle-text', { opacity: 1, y: 0 }, '-=0.35')
+    
+    tl.to('.logo-container', { opacity: 1, y: 0 })
+      .to(letters, { 
+          opacity: 1, 
+          x: 0, 
+          stagger: 0.05,
+          duration: 0.6,
+          ease: 'power2.out'
+      }, '-=0.4')
+      .to('.subtitle-text', { opacity: 1, y: 0 }, '-=0.2')
       .to('.explore-btn', { opacity: 1, y: 0 }, '-=0.3')
       .to('.bottom-text', { opacity: 1, y: 0 }, '-=0.35');
 });
