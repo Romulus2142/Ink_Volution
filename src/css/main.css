@@ -352,6 +352,13 @@ html {
     font-size: 1.3rem;
 }
 
+.gallery-caption .collection-name {
+    display: block;
+    text-align: right;
+    font-style: italic;
+    margin-top: 5px;
+}
+
 /* ============================================
    SECCIÓN PORTAFOLIO
    ============================================ */
