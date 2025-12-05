@@ -135,19 +135,17 @@
     <div id="galleryModal" class="gallery-modal">
         <div class="gallery-modal-content">
             <button class="gallery-close-btn" id="closeGalleryBtn">&times;</button>
-            <button class="gallery-arrow gallery-arrow-left" id="galleryArrowLeft">‹</button>
-            <button class="gallery-arrow gallery-arrow-right" id="galleryArrowRight">›</button>
             
             <!-- Contador de posición -->
             <div class="gallery-counter">
                 <span id="currentIndex">1</span> / <span id="totalImages">6</span>
             </div>
             
-            <!-- Indicadores de teclado -->
+            <!-- Indicadores de teclado con arrows -->
             <div class="keyboard-hints">
-                <span class="key-hint">←</span>
-                <span class="key-hint">→</span>
-                <span class="key-hint-label">Use arrow keys</span>
+                <button class="key-hint key-hint-arrow" id="galleryArrowLeft">‹</button>
+                <span class="key-hint-label">Navigate</span>
+                <button class="key-hint key-hint-arrow" id="galleryArrowRight">›</button>
             </div>
             
             <div class="gallery-scroll-wrapper">

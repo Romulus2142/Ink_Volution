@@ -281,8 +281,9 @@ html {
     padding: 0px;
     scroll-behavior: smooth;
     transition: transform 0.5s ease;
-    min-height: 80vh;
+    min-height: 70vh;
     align-items: center;
+    padding-bottom: 180px;
 }
 
 .gallery-item {
@@ -321,34 +322,6 @@ html {
     transform: scale(1.2);
     z-index: 10;
     position: relative;
-}
-
-.gallery-arrow {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    color: var(--color-black);
-    font-size: 4rem;
-    cursor: pointer;
-    z-index: 1002;
-    transition: transform 0.3s ease, color 0.3s ease;
-    padding: 20px;
-    line-height: 1;
-}
-
-.gallery-arrow-left {
-    left: 20px;
-}
-
-.gallery-arrow-right {
-    right: 20px;
-}
-
-.gallery-arrow:hover {
-    transform: translateY(-50%) scale(1.2);
-    color: #666;
 }
 
 /* Pie de foto fuera del contenedor */
@@ -411,20 +384,20 @@ html {
     letter-spacing: 2px;
 }
 
-/* Indicadores de teclado */
+/* Indicadores de teclado con arrows clickeables */
 .keyboard-hints {
     position: fixed;
-    bottom: 30px;
+    bottom: 140px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 15px;
+    gap: 25px;
     align-items: center;
     font-family: var(--font-sans);
     font-size: 0.8rem;
     color: #999;
     z-index: 1001;
-    opacity: 0.6;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
 }
 
@@ -434,54 +407,77 @@ html {
 
 .key-hint {
     display: inline-block;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border: 1px solid #999;
     border-radius: 3px;
     font-size: 1rem;
-    min-width: 30px;
+    min-width: 35px;
     text-align: center;
+    background: transparent;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.key-hint-arrow {
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 6px 16px;
+    border: 2px solid #333;
+    color: #333;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.key-hint-arrow:hover {
+    background: #333;
+    color: white;
+    transform: scale(1.1);
+    border-color: #333;
 }
 
 .key-hint-label {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    color: #666;
 }
 
 /* Thumbnails */
 .gallery-thumbnails {
     position: fixed;
-    bottom: 80px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 12px;
     z-index: 1001;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
 }
 
 .thumbnail {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
     overflow: hidden;
     border: 2px solid transparent;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all 0.3s ease;
     opacity: 0.5;
 }
 
 .thumbnail:hover {
-    opacity: 0.8;
-    transform: translateY(-5px);
+    opacity: 0.9;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .thumbnail.active {
     border-color: var(--color-black);
     opacity: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .thumbnail img {
@@ -586,12 +582,7 @@ html {
 
 /* Sombra y efectos en fotos */
 .gallery-item-image img {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     filter: contrast(1.05);
-}
-
-.gallery-item-image img:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================
