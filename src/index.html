@@ -39,6 +39,9 @@
             z-index: -100;
             opacity: 0;
             transition: opacity 2s ease-in-out;
+            will-change: opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .video-background.active {
@@ -103,12 +106,16 @@
     </div>
 
     <!-- Video de fondo -->
-    <video id="video-background-1" class="video-background active" autoplay loop muted playsinline poster="assets/images/bg_poster.jpg" preload="metadata">
+    <video id="video-background-1" class="video-background active" autoplay loop muted playsinline poster="assets/images/bg_poster.jpg" preload="auto">
         <source src="assets/videos/bg_video_1.mp4" type="video/mp4">
         Tu navegador no soporta el video.
     </video>
-    <video id="video-background-2" class="video-background" loop muted playsinline preload="metadata">
+    <video id="video-background-2" class="video-background" loop muted playsinline preload="none">
         <source src="assets/videos/bg_video_2.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+    </video>
+     <video id="video-background-3" class="video-background" loop muted playsinline preload="none">
+        <source src="assets/videos/bg_video_3.mp4" type="video/mp4">
         Tu navegador no soporta el video.
     </video>
     <div class="bg-color"></div>

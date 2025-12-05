@@ -27,17 +27,42 @@ window.addEventListener('load', () => {
 let currentVideoIndex = 0;
 const videos = [
     document.getElementById('video-background-1'),
-    document.getElementById('video-background-2')
+    document.getElementById('video-background-2'),
+    document.getElementById('video-background-3')
 ];
+
+// Precargar el siguiente video inteligentemente
+function preloadNextVideo() {
+    const nextIndex = (currentVideoIndex + 1) % videos.length;
+    const nextVideo = videos[nextIndex];
+    
+    if (nextVideo.readyState < 3) {
+        nextVideo.load();
+    }
+}
+
+// Precargar segundo video después de que el primero esté listo
+videos[0].addEventListener('canplaythrough', () => {
+    setTimeout(() => {
+        videos[1].load();
+    }, 2000);
+}, { once: true });
 
 function rotateVideos() {
     const currentVideo = videos[currentVideoIndex];
     const nextVideoIndex = (currentVideoIndex + 1) % videos.length;
     const nextVideo = videos[nextVideoIndex];
     
+    // Asegurar que el siguiente video esté cargado
+    if (nextVideo.readyState < 3) {
+        nextVideo.load();
+    }
+    
     // Start playing next video and prepare it
     nextVideo.currentTime = 0;
-    nextVideo.play();
+    nextVideo.play().catch(err => {
+        console.log('Error playing video:', err);
+    });
     
     // Fade in next video (cross-fade)
     nextVideo.classList.add('active');
@@ -47,10 +72,14 @@ function rotateVideos() {
         currentVideo.classList.remove('active');
         currentVideo.pause();
         currentVideoIndex = nextVideoIndex;
+        
+        // Precargar el siguiente video
+        preloadNextVideo();
     }, 2000);
 }
-// Rotate videos every 15 seconds
-setInterval(rotateVideos, 15000);
+
+// Rotate videos every 14 seconds
+setInterval(rotateVideos, 14000);
 
 /* ============================================
    ANIMACIONES GSAP
