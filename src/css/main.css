@@ -89,7 +89,7 @@ html {
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: #a9a9a9;
+    color: #ededed;
     font-family: var(--font-sans);
     font-size: 0.7rem;
     font-weight: 400;
@@ -146,7 +146,7 @@ html {
     font-size: 0.85rem;
     font-style: normal;
     font-weight: 300;
-    letter-spacing: 0;
+    letter-spacing: 0.4px;
     margin-top: -20px;
 }
 
@@ -157,7 +157,7 @@ html {
 /* Botón Explorar */
 .explore-btn {
     position: fixed;
-    bottom: 265px;
+    bottom: 245px;
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-sans);
@@ -238,7 +238,7 @@ html {
 
 .gallery-close-btn {
     position: fixed;
-    top: -60px;
+    top: 0px;
     right: 15px;
     background: transparent;
     border: none;
@@ -471,13 +471,11 @@ html {
 .thumbnail:hover {
     opacity: 0.9;
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .thumbnail.active {
     border-color: var(--color-black);
     opacity: 1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .thumbnail img {
