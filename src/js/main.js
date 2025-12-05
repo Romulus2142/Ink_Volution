@@ -115,8 +115,15 @@ const galleryGrid = document.querySelector('.gallery-grid');
 const galleryItems = document.querySelectorAll('.gallery-item');
 const arrowLeft = document.getElementById('galleryArrowLeft');
 const arrowRight = document.getElementById('galleryArrowRight');
+const thumbnails = document.querySelectorAll('.thumbnail');
+const currentIndexEl = document.getElementById('currentIndex');
+const totalImagesEl = document.getElementById('totalImages');
 
 let currentIndex = 0;
+const totalImages = galleryItems.length;
+
+// Actualizar contador
+totalImagesEl.textContent = totalImages;
 
 // Función para ir a un índice específico
 function goToIndex(index) {
@@ -126,6 +133,28 @@ function goToIndex(index) {
     currentIndex = index;
     const offset = -currentIndex * 100;
     galleryGrid.style.transform = `translateX(${offset}%)`;
+    
+    // Actualizar contador
+    currentIndexEl.textContent = currentIndex + 1;
+    
+    // Actualizar thumbnails activos
+    thumbnails.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === currentIndex);
+    });
+    
+    // Precargar siguiente imagen
+    preloadImage(currentIndex + 1);
+}
+
+// Precargar imágenes
+function preloadImage(index) {
+    if (index >= 0 && index < galleryItems.length) {
+        const img = galleryItems[index].querySelector('img');
+        if (img && !img.complete) {
+            const preloadImg = new Image();
+            preloadImg.src = img.src;
+        }
+    }
 }
 
 // Navegación con flechas
@@ -135,6 +164,13 @@ arrowLeft.addEventListener('click', () => {
 
 arrowRight.addEventListener('click', () => {
     goToIndex(currentIndex + 1);
+});
+
+// Navegación con thumbnails
+thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => {
+        goToIndex(index);
+    });
 });
 
 // Navegación con teclado
@@ -147,6 +183,30 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+// Touch/Swipe support
+let touchStartX = 0;
+let touchEndX = 0;
+
+galleryGrid.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+galleryGrid.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    if (touchStartX - touchEndX > swipeThreshold) {
+        // Swipe left - next image
+        goToIndex(currentIndex + 1);
+    } else if (touchEndX - touchStartX > swipeThreshold) {
+        // Swipe right - previous image
+        goToIndex(currentIndex - 1);
+    }
+}
 
 // Abrir modal
 openGalleryBtn.addEventListener('click', (e) => {
@@ -197,5 +257,97 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && galleryModal.style.display === 'flex') {
         closeModal();
     }
+});
+
+/* ============================================
+   LIGHTBOX FULLSCREEN
+   ============================================ */
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxClose = document.getElementById('lightboxClose');
+const zoomInBtn = document.getElementById('zoomIn');
+const zoomOutBtn = document.getElementById('zoomOut');
+const resetZoomBtn = document.getElementById('resetZoom');
+
+let zoomLevel = 1;
+
+// Abrir lightbox al hacer click en imagen
+galleryItems.forEach(item => {
+    const img = item.querySelector('.gallery-item-image img');
+    img.addEventListener('click', () => {
+        lightboxImage.src = img.src;
+        lightbox.classList.add('active');
+        zoomLevel = 1;
+        lightboxImage.style.transform = `scale(${zoomLevel})`;
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+// Cerrar lightbox
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+        closeLightbox();
+    }
+});
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    zoomLevel = 1;
+}
+
+// Controles de zoom
+zoomInBtn.addEventListener('click', () => {
+    zoomLevel = Math.min(zoomLevel + 0.25, 3);
+    lightboxImage.style.transform = `scale(${zoomLevel})`;
+});
+
+zoomOutBtn.addEventListener('click', () => {
+    zoomLevel = Math.max(zoomLevel - 0.25, 0.5);
+    lightboxImage.style.transform = `scale(${zoomLevel})`;
+});
+
+resetZoomBtn.addEventListener('click', () => {
+    zoomLevel = 1;
+    lightboxImage.style.transform = `scale(${zoomLevel})`;
+});
+
+// Click en imagen para toggle zoom
+lightboxImage.addEventListener('click', () => {
+    if (zoomLevel === 1) {
+        zoomLevel = 2;
+        lightboxImage.classList.add('zoomed');
+    } else {
+        zoomLevel = 1;
+        lightboxImage.classList.remove('zoomed');
+    }
+    lightboxImage.style.transform = `scale(${zoomLevel})`;
+});
+
+/* ============================================
+   LAZY LOADING
+   ============================================ */
+
+// Observador para lazy loading
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        }
+    });
+}, {
+    rootMargin: '50px'
+});
+
+// Observar todas las imágenes con data-src
+document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
 });
 

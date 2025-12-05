@@ -377,6 +377,223 @@ html {
     margin-top: 5px;
 }
 
+.gallery-caption hr {
+    width: 0;
+    border: none;
+    border-top: 1px solid #999;
+    margin: 10px 0;
+    animation: expandLine 0.6s ease forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes expandLine {
+    from {
+        width: 0;
+        margin-left: 50%;
+    }
+    to {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Contador de posición */
+.gallery-counter {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    color: var(--color-black);
+    font-weight: 300;
+    z-index: 1001;
+    letter-spacing: 2px;
+}
+
+/* Indicadores de teclado */
+.keyboard-hints {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: #999;
+    z-index: 1001;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.keyboard-hints:hover {
+    opacity: 1;
+}
+
+.key-hint {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    font-size: 1rem;
+    min-width: 30px;
+    text-align: center;
+}
+
+.key-hint-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Thumbnails */
+.gallery-thumbnails {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1001;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.thumbnail:hover {
+    opacity: 0.8;
+    transform: translateY(-5px);
+}
+
+.thumbnail.active {
+    border-color: var(--color-black);
+    opacity: 1;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Lightbox Fullscreen */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+}
+
+.lightbox img.zoomed {
+    cursor: zoom-out;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 4rem;
+    cursor: pointer;
+    z-index: 10001;
+    transition: transform 0.2s ease;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    transform: rotate(90deg);
+}
+
+.lightbox-zoom-controls {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10001;
+}
+
+.lightbox-zoom-controls button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-family: var(--font-sans);
+}
+
+.lightbox-zoom-controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Animación de entrada para gallery items */
+.gallery-item {
+    animation: fadeInSlide 0.6s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Sombra y efectos en fotos */
+.gallery-item-image img {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    filter: contrast(1.05);
+}
+
+.gallery-item-image img:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
 /* ============================================
    SECCIÓN PORTAFOLIO
    ============================================ */
@@ -467,7 +684,6 @@ html {
 
     /* Botón Explorar */
     .explore-btn {
-
         font-size: 0.9rem;
         margin-top: 15px;
     }
@@ -481,6 +697,54 @@ html {
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 15px;
+    }
+    
+    /* Nuevas características responsive */
+    .gallery-counter {
+        top: 15px;
+        font-size: 1rem;
+    }
+    
+    .gallery-thumbnails {
+        bottom: 20px;
+        gap: 5px;
+        padding: 5px;
+        max-width: 90%;
+        overflow-x: auto;
+    }
+    
+    .thumbnail {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+    }
+    
+    .keyboard-hints {
+        display: none;
+    }
+    
+    .gallery-item {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .gallery-item-image img {
+        max-height: 50vh;
+    }
+    
+    .gallery-caption {
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .lightbox-zoom-controls {
+        bottom: 15px;
+        gap: 5px;
+    }
+    
+    .lightbox-zoom-controls button {
+        padding: 8px 15px;
+        font-size: 1rem;
     }
 
     .gallery-close-btn {

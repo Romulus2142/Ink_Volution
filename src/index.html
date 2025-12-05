@@ -137,6 +137,19 @@
             <button class="gallery-close-btn" id="closeGalleryBtn">&times;</button>
             <button class="gallery-arrow gallery-arrow-left" id="galleryArrowLeft">‹</button>
             <button class="gallery-arrow gallery-arrow-right" id="galleryArrowRight">›</button>
+            
+            <!-- Contador de posición -->
+            <div class="gallery-counter">
+                <span id="currentIndex">1</span> / <span id="totalImages">6</span>
+            </div>
+            
+            <!-- Indicadores de teclado -->
+            <div class="keyboard-hints">
+                <span class="key-hint">←</span>
+                <span class="key-hint">→</span>
+                <span class="key-hint-label">Use arrow keys</span>
+            </div>
+            
             <div class="gallery-scroll-wrapper">
                 <div class="gallery-grid">
                 <div class="gallery-item">
@@ -206,6 +219,39 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Thumbnails de navegación -->
+            <div class="gallery-thumbnails" id="galleryThumbnails">
+                <div class="thumbnail active" data-index="0">
+                    <img src="assets/images/art-1.jpg" alt="Thumbnail 1">
+                </div>
+                <div class="thumbnail" data-index="1">
+                    <img src="assets/images/art-1.jpg" alt="Thumbnail 2">
+                </div>
+                <div class="thumbnail" data-index="2">
+                    <img src="assets/images/art-1.jpg" alt="Thumbnail 3">
+                </div>
+                <div class="thumbnail" data-index="3">
+                    <img src="assets/images/photo4.jpg" alt="Thumbnail 4">
+                </div>
+                <div class="thumbnail" data-index="4">
+                    <img src="assets/images/photo5.jpg" alt="Thumbnail 5">
+                </div>
+                <div class="thumbnail" data-index="5">
+                    <img src="assets/images/art-1.jpg" alt="Thumbnail 6">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lightbox Fullscreen -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <img id="lightboxImage" src="" alt="Fullscreen image">
+        <div class="lightbox-zoom-controls">
+            <button id="zoomIn">+</button>
+            <button id="zoomOut">−</button>
+            <button id="resetZoom">Reset</button>
         </div>
     </div>
 
