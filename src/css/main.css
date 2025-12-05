@@ -217,6 +217,7 @@ html {
     height: 100%;
     background: rgb(255, 255, 255);
     z-index: 1000;
+    overflow-x: hidden;
     overflow-y: auto;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -237,7 +238,7 @@ html {
 
 .gallery-close-btn {
     position: fixed;
-    top: 0px;
+    top: -60px;
     right: 15px;
     background: transparent;
     border: none;
@@ -248,10 +249,11 @@ html {
     transition: transform 0.2s ease, color 0.2s ease;
     line-height: 1;
     font-weight: 300;
+    transform-origin: center center;
 }
 
 .gallery-close-btn:hover {
-    transform: rotate(90deg) scale(1.1);
+    transform: rotate(90deg);
     color:#a9a9a9;
 }
 
@@ -286,21 +288,25 @@ html {
     min-width: 100%;
     text-align: center;
     scroll-snap-align: start;
-    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    justify-content: center;
 }
 
 .gallery-item-image {
-    width: 100%;
-    margin-bottom: 10px;
+    width: auto;
+    margin-bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    flex-shrink: 0;
 }
 
 .gallery-item-image img {
-    max-width: 90%;
-    max-height: 70vh;
+    max-width: 100%;
+    max-height: 75vh;
     height: auto;
     display: block;
     object-fit: contain;
@@ -345,9 +351,8 @@ html {
     padding: 20px;
     text-align: left;
     background: transparent;
-    border: 1px solid rgb(135, 135, 135);
     max-width: 407px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .gallery-caption strong {
