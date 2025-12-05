@@ -286,6 +286,7 @@ html {
     min-width: 100%;
     text-align: center;
     scroll-snap-align: start;
+    
 }
 
 .gallery-item-image {
@@ -294,6 +295,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .gallery-item-image img {
@@ -302,6 +304,7 @@ html {
     height: auto;
     display: block;
     object-fit: contain;
+    border: #676565 1px solid;
 }
 
 .gallery-arrow {
