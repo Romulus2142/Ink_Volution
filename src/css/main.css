@@ -166,36 +166,41 @@ html {
     font-size: 0.85rem;
     color: var(--color-white);
     text-decoration: none;
-    transition: color 300ms ease;
     cursor: pointer;
     letter-spacing: 0.5px;
     pointer-events: auto;
     z-index: 20;
     padding: 10px 24px;
-    border: 2px solid var(--color-white);
-    border-radius: 2px;
-    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .explore-btn::before {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 0;
+    left: -100%;
     width: 100%;
-    height: 0;
-    background: var(--color-white);
-    transition: height 300ms ease;
-    z-index: -1;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
 }
 
 .explore-btn:hover::before {
-    height: 100%;
+    left: 100%;
 }
 
 .explore-btn:hover {
-    color: var(--color-black);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    transform: translateX(-50%) translateY(-2px);
 }
 
 /* Accesibilidad: subrayado al enfocar con teclado */
