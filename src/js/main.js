@@ -147,9 +147,9 @@ musicToggle.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Crear letras de "Daily Sketch"
+    // Crear letras de "Orbita Gallery"
     const flowText = document.getElementById('flow-text');
-    const text = 'Daily Sketch';
+    const text = 'Orbita Gallery';
     const letters = text.split('').map((char, index) => {
         const span = document.createElement('span');
         if (char === 'D' || char === 'S') {
