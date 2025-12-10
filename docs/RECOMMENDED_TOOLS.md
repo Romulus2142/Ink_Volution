@@ -188,7 +188,7 @@ npm install gsap
 
 ### 19. Manifest Generator
 **¿Por qué?** Crea manifest.json para PWA en 2 minutos
-**Uso:** https://www.simicart.com/manifest-generator.html/
+**Uso:** https://www.simicart.com/manifest-generator.html
 
 ### 20. Favicon Generator
 **¿Por qué?** Genera todos los tamaños de iconos
