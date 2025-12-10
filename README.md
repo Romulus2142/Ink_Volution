@@ -6,6 +6,10 @@ Portafolio digital profesional de Julio Guadarrama - Diseñador Digital Creativo
 
 Sitio web responsivo y moderno que presenta servicios de diseño digital y desarrollo web, con animaciones fluidas y un diseño minimalista elegante.
 
+> **¿Qué puedes hacer aquí?** 🚀  
+> Consulta la [guía completa de capacidades](docs/CAPABILITIES.md) para descubrir todas las posibilidades de desarrollo, mejoras y características que puedes implementar en este proyecto.  
+> [English version](docs/CAPABILITIES_EN.md)
+
 ## 📁 Estructura del Proyecto
 
 ```
@@ -130,6 +134,12 @@ Coloca tus imágenes en `src/assets/images/`
 ## 📄 Licencia
 
 Proyecto personal - Julio Guadarrama 2026
+
+## 📚 Documentación Adicional
+
+- **[¿Qué puedes hacer aquí?](docs/CAPABILITIES.md)** - Guía completa de capacidades y mejoras posibles
+- **[What can you do here?](docs/CAPABILITIES_EN.md)** - Complete capabilities and improvements guide (English)
+- **[Guía de Desarrollo](docs/DEVELOPMENT.md)** - Convenciones de código y estructura del proyecto
 
 ## 👤 Autor
 
