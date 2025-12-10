@@ -25,6 +25,7 @@ window.addEventListener('load', () => {
    ============================================ */
 
 let currentVideoIndex = 0;
+let videoRotationInterval = null;
 const videos = [
     document.getElementById('video-background-1'),
     document.getElementById('video-background-2'),
@@ -61,7 +62,7 @@ function rotateVideos() {
     // Start playing next video and prepare it
     nextVideo.currentTime = 0;
     nextVideo.play().catch(err => {
-        console.log('Error playing video:', err);
+        console.warn('Error playing video:', err);
     });
     
     // Fade in next video (cross-fade)
@@ -78,8 +79,15 @@ function rotateVideos() {
     }, 2000);
 }
 
-// Rotate videos every 14 seconds
-setInterval(rotateVideos, 14000);
+// Rotate videos every 14 seconds and store interval ID for cleanup
+videoRotationInterval = setInterval(rotateVideos, 14000);
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (videoRotationInterval) {
+        clearInterval(videoRotationInterval);
+    }
+});
 
 /* ============================================
    ANIMACIONES GSAP
@@ -171,6 +179,13 @@ function goToIndex(index) {
         thumb.classList.toggle('active', i === currentIndex);
     });
     
+    // Actualizar aria-live region para screen readers
+    const currentItem = galleryItems[currentIndex];
+    const caption = currentItem.querySelector('.gallery-caption strong');
+    if (caption) {
+        currentIndexEl.setAttribute('aria-label', `Imagen ${currentIndex + 1} de ${totalImages}: ${caption.textContent}`);
+    }
+    
     // Precargar siguiente imagen
     preloadImage(currentIndex + 1);
 }
@@ -241,6 +256,8 @@ function handleSwipe() {
 openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
     galleryModal.style.display = 'flex';
+    galleryModal.setAttribute('role', 'dialog');
+    galleryModal.setAttribute('aria-modal', 'true');
     currentIndex = 0;
     goToIndex(0);
     
@@ -257,6 +274,9 @@ openGalleryBtn.addEventListener('click', (e) => {
     
     // Prevenir scroll del body
     document.body.style.overflow = 'hidden';
+    
+    // Focus trap - enfocar el botón de cerrar
+    closeGalleryBtn.focus();
 });
 
 // Cerrar modal
@@ -267,7 +287,11 @@ const closeModal = () => {
         ease: "power2.in",
         onComplete: () => {
             galleryModal.style.display = 'none';
+            galleryModal.removeAttribute('role');
+            galleryModal.removeAttribute('aria-modal');
             document.body.style.overflow = 'auto';
+            // Devolver el foco al botón que abrió la modal
+            openGalleryBtn.focus();
         }
     });
 };
@@ -325,6 +349,7 @@ function closeLightbox() {
     lightbox.classList.remove('active');
     document.body.style.overflow = 'auto';
     zoomLevel = 1;
+    lightboxImage.style.transform = 'scale(1)';
 }
 
 // Controles de zoom

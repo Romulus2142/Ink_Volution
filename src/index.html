@@ -8,15 +8,10 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Google Fonts: Albert Sans (400,700,900) + Noto Serif Display (300,400,700) -->
+    <!-- Google Fonts: Albert Sans (400,700,900) + Noto Serif Display (300,400,700) + Mr Dafoe -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700;900&family=Noto+Serif+Display:wght@300;400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700;900&family=Noto+Serif+Display:wght@300;400;700&family=Mr+Dafoe&display=swap"
         rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap" rel="stylesheet">
     <style>
         body,
         html {
@@ -31,7 +26,7 @@
         .video-background {
             position: fixed;
             right: 0;
-            bottom: -50;
+            bottom: 0;
             min-width: 100%;
             min-height: 100%;
             width: auto;
@@ -140,7 +135,7 @@
     <!-- Modal Galería -->
     <div id="galleryModal" class="gallery-modal">
         <div class="gallery-modal-content">
-            <button class="gallery-close-btn" id="closeGalleryBtn">&times;</button>
+            <button class="gallery-close-btn" id="closeGalleryBtn" aria-label="Cerrar galería">&times;</button>
             
             <!-- Contador de posición -->
             <div class="gallery-counter">
@@ -149,9 +144,9 @@
             
             <!-- Indicadores de teclado con arrows -->
             <div class="keyboard-hints">
-                <button class="key-hint key-hint-arrow" id="galleryArrowLeft">‹</button>
+                <button class="key-hint key-hint-arrow" id="galleryArrowLeft" aria-label="Imagen anterior">‹</button>
                 <span class="key-hint-label">EXPLORA LA SALA</span>
-                <button class="key-hint key-hint-arrow" id="galleryArrowRight">›</button>
+                <button class="key-hint key-hint-arrow" id="galleryArrowRight" aria-label="Imagen siguiente">›</button>
             </div>
             
             <div class="gallery-scroll-wrapper">
@@ -318,13 +313,13 @@
     </div>
     
     <!-- Lightbox Fullscreen -->
-    <div id="lightbox" class="lightbox">
-        <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar vista ampliada">&times;</button>
         <img id="lightboxImage" src="" alt="Fullscreen image">
         <div class="lightbox-zoom-controls">
-            <button id="zoomIn">+</button>
-            <button id="zoomOut">−</button>
-            <button id="resetZoom">Reset</button>
+            <button id="zoomIn" aria-label="Acercar">+</button>
+            <button id="zoomOut" aria-label="Alejar">−</button>
+            <button id="resetZoom" aria-label="Restablecer zoom">Reset</button>
         </div>
     </div>
 
