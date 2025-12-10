@@ -82,6 +82,64 @@ function rotateVideos() {
 setInterval(rotateVideos, 14000);
 
 /* ============================================
+   CONTROL DE MÚSICA
+   ============================================ */
+
+const backgroundMusic = document.getElementById('backgroundMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicStatus = document.querySelector('.music-status');
+let isPlaying = false;
+
+// Actualizar texto del estado
+function updateMusicStatus(playing) {
+    musicStatus.textContent = playing ? 'ON' : 'OFF';
+}
+
+// Intentar reproducir música al interactuar con la página
+function initMusic() {
+    backgroundMusic.volume = 0.3; // Volumen al 30%
+    backgroundMusic.play()
+        .then(() => {
+            isPlaying = true;
+            musicToggle.classList.add('playing');
+            musicToggle.classList.remove('paused');
+            updateMusicStatus(true);
+        })
+        .catch(err => {
+            console.log('La reproducción automática fue bloqueada:', err);
+            isPlaying = false;
+            musicToggle.classList.remove('playing');
+            musicToggle.classList.add('paused');
+            updateMusicStatus(false);
+        });
+}
+
+// Intentar iniciar música cuando el usuario interactúe
+document.addEventListener('click', initMusic, { once: true });
+
+// Toggle música al hacer click en el botón
+musicToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevenir que active el initMusic
+    
+    if (isPlaying) {
+        backgroundMusic.pause();
+        isPlaying = false;
+        musicToggle.classList.remove('playing');
+        musicToggle.classList.add('paused');
+        updateMusicStatus(false);
+    } else {
+        backgroundMusic.play()
+            .then(() => {
+                isPlaying = true;
+                musicToggle.classList.add('playing');
+                musicToggle.classList.remove('paused');
+                updateMusicStatus(true);
+            })
+            .catch(err => console.log('Error al reproducir:', err));
+    }
+});
+
+/* ============================================
    ANIMACIONES GSAP
    ============================================ */
 
