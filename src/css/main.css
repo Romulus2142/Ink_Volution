@@ -412,11 +412,6 @@ html {
     50% { transform: scale(1.3); }
 }
 
-.like-count {
-    display: none;
-}
-
-
 
 
 .gallery-item-image img {
@@ -895,7 +890,7 @@ html {
     .like-btn {
         padding: 5px 10px;
         font-size: 0.7rem;
-        margin-left: 8px;
+        margin-top: 6px;
     }
     
     .like-btn svg {

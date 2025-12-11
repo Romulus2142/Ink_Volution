@@ -18,126 +18,7 @@ window.addEventListener('load', () => {
     } else {
         video1.addEventListener('canplaythrough', hidePreloader, { once: true });
     }
-    
-    // Registrar visita
-    trackVisit();
 });
-
-/* ============================================
-   ANALYTICS - TRACKING DE VISITAS
-   ============================================ */
-
-function generateVisitorId() {
-    // Generar ID único basado en navegador y características
-    const nav = navigator;
-    const screen = window.screen;
-    const guid = nav.mimeTypes.length + '' + nav.userAgent.replace(/\D+/g, '') + 
-                 screen.height + screen.width + screen.pixelDepth;
-    return 'visitor_' + btoa(guid).substring(0, 20);
-}
-
-function trackVisit() {
-    const visitorId = generateVisitorId();
-    const visitData = {
-        visitorId: visitorId,
-        timestamp: new Date().toISOString(),
-        page: window.location.pathname,
-        referrer: document.referrer || 'Direct',
-        userAgent: navigator.userAgent,
-        screenResolution: `${window.screen.width}x${window.screen.height}`,
-        language: navigator.language
-    };
-    
-    // Guardar en localStorage
-    let analytics = JSON.parse(localStorage.getItem('siteAnalytics')) || {
-        totalVisits: 0,
-        uniqueVisitors: new Set(),
-        visitHistory: []
-    };
-    
-    // Convertir Set a Array si es necesario
-    if (analytics.uniqueVisitors instanceof Set === false) {
-        analytics.uniqueVisitors = new Set(analytics.uniqueVisitors || []);
-    }
-    
-    // Registrar visita
-    analytics.totalVisits++;
-    analytics.uniqueVisitors.add(visitorId);
-    analytics.lastVisit = visitData.timestamp;
-    
-    // Guardar historial (máximo 100 visitas)
-    analytics.visitHistory = analytics.visitHistory || [];
-    analytics.visitHistory.unshift(visitData);
-    if (analytics.visitHistory.length > 100) {
-        analytics.visitHistory = analytics.visitHistory.slice(0, 100);
-    }
-    
-    // Convertir Set a Array para localStorage
-    const analyticsToSave = {
-        ...analytics,
-        uniqueVisitors: Array.from(analytics.uniqueVisitors)
-    };
-    
-    localStorage.setItem('siteAnalytics', JSON.stringify(analyticsToSave));
-    
-    // Log discreto en consola (solo visible si se busca)
-    // console.log(`📈 Visita registrada - Total: ${analytics.totalVisits}, Únicos: ${analytics.uniqueVisitors.size}`);
-}
-
-function getAnalytics() {
-    const analytics = JSON.parse(localStorage.getItem('siteAnalytics')) || {
-        totalVisits: 0,
-        uniqueVisitors: [],
-        visitHistory: []
-    };
-    
-    return {
-        totalVisits: analytics.totalVisits,
-        uniqueVisitors: analytics.uniqueVisitors.length,
-        lastVisit: analytics.lastVisit,
-        visitHistory: analytics.visitHistory
-    };
-}
-
-function exportAnalytics() {
-    const analytics = getAnalytics();
-    const data = {
-        totalVisits: analytics.totalVisits,
-        uniqueVisitors: analytics.uniqueVisitors,
-        lastVisit: analytics.lastVisit,
-        exportDate: new Date().toISOString(),
-        visitHistory: analytics.visitHistory
-    };
-    
-    const jsonContent = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonContent], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `analytics_${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    
-    console.log('✅ Estadísticas de visitas exportadas');
-}
-
-function showAnalytics() {
-    const analytics = getAnalytics();
-    console.log('%c📊 Estadísticas del Sitio Web', 'color: #2563eb; font-size: 14px; font-weight: bold;');
-    console.log('==========================================');
-    console.log(`Total de visitas: ${analytics.totalVisits}`);
-    console.log(`Visitantes únicos: ${analytics.uniqueVisitors}`);
-    console.log(`Última visita: ${analytics.lastVisit ? new Date(analytics.lastVisit).toLocaleString('es-ES') : 'N/A'}`);
-    console.log('==========================================');
-    console.log('💡 Usa exportAnalytics() para descargar datos completos');
-}
-
-// Exponer funciones globales
-window.showAnalytics = showAnalytics;
-window.exportAnalytics = exportAnalytics;
-window.getAnalytics = getAnalytics;
 
 /* ============================================
    VIDEO BACKGROUND ROTATION
@@ -541,112 +422,94 @@ lightboxImage.addEventListener('click', () => {
 });
 
 /* ============================================
-   LIKE FUNCTIONALITY
+   LIKE FUNCTIONALITY WITH EXCEL EXPORT
    ============================================ */
+
+// Nombres de las fotos para el registro
+const photoNames = [
+    'Soulfire',
+    'Tenazas Witchblade',
+    'Batman 1989',
+    'Catwoman Anne',
+    'Magik',
+    'A Vampire',
+    'Batman',
+    'Selina',
+    'Angela Spica',
+    'Mirada Aphrodite IX'
+];
 
 // Inicializar likes desde localStorage
 const likes = JSON.parse(localStorage.getItem('galleryLikes')) || {};
 
-// Actualizar contadores de likes en todas las fotos
-function updateLikeCounts() {
+// Guardar historial de likes con timestamp
+function saveLikeHistory(photoIndex, photoName, action) {
+    const history = JSON.parse(localStorage.getItem('likesHistory')) || [];
+    const timestamp = new Date().toISOString();
+    const date = new Date().toLocaleString('es-ES');
+    
+    history.push({
+        photoIndex: photoIndex,
+        photoName: photoName,
+        action: action, // 'like' o 'unlike'
+        timestamp: timestamp,
+        date: date
+    });
+    localStorage.setItem('likesHistory', JSON.stringify(history));
+    
+    // Nota: GitHub Pages no soporta PHP, los datos se guardan solo en localStorage
+    // Usa exportLikesToCSV() para descargar el archivo Excel
+}
+
+// Función para exportar likes a CSV (compatible con Excel)
+function exportLikesToCSV() {
+    // Preparar datos de resumen con codificación UTF-8 BOM para Excel
+    let csvContent = "\uFEFF"; // BOM para que Excel reconozca UTF-8
+    csvContent += "RESUMEN DE LIKES POR FOTO\n\n";
+    csvContent += "Foto,Total de Likes\n";
+    
+    photoNames.forEach((name, index) => {
+        const count = likes[index] || 0;
+        csvContent += `${name},${count}\n`;
+    });
+    
+    // Agregar historial detallado
+    csvContent += "\n\nHISTORIAL DETALLADO DE LIKES\n\n";
+    csvContent += "Foto,Accion,Fecha y Hora\n";
+    
+    const history = JSON.parse(localStorage.getItem('likesHistory')) || [];
+    history.forEach(entry => {
+        csvContent += `${entry.photoName},${entry.action},${entry.date}\n`;
+    });
+    
+    // Crear Blob con codificación UTF-8
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute("href", url);
+    link.setAttribute("download", `likes_galeria_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log('✅ Archivo CSV descargado. Total de likes registrados:', history.length);
+    console.log('📊 Para ver estadísticas actuales, ejecuta: showLikesStats()');
+}
+
+// Hacer la función disponible globalmente
+window.exportLikesToCSV = exportLikesToCSV;
+
+// Actualizar estado visual de los botones
+function updateLikeButtons() {
     const likeButtons = document.querySelectorAll('.like-btn');
     likeButtons.forEach((btn, index) => {
         const isLiked = localStorage.getItem(`liked-${index}`) === 'true';
-        
         if (isLiked) {
             btn.classList.add('liked');
         }
     });
-}
-
-// Obtener el nombre de la foto por índice
-function getPhotoName(index) {
-    const photoNames = [
-        'Soulfire',
-        'Tenazas Witchblade',
-        'Batman 1989',
-        'Catwoman Anne',
-        'Magik',
-        'A Vampire',
-        'Batman',
-        'Selina',
-        'Angela Spica',
-        'Mirada Aphrodite IX'
-    ];
-    return photoNames[index] || `Foto ${index + 1}`;
-}
-
-// Exportar datos de likes a CSV
-function exportLikesToCSV() {
-    const photoNames = [
-        'Soulfire',
-        'Tenazas Witchblade',
-        'Batman 1989',
-        'Catwoman Anne',
-        'Magik',
-        'A Vampire',
-        'Batman',
-        'Selina',
-        'Angela Spica',
-        'Mirada Aphrodite IX'
-    ];
-    
-    let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "Nombre de la Foto,Total de Likes,Fecha de Exportacion\n";
-    
-    const exportDate = new Date().toLocaleString('es-ES');
-    
-    photoNames.forEach((name, index) => {
-        const count = likes[index] || 0;
-        csvContent += `"${name}",${count},"${exportDate}"\n`;
-    });
-    
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `likes_orbita_gallery_${new Date().toISOString().split('T')[0]}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-// Guardar datos en JSON local
-function saveLikesToJSON() {
-    const photoNames = [
-        'Soulfire',
-        'Tenazas Witchblade',
-        'Batman 1989',
-        'Catwoman Anne',
-        'Magik',
-        'A Vampire',
-        'Batman',
-        'Selina',
-        'Angela Spica',
-        'Mirada Aphrodite IX'
-    ];
-    
-    const data = {
-        lastUpdate: new Date().toISOString(),
-        photos: photoNames.map((name, index) => ({
-            id: index,
-            name: name,
-            likes: likes[index] || 0
-        }))
-    };
-    
-    // Crear y descargar archivo JSON
-    const jsonContent = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonContent], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'likes_data.json';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    
-    console.log('✅ Archivo JSON descargado. Reemplaza el archivo en src/data/likes_data.json');
 }
 
 // Manejar clicks en botones de like
@@ -660,6 +523,7 @@ document.addEventListener('click', (e) => {
     const galleryItem = likeBtn.closest('.gallery-item');
     const allItems = Array.from(document.querySelectorAll('.gallery-item'));
     const index = allItems.indexOf(galleryItem);
+    const photoName = photoNames[index];
     
     const isLiked = likeBtn.classList.contains('liked');
     
@@ -668,50 +532,40 @@ document.addEventListener('click', (e) => {
         likeBtn.classList.remove('liked');
         likes[index] = Math.max(0, (likes[index] || 0) - 1);
         localStorage.setItem(`liked-${index}`, 'false');
+        saveLikeHistory(index, photoName, 'unlike');
     } else {
         // Like
         likeBtn.classList.add('liked');
         likes[index] = (likes[index] || 0) + 1;
         localStorage.setItem(`liked-${index}`, 'true');
-        
-        // Log del like para tracking
-        console.log(`👍 Like en "${getPhotoName(index)}" - Total: ${likes[index]}`);
+        saveLikeHistory(index, photoName, 'like');
     }
     
     localStorage.setItem('galleryLikes', JSON.stringify(likes));
 });
 
-// Comando de consola para exportar likes
-window.exportLikes = exportLikesToCSV;
-window.saveJSON = saveLikesToJSON;
+// Inicializar likes cuando se carga la página
+updateLikeButtons();
 
-// Comando de consola para ver estadísticas
-window.showLikeStats = function() {
-    console.log('📊 Estadísticas de Likes - Orbita Gallery');
-    console.log('==========================================');
-    const photoNames = [
-        'Soulfire', 'Tenazas Witchblade', 'Batman 1989', 'Catwoman Anne',
-        'Magik', 'A Vampire', 'Batman', 'Selina', 'Angela Spica', 'Mirada Aphrodite IX'
-    ];
+// Función para mostrar estadísticas en consola
+window.showLikesStats = function() {
+    console.log('=== 📊 ESTADÍSTICAS DE LIKES ===\n');
+    let totalLikes = 0;
     photoNames.forEach((name, index) => {
-        console.log(`${name}: ${likes[index] || 0} likes`);
+        const count = likes[index] || 0;
+        totalLikes += count;
+        console.log(`${name}: ${count} likes`);
     });
-    console.log('==========================================');
-    console.log('💡 Usa exportLikes() para descargar CSV');
+    console.log(`\n📈 Total de likes: ${totalLikes}`);
+    
+    const history = JSON.parse(localStorage.getItem('likesHistory')) || [];
+    console.log(`📝 Registros en historial: ${history.length}`);
+    console.log('\n💾 Para descargar archivo Excel, ejecuta: exportLikesToCSV()');
 };
 
-// Inicializar likes cuando se carga la página
-updateLikeCounts();
-
-// Mostrar instrucciones en consola
-console.log('%c📊 Orbita Gallery - Sistema de Likes & Analytics', 'color: #dc2626; font-size: 14px; font-weight: bold;');
-console.log('\n🎨 Comandos de Likes:');
-console.log('  • showLikeStats() - Ver estadísticas de likes');
-console.log('  • exportLikes() - Exportar likes a CSV');
-console.log('  • saveJSON() - Descargar datos en formato JSON');
-console.log('\n📊 Comandos de Analytics:');
-console.log('  • showAnalytics() - Ver estadísticas de visitas');
-console.log('  • exportAnalytics() - Exportar datos de visitas');
-console.log('  • getAnalytics() - Obtener datos completos');
-console.log('\n💡 Tip: Los archivos JSON se pueden abrir directamente en Excel');
+console.log('🎨 Sistema de likes iniciado');
+console.log('📋 Comandos disponibles:');
+console.log('   showLikesStats() - Ver estadísticas actuales');
+console.log('   exportLikesToCSV() - Descargar archivo Excel/CSV');
+console.log('\n💡 Los likes se guardan en el navegador (localStorage)');
 
