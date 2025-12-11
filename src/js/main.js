@@ -1,4 +1,93 @@
 /* ============================================
+   VISITOR ANALYTICS
+   ============================================ */
+
+// Registrar visita
+function trackVisit() {
+    const now = new Date();
+    const visitData = {
+        timestamp: now.toISOString(),
+        date: now.toLocaleString('es-ES'),
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        screenResolution: `${window.screen.width}x${window.screen.height}`,
+        viewport: `${window.innerWidth}x${window.innerHeight}`
+    };
+    
+    // Contador total de visitas
+    let totalVisits = parseInt(localStorage.getItem('totalVisits') || '0');
+    totalVisits++;
+    localStorage.setItem('totalVisits', totalVisits.toString());
+    
+    // Guardar historial de visitas
+    const visitHistory = JSON.parse(localStorage.getItem('visitHistory') || '[]');
+    visitHistory.push(visitData);
+    localStorage.setItem('visitHistory', JSON.stringify(visitHistory));
+    
+    // Visitantes únicos (por navegador)
+    if (!localStorage.getItem('firstVisit')) {
+        localStorage.setItem('firstVisit', now.toISOString());
+        localStorage.setItem('isUniqueVisitor', 'true');
+    }
+    
+    // Última visita
+    localStorage.setItem('lastVisit', now.toISOString());
+}
+
+// Exportar analytics a CSV
+window.exportAnalytics = function() {
+    const totalVisits = localStorage.getItem('totalVisits') || '0';
+    const firstVisit = localStorage.getItem('firstVisit') || 'N/A';
+    const lastVisit = localStorage.getItem('lastVisit') || 'N/A';
+    const visitHistory = JSON.parse(localStorage.getItem('visitHistory') || '[]');
+    
+    let csvContent = "\uFEFF"; // BOM para UTF-8
+    csvContent += "ESTADÍSTICAS DE VISITAS\n\n";
+    csvContent += `Total de Visitas,${totalVisits}\n`;
+    csvContent += `Primera Visita,${firstVisit}\n`;
+    csvContent += `Última Visita,${lastVisit}\n`;
+    csvContent += `Visitante Único,${localStorage.getItem('isUniqueVisitor') === 'true' ? 'Sí' : 'No'}\n`;
+    csvContent += "\n\nHISTORIAL DE VISITAS\n\n";
+    csvContent += "Fecha y Hora,Resolución de Pantalla,Tamaño de Ventana,Idioma\n";
+    
+    visitHistory.forEach(visit => {
+        csvContent += `${visit.date},${visit.screenResolution},${visit.viewport},${visit.language}\n`;
+    });
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute("href", url);
+    link.setAttribute("download", `analytics_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log('✅ Archivo de analytics descargado');
+};
+
+// Mostrar estadísticas
+window.showAnalytics = function() {
+    const totalVisits = localStorage.getItem('totalVisits') || '0';
+    const firstVisit = localStorage.getItem('firstVisit');
+    const lastVisit = localStorage.getItem('lastVisit');
+    const visitHistory = JSON.parse(localStorage.getItem('visitHistory') || '[]');
+    
+    console.log('=== 📊 ESTADÍSTICAS DE VISITAS ===\n');
+    console.log(`📈 Total de visitas: ${totalVisits}`);
+    console.log(`🆕 Primera visita: ${firstVisit ? new Date(firstVisit).toLocaleString('es-ES') : 'N/A'}`);
+    console.log(`🕐 Última visita: ${lastVisit ? new Date(lastVisit).toLocaleString('es-ES') : 'N/A'}`);
+    console.log(`👤 Visitante único: ${localStorage.getItem('isUniqueVisitor') === 'true' ? 'Sí' : 'No'}`);
+    console.log(`📝 Registros en historial: ${visitHistory.length}`);
+    console.log('\n💾 Para descargar reporte completo: exportAnalytics()');
+};
+
+// Registrar visita al cargar la página
+trackVisit();
+
+/* ============================================
    PRELOADER
    ============================================ */
 
@@ -96,7 +185,12 @@ function updateMusicStatus(playing) {
 }
 
 // Intentar reproducir música al interactuar con la página
-function initMusic() {
+function initMusic(e) {
+    // No iniciar música si es click en botón de música o botón de explorar
+    if (e.target.closest('#musicToggle') || e.target.closest('#openGalleryBtn')) {
+        return;
+    }
+    
     backgroundMusic.volume = 0.3; // Volumen al 30%
     backgroundMusic.play()
         .then(() => {
@@ -565,7 +659,9 @@ window.showLikesStats = function() {
 
 console.log('🎨 Sistema de likes iniciado');
 console.log('📋 Comandos disponibles:');
-console.log('   showLikesStats() - Ver estadísticas actuales');
-console.log('   exportLikesToCSV() - Descargar archivo Excel/CSV');
-console.log('\n💡 Los likes se guardan en el navegador (localStorage)');
+console.log('   showLikesStats() - Ver estadísticas de likes');
+console.log('   exportLikesToCSV() - Descargar archivo Excel de likes');
+console.log('   showAnalytics() - Ver estadísticas de visitas');
+console.log('   exportAnalytics() - Descargar reporte de visitas');
+console.log('\n💡 Los datos se guardan en el navegador (localStorage)');
 
