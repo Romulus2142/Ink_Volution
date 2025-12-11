@@ -221,6 +221,11 @@ function goToIndex(index) {
     const offset = -currentIndex * 100;
     galleryGrid.style.transform = `translateX(${offset}%)`;
     
+    // Cargar imagen actual y adyacentes si tienen lazy loading
+    const currentItem = galleryItems[currentIndex];
+    const prevItem = galleryItems[currentIndex - 1];
+    const nextItem = galleryItems[currentIndex + 1];
+    
     // Actualizar contador
     currentIndexEl.textContent = currentIndex + 1;
     
@@ -300,6 +305,8 @@ openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
     galleryModal.style.display = 'flex';
     currentIndex = 0;
+    
+    // Cargar primeras imágenes al abrir galería
     goToIndex(0);
     
     // Animación de apertura con GSAP
@@ -401,6 +408,7 @@ resetZoomBtn.addEventListener('click', () => {
     lightboxImage.style.transform = `scale(${zoomLevel})`;
 });
 
+
 // Click en imagen para toggle zoom
 lightboxImage.addEventListener('click', () => {
     if (zoomLevel === 1) {
@@ -414,27 +422,173 @@ lightboxImage.addEventListener('click', () => {
 });
 
 /* ============================================
-   LAZY LOADING
+   LIKE FUNCTIONALITY
    ============================================ */
 
-// Observador para lazy loading
-const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.dataset.src) {
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
+// Inicializar likes desde localStorage
+const likes = JSON.parse(localStorage.getItem('galleryLikes')) || {};
+
+// Actualizar contadores de likes en todas las fotos
+function updateLikeCounts() {
+    const likeButtons = document.querySelectorAll('.like-btn');
+    likeButtons.forEach((btn, index) => {
+        const isLiked = localStorage.getItem(`liked-${index}`) === 'true';
+        
+        if (isLiked) {
+            btn.classList.add('liked');
         }
     });
-}, {
-    rootMargin: '50px'
+}
+
+// Obtener el nombre de la foto por índice
+function getPhotoName(index) {
+    const photoNames = [
+        'Soulfire',
+        'Tenazas Witchblade',
+        'Batman 1989',
+        'Catwoman Anne',
+        'Magik',
+        'A Vampire',
+        'Batman',
+        'Selina',
+        'Angela Spica',
+        'Mirada Aphrodite IX'
+    ];
+    return photoNames[index] || `Foto ${index + 1}`;
+}
+
+// Exportar datos de likes a CSV
+function exportLikesToCSV() {
+    const photoNames = [
+        'Soulfire',
+        'Tenazas Witchblade',
+        'Batman 1989',
+        'Catwoman Anne',
+        'Magik',
+        'A Vampire',
+        'Batman',
+        'Selina',
+        'Angela Spica',
+        'Mirada Aphrodite IX'
+    ];
+    
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Nombre de la Foto,Total de Likes,Fecha de Exportacion\n";
+    
+    const exportDate = new Date().toLocaleString('es-ES');
+    
+    photoNames.forEach((name, index) => {
+        const count = likes[index] || 0;
+        csvContent += `"${name}",${count},"${exportDate}"\n`;
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `likes_orbita_gallery_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Guardar datos en JSON local
+function saveLikesToJSON() {
+    const photoNames = [
+        'Soulfire',
+        'Tenazas Witchblade',
+        'Batman 1989',
+        'Catwoman Anne',
+        'Magik',
+        'A Vampire',
+        'Batman',
+        'Selina',
+        'Angela Spica',
+        'Mirada Aphrodite IX'
+    ];
+    
+    const data = {
+        lastUpdate: new Date().toISOString(),
+        photos: photoNames.map((name, index) => ({
+            id: index,
+            name: name,
+            likes: likes[index] || 0
+        }))
+    };
+    
+    // Crear y descargar archivo JSON
+    const jsonContent = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'likes_data.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    console.log('✅ Archivo JSON descargado. Reemplaza el archivo en src/data/likes_data.json');
+}
+
+// Manejar clicks en botones de like
+document.addEventListener('click', (e) => {
+    const likeBtn = e.target.closest('.like-btn');
+    if (!likeBtn) return;
+    
+    e.stopPropagation();
+    
+    // Encontrar el índice de la foto
+    const galleryItem = likeBtn.closest('.gallery-item');
+    const allItems = Array.from(document.querySelectorAll('.gallery-item'));
+    const index = allItems.indexOf(galleryItem);
+    
+    const isLiked = likeBtn.classList.contains('liked');
+    
+    if (isLiked) {
+        // Unlike
+        likeBtn.classList.remove('liked');
+        likes[index] = Math.max(0, (likes[index] || 0) - 1);
+        localStorage.setItem(`liked-${index}`, 'false');
+    } else {
+        // Like
+        likeBtn.classList.add('liked');
+        likes[index] = (likes[index] || 0) + 1;
+        localStorage.setItem(`liked-${index}`, 'true');
+        
+        // Log del like para tracking
+        console.log(`👍 Like en "${getPhotoName(index)}" - Total: ${likes[index]}`);
+    }
+    
+    localStorage.setItem('galleryLikes', JSON.stringify(likes));
 });
 
-// Observar todas las imágenes con data-src
-document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
-});
+// Comando de consola para exportar likes
+window.exportLikes = exportLikesToCSV;
+window.saveJSON = saveLikesToJSON;
+
+// Comando de consola para ver estadísticas
+window.showLikeStats = function() {
+    console.log('📊 Estadísticas de Likes - Orbita Gallery');
+    console.log('==========================================');
+    const photoNames = [
+        'Soulfire', 'Tenazas Witchblade', 'Batman 1989', 'Catwoman Anne',
+        'Magik', 'A Vampire', 'Batman', 'Selina', 'Angela Spica', 'Mirada Aphrodite IX'
+    ];
+    photoNames.forEach((name, index) => {
+        console.log(`${name}: ${likes[index] || 0} likes`);
+    });
+    console.log('==========================================');
+    console.log('💡 Usa exportLikes() para descargar CSV');
+};
+
+// Inicializar likes cuando se carga la página
+updateLikeCounts();
+
+// Mostrar instrucciones en consola
+console.log('%c📊 Orbita Gallery - Sistema de Likes', 'color: #dc2626; font-size: 14px; font-weight: bold;');
+console.log('Comandos disponibles:');
+console.log('  • showLikeStats() - Ver estadísticas de likes');
+console.log('  • exportLikes() - Exportar likes a CSV');
+console.log('  • saveJSON() - Descargar datos en formato JSON');
+console.log('\n💡 Tip: El archivo JSON se puede abrir directamente en Excel');
 
