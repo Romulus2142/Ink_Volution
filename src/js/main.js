@@ -18,7 +18,126 @@ window.addEventListener('load', () => {
     } else {
         video1.addEventListener('canplaythrough', hidePreloader, { once: true });
     }
+    
+    // Registrar visita
+    trackVisit();
 });
+
+/* ============================================
+   ANALYTICS - TRACKING DE VISITAS
+   ============================================ */
+
+function generateVisitorId() {
+    // Generar ID único basado en navegador y características
+    const nav = navigator;
+    const screen = window.screen;
+    const guid = nav.mimeTypes.length + '' + nav.userAgent.replace(/\D+/g, '') + 
+                 screen.height + screen.width + screen.pixelDepth;
+    return 'visitor_' + btoa(guid).substring(0, 20);
+}
+
+function trackVisit() {
+    const visitorId = generateVisitorId();
+    const visitData = {
+        visitorId: visitorId,
+        timestamp: new Date().toISOString(),
+        page: window.location.pathname,
+        referrer: document.referrer || 'Direct',
+        userAgent: navigator.userAgent,
+        screenResolution: `${window.screen.width}x${window.screen.height}`,
+        language: navigator.language
+    };
+    
+    // Guardar en localStorage
+    let analytics = JSON.parse(localStorage.getItem('siteAnalytics')) || {
+        totalVisits: 0,
+        uniqueVisitors: new Set(),
+        visitHistory: []
+    };
+    
+    // Convertir Set a Array si es necesario
+    if (analytics.uniqueVisitors instanceof Set === false) {
+        analytics.uniqueVisitors = new Set(analytics.uniqueVisitors || []);
+    }
+    
+    // Registrar visita
+    analytics.totalVisits++;
+    analytics.uniqueVisitors.add(visitorId);
+    analytics.lastVisit = visitData.timestamp;
+    
+    // Guardar historial (máximo 100 visitas)
+    analytics.visitHistory = analytics.visitHistory || [];
+    analytics.visitHistory.unshift(visitData);
+    if (analytics.visitHistory.length > 100) {
+        analytics.visitHistory = analytics.visitHistory.slice(0, 100);
+    }
+    
+    // Convertir Set a Array para localStorage
+    const analyticsToSave = {
+        ...analytics,
+        uniqueVisitors: Array.from(analytics.uniqueVisitors)
+    };
+    
+    localStorage.setItem('siteAnalytics', JSON.stringify(analyticsToSave));
+    
+    // Log discreto en consola (solo visible si se busca)
+    // console.log(`📈 Visita registrada - Total: ${analytics.totalVisits}, Únicos: ${analytics.uniqueVisitors.size}`);
+}
+
+function getAnalytics() {
+    const analytics = JSON.parse(localStorage.getItem('siteAnalytics')) || {
+        totalVisits: 0,
+        uniqueVisitors: [],
+        visitHistory: []
+    };
+    
+    return {
+        totalVisits: analytics.totalVisits,
+        uniqueVisitors: analytics.uniqueVisitors.length,
+        lastVisit: analytics.lastVisit,
+        visitHistory: analytics.visitHistory
+    };
+}
+
+function exportAnalytics() {
+    const analytics = getAnalytics();
+    const data = {
+        totalVisits: analytics.totalVisits,
+        uniqueVisitors: analytics.uniqueVisitors,
+        lastVisit: analytics.lastVisit,
+        exportDate: new Date().toISOString(),
+        visitHistory: analytics.visitHistory
+    };
+    
+    const jsonContent = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `analytics_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    console.log('✅ Estadísticas de visitas exportadas');
+}
+
+function showAnalytics() {
+    const analytics = getAnalytics();
+    console.log('%c📊 Estadísticas del Sitio Web', 'color: #2563eb; font-size: 14px; font-weight: bold;');
+    console.log('==========================================');
+    console.log(`Total de visitas: ${analytics.totalVisits}`);
+    console.log(`Visitantes únicos: ${analytics.uniqueVisitors}`);
+    console.log(`Última visita: ${analytics.lastVisit ? new Date(analytics.lastVisit).toLocaleString('es-ES') : 'N/A'}`);
+    console.log('==========================================');
+    console.log('💡 Usa exportAnalytics() para descargar datos completos');
+}
+
+// Exponer funciones globales
+window.showAnalytics = showAnalytics;
+window.exportAnalytics = exportAnalytics;
+window.getAnalytics = getAnalytics;
 
 /* ============================================
    VIDEO BACKGROUND ROTATION
@@ -585,10 +704,14 @@ window.showLikeStats = function() {
 updateLikeCounts();
 
 // Mostrar instrucciones en consola
-console.log('%c📊 Orbita Gallery - Sistema de Likes', 'color: #dc2626; font-size: 14px; font-weight: bold;');
-console.log('Comandos disponibles:');
+console.log('%c📊 Orbita Gallery - Sistema de Likes & Analytics', 'color: #dc2626; font-size: 14px; font-weight: bold;');
+console.log('\n🎨 Comandos de Likes:');
 console.log('  • showLikeStats() - Ver estadísticas de likes');
 console.log('  • exportLikes() - Exportar likes a CSV');
 console.log('  • saveJSON() - Descargar datos en formato JSON');
-console.log('\n💡 Tip: El archivo JSON se puede abrir directamente en Excel');
+console.log('\n📊 Comandos de Analytics:');
+console.log('  • showAnalytics() - Ver estadísticas de visitas');
+console.log('  • exportAnalytics() - Exportar datos de visitas');
+console.log('  • getAnalytics() - Obtener datos completos');
+console.log('\n💡 Tip: Los archivos JSON se pueden abrir directamente en Excel');
 
