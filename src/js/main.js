@@ -397,21 +397,68 @@ function handleSwipe() {
 // Abrir modal
 openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    
+    // Mostrar modal y preloader
     galleryModal.style.display = 'flex';
+    const galleryPreloader = document.getElementById('galleryPreloader');
+    galleryPreloader.classList.remove('hidden');
+    
     currentIndex = 0;
     
-    // Cargar primeras imágenes al abrir galería
-    goToIndex(0);
+    // Precargar imágenes principales
+    const imagesToPreload = [];
+    for (let i = 0; i < Math.min(3, galleryItems.length); i++) {
+        const img = galleryItems[i].querySelector('img');
+        if (img) {
+            imagesToPreload.push(img.src);
+        }
+    }
     
-    // Animación de apertura con GSAP
+    // Cargar imágenes
+    let loadedImages = 0;
+    const totalToLoad = imagesToPreload.length;
+    
+    const hidePreloaderAndShow = () => {
+        setTimeout(() => {
+            galleryPreloader.classList.add('hidden');
+            goToIndex(0);
+            
+            // Animaciones GSAP después de cargar
+            gsap.fromTo('.gallery-modal-content', 
+                { scale: 0.8, opacity: 0 }, 
+                { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)" }
+            );
+        }, 300);
+    };
+    
+    imagesToPreload.forEach(src => {
+        const img = new Image();
+        img.onload = () => {
+            loadedImages++;
+            if (loadedImages >= totalToLoad) {
+                hidePreloaderAndShow();
+            }
+        };
+        img.onerror = () => {
+            loadedImages++;
+            if (loadedImages >= totalToLoad) {
+                hidePreloaderAndShow();
+            }
+        };
+        img.src = src;
+    });
+    
+    // Fallback: ocultar preloader después de 2 segundos si algo falla
+    setTimeout(() => {
+        if (!galleryPreloader.classList.contains('hidden')) {
+            hidePreloaderAndShow();
+        }
+    }, 2000);
+    
+    // Animación de apertura del modal (inmediata)
     gsap.fromTo(galleryModal, 
         { opacity: 0 }, 
         { opacity: 1, duration: 0.3, ease: "power2.out" }
-    );
-    
-    gsap.fromTo('.gallery-modal-content', 
-        { scale: 0.8, opacity: 0 }, 
-        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)", delay: 0.1 }
     );
     
     // Prevenir scroll del body
