@@ -186,8 +186,10 @@ function updateMusicStatus(playing) {
 
 // Intentar reproducir música al interactuar con la página
 function initMusic(e) {
-    // No iniciar música si es click en botón de música o botón de explorar
-    if (e.target.closest('#musicToggle') || e.target.closest('#openGalleryBtn')) {
+    // No iniciar música si es click en botón de música, botón de explorar, o dentro de la galería
+    if (e.target.closest('#musicToggle') || 
+        e.target.closest('#openGalleryBtn') ||
+        e.target.closest('#galleryModal')) {
         return;
     }
     

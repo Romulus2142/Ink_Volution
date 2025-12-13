@@ -186,18 +186,19 @@ html {
     font-family: var(--font-sans);
     font-style: italic;
     font-weight: 900;
-    font-size: 5rem;
-    letter-spacing: -0.05em;
+    font-size: 4rem;
+    letter-spacing: 0rem;
     backdrop-filter: blur(2px);
     padding: 20px;
 }
 
 .principal-text .subtitle-text {
     font-family: var(--font-serif);
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     font-style: normal;
     font-weight: 300;
-    letter-spacing: 0.4px;
+    letter-spacing: 1px;
+    line-height: 1.8;
     margin-top: -20px;
 }
 
@@ -214,14 +215,14 @@ html {
     font-family: var(--font-sans);
     font-weight: 600;
     font-style: italic;
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: var(--color-white);
     text-decoration: none;
     cursor: pointer;
     letter-spacing: 0.5px;
     pointer-events: auto;
     z-index: 20;
-    padding: 10px 24px;
+    padding: 12px 28px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
@@ -271,7 +272,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(255, 255, 255);
+    background: rgb(231, 231, 231);
     z-index: 1000;
     overflow-x: hidden;
     overflow-y: auto;
@@ -288,8 +289,8 @@ html {
     position: relative;
     width: 100%;
     max-width: 100%;
-    margin: auto;
-    padding: 60px 20px 40px;
+    margin: 0;
+    padding: 20px 20px 40px;
 }
 
 .gallery-close-btn {
@@ -382,9 +383,9 @@ html {
     padding: 0px;
     scroll-behavior: smooth;
     transition: transform 0.5s ease;
-    min-height: 70vh;
+    min-height: 85vh;
     align-items: center;
-    padding-bottom: 180px;
+    padding-bottom: 80px;
 }
 
 .gallery-item {
@@ -394,13 +395,15 @@ html {
     scroll-snap-align: start;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 30px;
+    align-items: flex-start;
+    gap: 0px;
     justify-content: center;
+    padding-left: 0;
 }
 
 .gallery-item-image {
-    width: auto;
+    width: 400px;
+    flex-shrink: 0;
     margin-bottom: 0;
     display: flex;
     justify-content: center;
@@ -412,9 +415,9 @@ html {
 
 /* Like Button */
 .like-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(236, 236, 236, 0.1);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #c5c4c4;
     border-radius: 50px;
     padding: 6px 12px;
     cursor: pointer;
@@ -437,7 +440,7 @@ html {
 
 .like-btn.liked {
     background: rgba(220, 38, 38, 0.1);
-    border-color: rgba(220, 38, 38, 0.3);
+    border-color: #dc2626;
 }
 
 .like-btn svg {
@@ -461,7 +464,7 @@ html {
 
 .gallery-item-image img {
     max-width: 100%;
-    max-height: 62vh;
+    max-height: 50vh;
     height: auto;
     display: block;
     object-fit: contain;
@@ -482,11 +485,14 @@ html {
     font-family: var(--font-sans);
     font-size: 0.6rem;
     font-weight: 300;
-    padding: 20px;
+    padding: 10px;
+    padding-top: 0;
+    padding-left: 0;
     text-align: left;
     background: transparent;
     max-width: 407px;
     margin: 0;
+    margin-top: 20px;
 }
 
 .gallery-caption strong {
@@ -528,7 +534,7 @@ html {
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-sans);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: var(--color-black);
     font-weight: 300;
     z-index: 1001;
@@ -572,8 +578,8 @@ html {
 
 .key-hint-arrow {
     cursor: pointer;
-    font-size: 1.5rem;
-    padding: 6px 16px;
+    font-size: 1.2rem;
+    padding: 5px 12px;
     border: 2px solid #333;
     color: #333;
     background: rgba(255, 255, 255, 0.95);
@@ -595,47 +601,6 @@ html {
     color: #666;
     text-align: center;
     flex-shrink: 0;
-}
-
-/* Thumbnails */
-.gallery-thumbnails {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 12px;
-    z-index: 1001;
-    padding: 12px 20px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
-}
-
-.thumbnail {
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    overflow: hidden;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    opacity: 0.5;
-}
-
-.thumbnail:hover {
-    opacity: 0.9;
-    transform: translateY(-3px);
-}
-
-.thumbnail.active {
-    border-color: var(--color-black);
-    opacity: 1;
-}
-
-.thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 /* Lightbox Fullscreen */
@@ -809,18 +774,18 @@ html {
     /* Título Principal */
     .principal-text {
         top: 60%;
-        font-size: 3.5rem;
+        font-size: 2.8rem;
         animation: none;
     }
 
     /* Subtítulo */
     .principal-text .subtitle-text {
-        font-size: 0.65rem;
-        line-height: 1.7;
+        font-size: 0.55rem;
+        line-height: 1.9;
         margin-top: 10px;
         padding: 0 30px;
         font-weight: 400;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.8px;
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
@@ -859,9 +824,9 @@ html {
 
     /* Botón Explorar */
     .explore-btn {
-        font-size: 1rem;
+        font-size: 1.1rem;
         margin-top: 15px;
-        padding: 12px 28px;
+        padding: 14px 32px;
         bottom: 120px;
         white-space: nowrap;
     }
@@ -880,7 +845,7 @@ html {
     /* Nuevas características responsive */
     .gallery-counter {
         top: 15px;
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
     
     .gallery-grid {
@@ -894,18 +859,14 @@ html {
         overflow: hidden;
     }
     
-    .gallery-thumbnails {
-        display: none;
-    }
-    
     .keyboard-hints {
         bottom: 80px;
         gap: 15px;
     }
     
     .key-hint-arrow {
-        font-size: 1.2rem;
-        padding: 5px 12px;
+        font-size: 1rem;
+        padding: 4px 10px;
     }
     
     .key-hint-label {
@@ -1010,18 +971,18 @@ html {
     /* Título Principal */
     .principal-text {
         top: 38%;
-        font-size: 16rem;
+        font-size: 13rem;
     }
 
     /* Subtítulo */
     .principal-text .subtitle-text {
-        font-size: 1rem;
+        font-size: 0.85rem;
         margin-top: -25px;
     }
 
     /* Botón Explorar */
     .explore-btn {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
     }
 
     /* Modal Galería */
@@ -1045,12 +1006,12 @@ html {
 
     /* Título Principal */
     .principal-text {
-        font-size: 13rem;
+        font-size: 10rem;
     }
 
     /* Subtítulo */
     .principal-text .subtitle-text {
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-top: 0px;
     }
 
@@ -1065,12 +1026,12 @@ html {
 
     /* Título Principal */
     .principal-text {
-        font-size: 10rem;
+        font-size: 8rem;
     }
 
     /* Subtítulo */
     .principal-text .subtitle-text {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
 
     /* Texto Inferior */
