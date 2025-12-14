@@ -279,8 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
           opacity: 1, 
           x: 0, 
           stagger: 0.05,
-          duration: 0.6,
-          ease: 'power2.out'
+          duration: 1.5,
+          ease: 'power4.out'
       }, '-=0.4')
       .to('.subtitle-text', { opacity: 1, y: 0 }, '-=0.2')
       .to('.explore-btn', { opacity: 1, y: 0 }, '-=0.3')
