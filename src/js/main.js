@@ -644,6 +644,53 @@ function exportLikesToCSV() {
 // Hacer la función disponible globalmente
 window.exportLikesToCSV = exportLikesToCSV;
 
+// Configuración de EmailJS
+// INSTRUCCIONES:
+// 1. Crea cuenta en https://www.emailjs.com/
+// 2. Añade servicio de Gmail
+// 3. Crea una plantilla con variables: {{photo_name}}, {{photo_index}}, {{timestamp}}, {{user_agent}}
+// 4. Reemplaza estas credenciales con las tuyas:
+const EMAILJS_CONFIG = {
+    publicKey: 'TU_PUBLIC_KEY',  // Reemplazar con tu Public Key
+    serviceId: 'TU_SERVICE_ID',   // Reemplazar con tu Service ID
+    templateId: 'TU_TEMPLATE_ID', // Reemplazar con tu Template ID
+    enabled: false  // Cambiar a true cuando configures EmailJS
+};
+
+// Inicializar EmailJS
+if (EMAILJS_CONFIG.enabled && typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_CONFIG.publicKey);
+}
+
+// Función para enviar notificación por email
+function sendLikeNotification(photoIndex, photoName) {
+    if (!EMAILJS_CONFIG.enabled || typeof emailjs === 'undefined') {
+        return; // EmailJS no está configurado o habilitado
+    }
+    
+    const templateParams = {
+        to_email: 'julio.guadarrama10@gmail.com',
+        photo_name: photoName,
+        photo_index: photoIndex + 1,
+        timestamp: new Date().toLocaleString('es-ES'),
+        user_agent: navigator.userAgent,
+        total_likes: likes[photoIndex] || 0
+    };
+    
+    emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        templateParams
+    ).then(
+        function(response) {
+            console.log('✅ Email enviado:', response.status, response.text);
+        },
+        function(error) {
+            console.error('❌ Error al enviar email:', error);
+        }
+    );
+}
+
 // Actualizar estado visual de los botones
 function updateLikeButtons() {
     const likeButtons = document.querySelectorAll('.like-btn');
@@ -682,6 +729,9 @@ document.addEventListener('click', (e) => {
         likes[index] = (likes[index] || 0) + 1;
         localStorage.setItem(`liked-${index}`, 'true');
         saveLikeHistory(index, photoName, 'like');
+        
+        // Enviar notificación por email
+        sendLikeNotification(index, photoName);
     }
     
     localStorage.setItem('galleryLikes', JSON.stringify(likes));

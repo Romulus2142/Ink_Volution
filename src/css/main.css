@@ -395,14 +395,14 @@ html {
     scroll-snap-align: start;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 0px;
+    align-items: center;
+    gap: 40px;
     justify-content: center;
     padding-left: 0;
 }
 
 .gallery-item-image {
-    width: 400px;
+    width: 50%;
     flex-shrink: 0;
     margin-bottom: 0;
     display: flex;
@@ -464,7 +464,7 @@ html {
 
 .gallery-item-image img {
     max-width: 100%;
-    max-height: 50vh;
+    max-height: 70vh;
     height: auto;
     display: block;
     object-fit: contain;
@@ -490,14 +490,15 @@ html {
     padding-left: 0;
     text-align: left;
     background: transparent;
-    max-width: 407px;
+    width: 50%;
+    max-width: none;
     margin: 0;
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 .gallery-caption strong {
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
 }
 
 .gallery-caption .collection-name {
@@ -544,7 +545,7 @@ html {
 /* Indicadores de teclado con arrows clickeables */
 .keyboard-hints {
     position: fixed;
-    bottom: 140px;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
