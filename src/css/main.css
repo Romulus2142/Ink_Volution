@@ -79,7 +79,7 @@ html {
 .logo-container {
     position: fixed;
     top: 30px;
-    right: 30px;
+    right: 50px;
     z-index: 100;
     transition: transform 0.3s ease;
 }
@@ -192,14 +192,28 @@ html {
     padding: 20px;
 }
 
-.principal-text .subtitle-text {
-    font-family: var(--font-serif);
-    font-size: 0.7rem;
+.subtitle-text {
+    position: fixed;
+    bottom: 330px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: "Source Serif 4", serif;
+    font-optical-sizing: auto;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 300;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
     line-height: 1.8;
-    margin-top: -20px;
+    color: var(--color-white);
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    z-index: 11;
 }
 
 .color-text {
@@ -552,7 +566,7 @@ html {
 /* Indicadores de teclado con arrows clickeables */
 .keyboard-hints {
     position: fixed;
-    bottom: 50px;
+    bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -609,6 +623,36 @@ html {
     color: #666;
     text-align: center;
     flex-shrink: 0;
+}
+
+/* Bullets - Navegación discreta */
+.gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.thumbnail {
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.thumbnail:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.2);
+}
+
+.thumbnail.active {
+    background: #333;
+    width: 12px;
+    height: 12px;
 }
 
 /* Lightbox Fullscreen */
@@ -781,22 +825,28 @@ html {
 
     /* Título Principal */
     .principal-text {
-        top: 60%;
-        font-size: 2.8rem;
+        top: 35%;
+        font-size: 4.5rem;
         animation: none;
+        max-width: 90%;
+        line-height: 0.9;
     }
 
-    /* Subtítulo */
-    .principal-text .subtitle-text {
+    /* Subtítulo separado */
+    .subtitle-text {
+        bottom: auto;
+        top: 52%;
         font-size: 0.55rem;
         line-height: 1.9;
-        margin-top: 10px;
         padding: 0 30px;
         font-weight: 400;
         letter-spacing: 0.8px;
-        max-width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 85%;
+    }
+
+    /* Subtítulo antiguo (por si acaso) */
+    .principal-text .subtitle-text {
+        display: none;
     }
 
     /* Logo */
@@ -812,22 +862,24 @@ html {
     }
 
     .site-logo {
-        width: 40px;
-        height: 40px;
+        width: 28px;
+        height: 28px;
     }
 
     /* Botón de música en mobile */
     .music-toggle {
-        top: 20px;
-        left: 20px;
-        min-width: 45px;
-        height: 45px;
-        padding: 0 12px;
-        gap: 6px;
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 35px;
+        height: 35px;
+        padding: 0 10px;
+        gap: 5px;
     }
     
     .music-status {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
     }
 
     /* Botón Explorar */
@@ -868,7 +920,7 @@ html {
     }
     
     .keyboard-hints {
-        bottom: 80px;
+        bottom: 50px;
         gap: 15px;
     }
     
@@ -898,6 +950,7 @@ html {
         justify-content: center;
         align-items: center;
         padding: 0 5%;
+        margin-top: 30px;
     }
     
     /* Like button en mobile */
@@ -1046,5 +1099,21 @@ html {
     .bottom-text {
         bottom: 20px;
         font-size: 0.8rem;
+    }
+
+    /* Thumbnails responsive */
+    .thumbnail {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .thumbnail.active {
+        width: 10px;
+        height: 10px;
+    }
+
+    .gallery-thumbnails {
+        gap: 8px;
+        padding: 15px;
     }
 }
