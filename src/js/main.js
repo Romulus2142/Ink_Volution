@@ -764,3 +764,158 @@ console.log('   showAnalytics() - Ver estadísticas de visitas');
 console.log('   exportAnalytics() - Descargar reporte de visitas');
 console.log('\n💡 Los datos se guardan en el navegador (localStorage)');
 
+
+// ============================================
+// SISTEMA DE COMENTARIOS
+// ============================================
+
+// Cargar comentarios guardados
+function loadComments() {
+    const comments = JSON.parse(localStorage.getItem('photoComments')) || {};
+    
+    document.querySelectorAll('.comment-input').forEach(textarea => {
+        const photoIndex = textarea.dataset.photoIndex;
+        if (comments[photoIndex]) {
+            textarea.value = comments[photoIndex];
+        }
+    });
+}
+
+// Guardar comentario
+function saveComment(photoIndex, commentText) {
+    const comments = JSON.parse(localStorage.getItem('photoComments')) || {};
+    comments[photoIndex] = commentText;
+    localStorage.setItem('photoComments', JSON.stringify(comments));
+    
+    console.log(`💬 Comentario guardado para foto ${parseInt(photoIndex) + 1}`);
+}
+
+// Event listeners para botones de guardar comentario
+document.querySelectorAll('.save-comment-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const photoIndex = this.dataset.photoIndex;
+        const textarea = document.querySelector(`.comment-input[data-photo-index="${photoIndex}"]`);
+        const commentText = textarea.value.trim();
+        
+        if (commentText) {
+            saveComment(photoIndex, commentText);
+            
+            // Feedback visual
+            this.textContent = '✓ Guardado';
+            this.style.background = '#28a745';
+            
+            setTimeout(() => {
+                this.textContent = 'Guardar';
+                this.style.background = '#333';
+            }, 2000);
+        } else {
+            // Si está vacío, eliminar el comentario
+            const comments = JSON.parse(localStorage.getItem('photoComments')) || {};
+            delete comments[photoIndex];
+            localStorage.setItem('photoComments', JSON.stringify(comments));
+            
+            this.textContent = '✓ Eliminado';
+            this.style.background = '#dc3545';
+            
+            setTimeout(() => {
+                this.textContent = 'Guardar';
+                this.style.background = '#333';
+            }, 2000);
+        }
+    });
+});
+
+// Cargar comentarios al abrir la galería
+const galleryModalComments = document.getElementById('galleryModal');
+if (galleryModalComments) {
+    const commentsObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'style' && galleryModalComments.style.display !== 'none') {
+                setTimeout(loadComments, 100);
+            }
+        });
+    });
+    
+    commentsObserver.observe(galleryModalComments, { attributes: true });
+}
+
+// Cargar comentarios inicialmente
+loadComments();
+
+// Ver todos los comentarios en consola
+window.showComments = function() {
+    const comments = JSON.parse(localStorage.getItem('photoComments')) || {};
+    const photoNames = [
+        'Soulfire', 'Aphrodite', 'Batman 1989', 'Catwoman Anne', 'Magik',
+        'A Vampire', 'Batman detective', 'Angela Spica', 'Tenazas Witchblade', 'Mirada Aphrodite IX'
+    ];
+    
+    console.log('\n📝 COMENTARIOS GUARDADOS');
+    console.log('═'.repeat(60));
+    
+    let hasComments = false;
+    Object.keys(comments).forEach(index => {
+        if (comments[index]) {
+            hasComments = true;
+            console.log(`\n📷 Foto ${parseInt(index) + 1}: ${photoNames[index]}`);
+            console.log(`💬 Comentario: ${comments[index]}`);
+            console.log('─'.repeat(60));
+        }
+    });
+    
+    if (!hasComments) {
+        console.log('No hay comentarios guardados');
+    }
+    
+    console.log('═'.repeat(60));
+    console.log(`\n📊 Total de fotos con comentarios: ${Object.keys(comments).length}`);
+};
+
+// Exportar comentarios a CSV/Excel
+window.exportCommentsToCSV = function() {
+    const comments = JSON.parse(localStorage.getItem('photoComments')) || {};
+    const photoNames = [
+        'Soulfire', 'Aphrodite', 'Batman 1989', 'Catwoman Anne', 'Magik',
+        'A Vampire', 'Batman detective', 'Angela Spica', 'Tenazas Witchblade', 'Mirada Aphrodite IX'
+    ];
+    
+    if (Object.keys(comments).length === 0) {
+        console.log('⚠️ No hay comentarios para exportar');
+        return;
+    }
+    
+    // Crear contenido CSV
+    let csvContent = 'Número de Foto,Nombre de la Obra,Comentario,Fecha de Guardado\n';
+    
+    Object.keys(comments).forEach(index => {
+        if (comments[index]) {
+            const photoNum = parseInt(index) + 1;
+            const photoName = photoNames[index];
+            const comment = comments[index].replace(/"/g, '""'); // Escapar comillas
+            const date = new Date().toLocaleString('es-MX');
+            
+            csvContent += `${photoNum},"${photoName}","${comment}","${date}"\n`;
+        }
+    });
+    
+    // Crear y descargar archivo
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    const timestamp = new Date().toISOString().split('T')[0];
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `comentarios_orbita_gallery_${timestamp}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log('✅ Archivo de comentarios descargado exitosamente');
+    console.log(`📄 Nombre: comentarios_orbita_gallery_${timestamp}.csv`);
+};
+
+// Actualizar mensaje de comandos disponibles
+console.log('\n📝 Comandos de comentarios:');
+console.log('   showComments() - Ver todos los comentarios guardados');
+console.log('   exportCommentsToCSV() - Descargar Excel con comentarios');

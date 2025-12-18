@@ -198,7 +198,6 @@ html {
     left: 0;
     right: 0;
     width: 100%;
-    max-width: 680px;
     margin: 0 auto;
     padding: 0 20px;
     font-family: "Source Serif 4", serif;
@@ -529,6 +528,67 @@ html {
     text-align: right;
     font-style: italic;
     margin-top: 5px;
+}
+
+/* Comment Section */
+.comment-section {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.comment-invitation {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+
+.comment-input {
+    width: 100%;
+    padding: 8px 12px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.comment-input::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.save-comment-btn {
+    margin-top: 8px;
+    padding: 6px 16px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-comment-btn:hover {
+    background: #555;
+    transform: translateY(-1px);
+}
+
+.save-comment-btn:active {
+    transform: translateY(0);
 }
 
 .gallery-caption hr {
