@@ -965,9 +965,10 @@ html {
     /* Video background ajuste para mobile */
     .video-background {
         object-fit: cover;
-        object-position: right center;
-        left: auto;
-        right: -20%;
+        object-position: center;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         min-width: 60%;
     }
 
