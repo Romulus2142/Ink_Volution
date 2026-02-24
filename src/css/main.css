@@ -186,7 +186,7 @@ html {
     font-family: var(--font-sans);
     font-style: italic;
     font-weight: 900;
-    font-size: 6rem;
+    font-size: 3.5rem;
     letter-spacing: 0rem;
     padding: 20px;
 }
@@ -975,7 +975,7 @@ html {
     /* Título Principal */
     .principal-text {
         top: 35%;
-        font-size: 6rem;
+        font-size: 3.5rem;
         animation: none;
         max-width: 90%;
         line-height: 0.9;
@@ -1177,7 +1177,7 @@ html {
     /* Título Principal */
     .principal-text {
         top: 38%;
-        font-size: 6rem;
+        font-size: 3.5rem;
     }
 
     /* Subtítulo */
@@ -1214,7 +1214,7 @@ html {
 
     /* Título Principal */
     .principal-text {
-        font-size: 6rem;
+        font-size: 3.5rem;
     }
 
     /* Subtítulo */
@@ -1234,7 +1234,7 @@ html {
 
     /* Título Principal */
     .principal-text {
-        font-size: 4.5rem;
+        font-size: 3rem;
     }
 
     /* Subtítulo */
