@@ -193,12 +193,13 @@ html {
 
 .subtitle-text {
     position: fixed;
-    bottom: 160px;
+    top: 50%;
     left: 0;
     right: 0;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    transform: translateY(-50%);
     font-family: "Source Serif 4", serif;
     font-optical-sizing: auto;
     font-size: 1.2rem;
@@ -987,7 +988,8 @@ html {
     /* Subtítulo separado */
     .subtitle-text {
         bottom: auto;
-        top: 47%;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 0.55rem;
         line-height: 1.9;
         padding: 0 30px;
