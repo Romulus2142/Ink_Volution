@@ -308,19 +308,20 @@ const totalImages = galleryItems.length;
 // Actualizar contador
 totalImagesEl.textContent = totalImages;
 
-// Función para ir a un índice específico
+// Función para ir a un índice específico - Grid mode: todas las imágenes visibles
 function goToIndex(index) {
     if (index < 0) index = 0;
     if (index >= galleryItems.length) index = galleryItems.length - 1;
     
     currentIndex = index;
-    const offset = -currentIndex * 100;
-    galleryGrid.style.transform = `translateX(${offset}%)`;
     
-    // Cargar imagen actual y adyacentes si tienen lazy loading
-    const currentItem = galleryItems[currentIndex];
-    const prevItem = galleryItems[currentIndex - 1];
-    const nextItem = galleryItems[currentIndex + 1];
+    // Detener slideshow si se navega manualmente
+    if (window.slideshowInterval) {
+        stopSlideshow();
+    }
+    
+    // En modo grid, NO aplicar clases que oculten imágenes
+    // Todas las imágenes permanecen visibles
     
     // Actualizar contador
     currentIndexEl.textContent = currentIndex + 1;
@@ -330,19 +331,55 @@ function goToIndex(index) {
         thumb.classList.toggle('active', i === currentIndex);
     });
     
-    // Precargar siguiente imagen
-    preloadImage(currentIndex + 1);
+    // Preload inteligente: cargar todas las imágenes
+    preloadAllImages();
 }
 
-// Precargar imágenes
+// Precargar imágenes con sistema inteligente
+const imageCache = new Set();
+
 function preloadImage(index) {
     if (index >= 0 && index < galleryItems.length) {
         const img = galleryItems[index].querySelector('img');
-        if (img && !img.complete) {
+        if (img && !img.complete && !imageCache.has(img.src)) {
             const preloadImg = new Image();
-            preloadImg.src = img.src;
+            const imgContainer = img.parentElement;
+            
+            imgContainer.classList.add('loading');
+            
+            preloadImg.onload = () => {
+                imageCache.add(img.src);
+                img.classList.add('loaded');
+                imgContainer.classList.remove('loading');
+            };
+            
+            preloadImg.onerror = () => {
+                imgContainer.classList.remove('loading');
+            };
+            
+            preloadImg.src = img.dataset.src || img.src;
         }
     }
+}
+
+function preloadAdjacentImages(centerIndex) {
+    const imagesToLoad = [
+        centerIndex,
+        (centerIndex + 1) % galleryItems.length,
+        (centerIndex - 1 + galleryItems.length) % galleryItems.length,
+        (centerIndex + 2) % galleryItems.length
+    ];
+    
+    imagesToLoad.forEach(index => {
+        preloadImage(index);
+    });
+}
+
+// Precargar todas las imágenes para el grid
+function preloadAllImages() {
+    galleryItems.forEach((_, index) => {
+        preloadImage(index);
+    });
 }
 
 // Navegación con flechas
@@ -407,9 +444,9 @@ openGalleryBtn.addEventListener('click', (e) => {
     
     currentIndex = 0;
     
-    // Precargar imágenes principales
+    // Precargar todas las imágenes para mostrar el grid completo
     const imagesToPreload = [];
-    for (let i = 0; i < Math.min(3, galleryItems.length); i++) {
+    for (let i = 0; i < galleryItems.length; i++) {
         const img = galleryItems[i].querySelector('img');
         if (img) {
             imagesToPreload.push(img.src);
@@ -423,7 +460,8 @@ openGalleryBtn.addEventListener('click', (e) => {
     const hidePreloaderAndShow = () => {
         setTimeout(() => {
             galleryPreloader.classList.add('hidden');
-            goToIndex(0);
+            // Asegurarse de que todas las imágenes estén visibles
+            preloadAllImages();
             
             // Animaciones GSAP después de cargar
             gsap.fromTo('.gallery-modal-content', 
@@ -763,3 +801,106 @@ console.log('   exportLikesToCSV() - Descargar archivo Excel de likes');
 console.log('   showAnalytics() - Ver estadísticas de visitas');
 console.log('   exportAnalytics() - Descargar reporte de visitas');
 console.log('\n💡 Los datos se guardan en el navegador (localStorage)');
+
+/* ============================================
+   GALERÍA MODERNA - STACK CARDS & PARALLAX
+   ============================================ */
+
+let slideshowInterval = null;
+let isFullscreen = false;
+
+// Fullscreen Toggle
+const fullscreenToggle = document.getElementById('fullscreenToggle');
+if (fullscreenToggle) {
+    fullscreenToggle.addEventListener('click', toggleFullscreen);
+}
+
+function toggleFullscreen() {
+    const modal = document.getElementById('galleryModal');
+    
+    if (!isFullscreen) {
+        if (modal.requestFullscreen) {
+            modal.requestFullscreen();
+        } else if (modal.webkitRequestFullscreen) {
+            modal.webkitRequestFullscreen();
+        } else if (modal.msRequestFullscreen) {
+            modal.msRequestFullscreen();
+        }
+        modal.classList.add('fullscreen-mode');
+        isFullscreen = true;
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+        modal.classList.remove('fullscreen-mode');
+        isFullscreen = false;
+    }
+}
+
+// Slideshow Automático
+const slideshowToggle = document.getElementById('slideshowToggle');
+if (slideshowToggle) {
+    slideshowToggle.addEventListener('click', toggleSlideshow);
+}
+
+function toggleSlideshow() {
+    if (slideshowInterval) {
+        clearInterval(slideshowInterval);
+        slideshowInterval = null;
+        slideshowToggle.classList.remove('active');
+    } else {
+        slideshowToggle.classList.add('active');
+        slideshowInterval = setInterval(() => {
+            goToIndex(currentIndex + 1);
+        }, 4000); // Cambiar cada 4 segundos
+    }
+}
+
+function stopSlideshow() {
+    if (slideshowInterval) {
+        clearInterval(slideshowInterval);
+        slideshowInterval = null;
+        if (slideshowToggle) {
+            slideshowToggle.classList.remove('active');
+        }
+    }
+}
+
+// Inicializar al abrir galería
+if (openGalleryBtn) {
+    openGalleryBtn.addEventListener('click', () => {
+        setTimeout(() => {
+            goToIndex(0);
+        }, 400);
+    });
+}
+
+// Limpiar slideshow al cerrar galería
+if (closeGalleryBtn) {
+    closeGalleryBtn.addEventListener('click', () => {
+        stopSlideshow();
+        if (isFullscreen) {
+            toggleFullscreen();
+        }
+    });
+}
+
+// Parallax mouse effect
+document.addEventListener('mousemove', (e) => {
+    const modal = document.getElementById('galleryModal');
+    if (modal && modal.classList.contains('active')) {
+        const moveX = (e.clientX - window.innerWidth / 2) / 50;
+        const moveY = (e.clientY - window.innerHeight / 2) / 50;
+        
+        const activeItem = document.querySelector('.gallery-item.active .gallery-item-image');
+        if (activeItem) {
+            activeItem.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+        }
+    }
+});
+
+console.log('✨ Galería moderna activada: Stack Cards + Parallax + Fullscreen + Slideshow');

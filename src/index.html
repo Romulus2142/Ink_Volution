@@ -167,6 +167,22 @@
         <div class="gallery-modal-content">
             <button class="gallery-close-btn" id="closeGalleryBtn">&times;</button>
             
+            <!-- Fullscreen Toggle -->
+            <button class="fullscreen-toggle" id="fullscreenToggle" title="Pantalla completa">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                </svg>
+            </button>
+            
+            <!-- Slideshow Controls -->
+            <div class="slideshow-controls">
+                <button class="slideshow-btn" id="slideshowToggle" title="Reproducción automática">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                    </svg>
+                </button>
+            </div>
+            
             <!-- Contador de posición -->
             <div class="gallery-counter">
                 <span id="currentIndex">1</span> / <span id="totalImages">10</span>
@@ -181,8 +197,8 @@
             
             <div class="gallery-scroll-wrapper">
                 <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-item-image"><img src="assets/images/art-1.png" alt="Fotografía 1">
+                <div class="gallery-item active">
+                    <div class="gallery-item-image"><img src="assets/images/art-1.jpg" data-src="assets/images/art-1.png" alt="Fotografía 1">
                     </div>
                     <div class="gallery-caption">
                         <button class="like-btn" aria-label="Like">
@@ -200,7 +216,7 @@
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-item-image"><img src="assets/images/art-2.png" loading="lazy" alt="Fotografía 2">
+                    <div class="gallery-item-image"><img src="assets/images/art-2.jpg" loading="lazy" alt="Fotografía 2">
                     </div>
                     <div class="gallery-caption">
                         <button class="like-btn" aria-label="Like">
@@ -349,7 +365,7 @@
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-item-image"><img src="assets/images/art-10.png" loading="lazy" alt="Fotografía 10">
+                    <div class="gallery-item-image"><img src="assets/images/art-10.jpg" loading="lazy" alt="Fotografía 10">
                     </div>
                     <div class="gallery-caption">
                         <button class="like-btn" aria-label="Like">
