@@ -202,7 +202,7 @@ html {
     transform: translateY(-50%);
     font-family: "Source Serif 4", serif;
     font-optical-sizing: auto;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 300;
     letter-spacing: 0px;
@@ -222,7 +222,7 @@ html {
 /* Botón Explorar */
 .explore-btn {
     position: fixed;
-    bottom: 245px;
+    bottom: 300px;
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-sans);
@@ -236,11 +236,8 @@ html {
     pointer-events: auto;
     z-index: 20;
     padding: 12px 28px;
-    border-radius: 10px;
+    border-radius: 1px;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     overflow: hidden;
     transition: all 0.3s ease;
 }
@@ -971,7 +968,7 @@ html {
         object-position: right center;
         left: auto;
         right: -20%;
-        min-width: 120%;
+        min-width: 60%;
     }
 
     /* Título Principal */
