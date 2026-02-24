@@ -193,7 +193,7 @@ html {
 
 .subtitle-text {
     position: fixed;
-    bottom: 240px;
+    bottom: 160px;
     left: 0;
     right: 0;
     width: 100%;
@@ -987,7 +987,7 @@ html {
     /* Subtítulo separado */
     .subtitle-text {
         bottom: auto;
-        top: 49%;
+        top: 47%;
         font-size: 0.55rem;
         line-height: 1.9;
         padding: 0 30px;
@@ -1185,7 +1185,7 @@ html {
     /* Subtítulo */
     .principal-text .subtitle-text {
         font-size: 0.5rem;
-        margin-top: -35px;
+        margin-top: -50px;
     }
 
     /* Botón Explorar */
@@ -1222,7 +1222,7 @@ html {
     /* Subtítulo */
     .principal-text .subtitle-text {
         font-size: 0.6rem;
-        margin-top: -25px;
+        margin-top: -45px;
     }
 
     /* Texto Inferior */
@@ -1242,7 +1242,7 @@ html {
     /* Subtítulo */
     .principal-text .subtitle-text {
         font-size: 0.7rem;
-        margin-top: -30px;
+        margin-top: -50px;
     }
 
     /* Texto Inferior */
