@@ -275,13 +275,13 @@ html {
    ============================================ */
 
 .gallery-modal {
-    display: flex;
+    display: block;
     position: relative;
     top: auto;
     left: auto;
     width: 100%;
     height: auto;
-    min-height: 100vh;
+    min-height: auto;
     background: rgb(255, 255, 255);
     z-index: auto;
     overflow: visible;
@@ -407,12 +407,12 @@ html {
 
 /* Slideshow Controls */
 .slideshow-controls {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
-    right: 20px;
+    right: 80px;
     display: flex;
     gap: 10px;
-    z-index: 1002;
+    z-index: 100;
 }
 
 .slideshow-btn {
@@ -453,20 +453,20 @@ html {
     position: relative;
     width: 100%;
     max-width: 100%;
-    margin: 0;
-    padding: 20px 20px 40px;
+    margin: 0 auto;
+    padding: 20px 0 40px 0;
 }
 
 .gallery-close-btn {
-    position: fixed;
-    top: 0px;
-    right: 15px;
+    position: absolute;
+    top: 20px;
+    right: 60px;
     background: transparent;
     border: none;
     color: var(--color-black);
-    font-size: 9rem;
+    font-size: 3rem;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 100;
     transition: transform 0.2s ease, color 0.2s ease;
     line-height: 1;
     font-weight: 300;
@@ -535,12 +535,11 @@ html {
 
 /* Gallery scroll wrapper - permite scroll vertical */
 .gallery-scroll-wrapper {
-    overflow-y: auto;
+    overflow-y: visible;
     overflow-x: hidden;
     width: 100%;
-    height: 100vh;
+    height: auto;
     position: relative;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling en iOS */
 }
 
 .gallery-grid {
