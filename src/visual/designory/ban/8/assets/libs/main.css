@@ -1,0 +1,499 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+.screenshoot .animation {
+    display: none;
+}
+.screenshoot #clickTag {
+    display: none;
+}
+.screenshoot .border {
+    display: none;
+}
+.screenshoot #meckAdd {
+    height: 100%;
+    overflow: auto;
+}
+.screenshoot #ssi {
+    position: relative;
+    height: 100% !important;
+}
+.screenshoot #ssi .content {
+    height: 100% !important;
+}
+.screenshoot .swiper-container {
+    position: relative;
+    height: 100% !important;
+    overflow: auto;
+    top: 0 !important;
+    bottom: 0 !important;
+}
+.screenshoot #ssi .footer {
+    position: relative;
+    display: none;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+sup {
+    font-size: .5rem;
+}
+
+/* @font-face {
+    font-family: 'Arial-B';
+    src: url(../libs/Arial-Black.woff);
+} */
+
+.buttons {
+    position: relative;
+    margin-top: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: none; 
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent; 
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: transparent; 
+}
+
+#meckAdd {
+    width: 728px;
+    height: 90px;
+    position: relative;
+    overflow: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.border {
+    position: absolute;
+    border: 1px solid #000;
+    width: 726px;
+    height: 88px;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.animation {
+    width: 364px;
+    height: 90px;
+    position: relative;
+    backface-visibility: hidden;
+}
+
+#ssi {
+    width: 364px;
+    height: 90px;
+    position: relative;
+    overflow: hidden;
+    backface-visibility: hidden;
+    background-color: #ffffff;
+    border-left: 1px solid #58595B; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+}
+
+#clickTag {
+    position: absolute;
+    width: 728px;
+    height: 90px;
+    cursor: pointer;
+    z-index: 1011;
+}
+
+/*SSI style*/
+
+#ssi .title {
+    height: 17px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #58595B;
+}
+
+#ssi .title h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2C6D3C;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 1px 0px 0px 9px;
+}
+
+#ssi .content {
+    height: 58px;
+    overflow: auto;
+    background-color: #ffffff;
+   
+}
+
+/*ojo aqui*/
+#ssi .footer {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border-top: 1px solid #2C6D3C;
+    height: 17px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#ssi .footer a {
+    color: #2D6E3D;
+    font-weight: 300;
+    text-decoration: underline;
+    font-size: 13px;
+    line-height: 15px;
+    padding: 0px 9px 3px 9px;
+   
+}
+
+
+/*Animation*/
+#animation .frame {
+    position: absolute;
+    width: 364px;
+    height: 90px;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+/*ojo aqui en el height de swiper-container y swipe-srollbar*/
+.swiper-container {position: absolute;width: 364px;height: 50px;top: 20px;left: 0px;overflow: hidden;opacity: 1;transform: translate(0, 100%);z-index: 1000;background-color: #fff;}
+.swiper-container::before {content: "";position: absolute;width: 100%;height: 4px;display: block;z-index: 1}
+.swiper-container.active {opacity: 1;visibility: visible;transform: translate(0, 0);transition: opacity 0s linear, transform 0s linear}
+
+ /*ojo aqui en el width de swiper-scrollbar y swiper-srollbar .swiper-scrollbar-drag*/
+ /*ojo aqui en el right de swiper-scrollbar*/
+ .swiper-scrollbar {position: absolute;right: 10px;top: 24px;z-index: 50;width: 1px;height: 44px;background-image: linear-gradient(rgb(188, 189, 189), rgb(255, 255, 255))!important;opacity: 1;z-index: 1001;cursor: pointer}
+ .swiper-scrollbar .swiper-scrollbar-drag{background-color: #6CC04A;cursor: pointer;z-index: 1002; width:5.5px; height: 5.5px !important; position: relative; right: 2.5px;border-radius: 50% !important;}
+ .swiper-scrollbar.active {opacity: 1;visibility: visible;transition: opacity 0s linear 0s}
+        
+.top-button {position: absolute;top: 16px;right: 2px;height: 0;border-width: 0 5px 5px;border-style: solid;border-color: transparent transparent #0856a2;cursor: pointer;z-index: 1003}
+.bottom-button {top: 76px;right: 2px;position: absolute;width: 0;height: 0;border-width: 0 5px 5px;border-style: solid;transform: scaleY(-1);border-color: transparent transparent #0856a2;cursor: pointer;z-index: 1004}
+        
+.swiper-wrapper {width: 100%; transition: all linear;}
+.swiper-wrapper.autoplay {transition: all linear;}
+.slide-inner img.icon{position: relative;width: 110px;margin-bottom: 0.8em; margin-top: 1.4em;}
+.top-title {position: absolute;width: 453px;top: 0;overflow: hidden;background-color: #fff;z-index: 1}
+.title1-2 {padding: 1px 0}
+.title2-2 {position: absolute}
+.slide-inner {width: 96%;}
+
+#ssi .content .slide-inner {
+    padding: 0px 0px 0px 9px;
+    color: #58595B;
+}
+
+#ssi .content .slide-inner p {
+    font-size: 13px;
+    line-height: 15px;
+    margin-bottom: 5px;
+}
+#ssi .content .slide-inner p a {
+    color: #2C6D3C;
+}
+
+#ssi .content .slide-inner ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#ssi .content .slide-inner ul li {
+    font-size: 13px;
+    line-height: 15px;
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
+
+#ssi .content .slide-inner ul li::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #6CC04A;
+    top: 5px;
+    left: 1px;
+    border-radius: 50%;
+}
+
+.logos .logo_foot {
+    width: 85px;
+    position: absolute;
+
+
+}
+#ssi .content .slide-inner .logos {
+    display: flex;
+    width: 98%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: left;
+}
+
+.no-line-break {
+    hyphens: none;
+    white-space: nowrap;
+}
+
+#ssi .content .slide-inner img {
+    margin-left: 5px;
+    width: 67px;
+    margin-top: 10px;
+}
+
+#ssi .content .slide-inner .footnote {
+    font-size: 10px;
+    line-height: 10px;
+    margin-bottom: 10px;
+}
+
+#ssi .content .slide-inner a {
+    color: #48A548;
+    text-decoration: underline;
+}
+
+.swiper-slide {
+    padding-right: 10px;
+}
+
+a {
+    cursor: pointer;
+}
+
+/*Frames*/
+
+.unoFrame {
+    position: absolute;
+    width: 728px;
+    height: 90px;
+}
+.colorblue  {
+    position: absolute;
+    width: 728px;
+    height: 90px;
+    background-color: #0c2340;
+    opacity: 1;
+    z-index: 0;
+}
+
+.speech img {
+    height: 70px;
+    position: absolute;
+    top: 10px;
+    left: 90px;
+    opacity: 1;
+    z-index: 2;
+}
+.copyad_01  {
+    color: #ffffff;
+    font-size: 9px;
+    line-height: 10px;
+    text-align: left;
+}
+.namead_01 {
+    position: absolute;
+    top: 2px;
+    left: 7px;
+}
+.copypaid_01  {
+    color: #ffffff;
+    font-size: 9px;
+    line-height: 10px;
+    text-align: left;
+}
+.namepaid_01 {
+    position: absolute;
+    top: 2px;
+    right: 7px;
+}
+
+
+
+/* slide 02 */
+.dosFrame {
+    position: absolute;
+    width: 728px;
+}
+.colorgreen  {
+    position: absolute;
+    height: 90px;
+    opacity: 0;
+    z-index: 0;
+}
+.copy_01  {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: left;
+    opacity: 0;
+}
+.name_01 {
+    position: absolute;
+    top: 17px;
+    left: 7px;
+}
+
+.icon img {
+    width: 92px;
+    position: absolute;
+    top: 14px;
+    left: 264px;
+    opacity: 1;
+    z-index: 2;
+    opacity: 0;
+}
+
+
+/* Frame 03 */
+.tresFrame {
+    position: absolute;
+    width: 100%;
+}
+
+.speech_1 img {
+    width: 224px;
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}
+
+.copy_03  {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 14.5px;
+    text-align: left;
+    font-weight: bold;
+    opacity: 0;
+}
+.name_03 {
+    position: absolute;
+    top: 19px;
+    left: 7px;
+}
+.copy_04  {
+    color: #ffffff;
+    font-size: 9px;
+    line-height: 9.5px;
+    text-align: left;
+    font-weight:300;
+    opacity: 0;
+}
+.name_04 {
+    position: absolute;
+    top: 68px;
+    left: 7px;
+}
+
+
+/* Frame 04 */
+.cuatroFrame {
+    position: absolute;
+    width: 100%;
+}
+.copy_05  {
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 14.5px;
+    text-align: left;
+    font-weight: bold;
+    opacity: 0;
+}
+.name_05 {
+    position: absolute;
+    top: 27px;
+    left: 7px;
+}
+.copy_06  {
+    color: #ffffff;
+    font-size: 9px;
+    line-height: 9.5px;
+    text-align: left;
+    font-weight:300;
+    opacity: 0;
+}
+.name_06 {
+    position: absolute;
+    top: 68px;
+    left: 7px;
+}
+
+.arrow img {
+    position: absolute;
+    width: 5.99px;
+    top: 50px;
+    left: 222px;
+    opacity: 1;
+}
+
+.copy_07  {
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 19px;
+    text-align: left;
+    font-weight: bold;
+    opacity: 0;
+}
+.name_07 {
+    position: absolute;
+    top: 27px;
+    left: 43px;
+}
+.merck img {
+    position: absolute;
+    width: 55px;
+    top: 16px;
+    left: 300px;
+    opacity: 0;
+}
+.keytruda {
+    height: 51px;
+    position: absolute;
+    bottom: 0px;
+    left: 221px;
+    opacity: 0;
+}
+
+.keytruda img {
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.cta img {
+    position: absolute;
+    width: 211px;
+    top: 30px;
+    opacity: 1;
+}

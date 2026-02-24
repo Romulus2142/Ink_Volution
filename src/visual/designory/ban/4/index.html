@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>300x250</title>
+
+        <meta name="ad.size" content="width=300,height=250">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="assets/libs/main.css">
+    <style type="text/css">
+                .button{
+                    background-color: white;
+                    border: none;
+                    border: 2px solid #4CAF50;
+                    color: black;
+                    padding: 10px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: block;
+                    font-size: 16px;
+                    margin: 10px auto;
+                    transition-duration: 0.4s;
+                    cursor: pointer;}
+                .button:hover {
+                    background-color: #4CAF50;
+                    color: white;}
+    </style>
+    </head>
+
+    <body>
+        <button style="position:fixed;top:10px;left:10px;padding:8px 12px;background:rgba(0,0,0,0.9);color:white;border:1px solid rgba(255,255,255,0.6);cursor:pointer;font-size:12px;z-index:99999;border-radius:3px;font-family:Arial,sans-serif" onclick="history.back()">✕ Cerrar</button>
+        <script type="text/javascript" src="assets/libs/gsap3.8.0.js"></script>
+
+        <div class="border"></div>
+
+        <a onclick="gotoLink()" id="clickTag"></a>
+
+        <div id="merkAdd">
+            <div class="animation">
+                <div class="firstframe">
+                    <div class="patient">
+                        <img src="assets/images/patient.png" />
+                    </div>
+                    <div class="green"></div>
+                    <div class="tx-1">
+                        <img src="assets/images/tx_1.png" />
+                    </div>
+                    <div class="tx-2">
+                        <img src="assets/images/tx_2.png" />
+                    </div>
+                </div>
+
+                <div class="firstframe">
+                    <div class="quote">
+                        <img src="assets/images/quote.png" />
+                    </div>
+                    <div class="tx-3">
+                        <img src="assets/images/tx_3.png" />
+                    </div>
+                </div>
+
+                <div class="fourthFrame">
+                    <div class="quote_2">
+                        <img src="assets/images/quote_2.png" />
+                    </div>
+                    <div class="tx-5">
+                        <img src="assets/images/tx_5.png" />
+                    </div>
+                </div>
+
+                <div class="fifthFrame">
+                    <div class="keytruda">
+                        <img src="assets/images/keytruda.png" />
+                    </div>
+                    <div class="indication">
+                        <img src="assets/images/indication.png" />
+                    </div>
+                </div>
+
+                <div class="circle_all">
+                    <div class="circle_complete">
+                        <img src="assets/images/circle.svg">
+                    </div>
+                    
+                    
+                    <div class="circle_tapa" style="opacity: 0;"></div>
+                    <div class="circle_mask">
+                        <img src="assets/images/circle_mask.svg">
+                    </div>
+
+                    <div class="circle_half">
+                        <img src="assets/images/circle_half.svg">
+                    </div>
+                    
+
+                    <div class="circle_half_02" style="opacity: 0;">
+                        <img src="assets/images/circle_half_02.svg">
+                    </div>
+
+                </div>
+                <div class="imagesFrame">
+                    <div class="box red" id="redBox"></div>
+                </div>
+
+                <div class="sixthFrame">
+                    <div class="cta">
+                        <img src="assets/images/cta.png" />
+                    </div>
+                    <div class="tx-6">
+                        <img src="assets/images/tx_6.png" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="ssi">
+                <div class="title">
+                    <h3>Important Safety Information</h3>
+                </div>
+
+                <div class="content">
+                    <div class="swiper-container">
+                        <div class="top-title" style="display: none;">
+                            <div class="title-box">
+                                <div class="title1-2" >
+                                    <h2></h2>
+                                </div>
+                                <div class="title2-2" >
+                                    <h2></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="slide-inner">
+                                    <div class="">
+                                        <div class="info_ssi key_info">
+                                           
+                                            <ul>
+                                                <li>
+                                                    KEYTRUDA is a medicine that may treat certain cancers by working with your immune system. KEYTRUDA can cause your immune system to attack normal organs and tissues in any area of your body and can affect the way they work. These problems can sometimes become severe or life-threatening and can lead to death. You can have more than one of these problems at the same <br>
+                                                    time. These problems may happen any time during treatment or even after your treatment has ended. 
+                                                   
+                                                </li>
+                                                <p>
+                                                    <strong>
+                                                        Call or see your health care provider right <br>
+                                                        away if you develop any signs or symptoms of the following problems or if they get worse. These are not all of the signs and symptoms of immune system problems that can happen <br>
+                                                        with KEYTRUDA: 
+                                                    </strong>
+                                                </p>
+        
+                                                <li><strong>Lung problems:</strong> cough, shortness of breath, or chest pain.</li>
+        
+                                                <li>
+                                                    <strong>Intestinal problems:</strong> diarrhea (loose stools) or more frequent bowel movements than usual; <br>
+                                                    stools that are black, tarry, sticky, or have blood or mucus; or severe stomach-area (abdomen) pain or tenderness.  
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Liver problems:</strong> yellowing of your skin or the whites of your eyes; severe nausea or vomiting; pain on the right side of your stomach area (abdomen); dark urine (tea colored); or bleeding or bruising more easily than normal. 
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Hormone gland problems:</strong> headaches that will not go away or unusual headaches; eye sensitivity to light; eye problems; rapid heartbeat; increased sweating; extreme tiredness; weight gain or weight loss; feeling more hungry or thirsty than usual; urinating more often than usual; hair loss; feeling cold; constipation; your voice gets deeper; dizziness or fainting; changes in mood or behavior, such as decreased sex drive, irritability, or forgetfulness. 
+                                                </li>
+        
+                                                <li><strong>Kidney problems:</strong> decrease in the amount of your urine; blood in your urine; swelling of your ankles; loss of appetite.  </li>
+        
+                                                <li>
+                                                    <strong>Skin problems:</strong> rash; itching; skin blistering or peeling; painful sores or ulcers in your mouth or in your nose, throat, or genital area; fever or flu-like symptoms; swollen lymph nodes. 
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Problems can also happen in other organs and tissues.</strong> Signs and symptoms of these problems may include: chest pain; irregular heartbeat; 
+                                                    shortness of breath; swelling of ankles; confusion; sleepiness; memory problems; changes in mood <br>
+                                                    or behavior; stiff neck; balance problems; tingling or numbness of the arms or legs; double vision; blurry vision; sensitivity to light; eye pain; changes in eyesight; persistent or severe muscle pain or weakness; muscle cramps; low red blood cells; bruising.   
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Infusion reactions that can sometimes be severe or life-threatening.</strong> Signs and symptoms of infusion reactions may include chills or shaking, 
+                                                    itching or rash, flushing, shortness of breath or wheezing, dizziness, feeling like passing out, <br>
+                                                    fever, and back pain. 
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Rejection of a transplanted organ.</strong> Your health care provider should tell you what signs and symptoms you should report and they will monitor you, depending on the type of organ transplant <br>
+                                                    that you have had. 
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Complications, including graft-versus-host disease (GVHD), in people who have received a bone marrow (stem cell) transplant that uses donor stem cells (allogeneic).</strong> These complications can be serious and can lead to death. These complications may happen if you underwent transplantation either before or after being treated with KEYTRUDA. Your health care provider will monitor you for these complications.
+                                                    <p style="padding-top: 17px;">
+                                                        <strong>Getting medical treatment right away may help keep these problems from becoming more serious.</strong> Your health care provider will check you for 
+                                                        these problems during treatment with KEYTRUDA. They may treat you with corticosteroid or hormone replacement medicines. They may also need to delay or 
+                                                        completely stop treatment with KEYTRUDA if you have severe side effects. 
+                                                    </p>
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Before you receive KEYTRUDA, tell your health care provider if you</strong> have immune system problems such as Crohn’s disease, ulcerative colitis, or lupus; have had an organ transplant or have had or plan to have a bone marrow (stem cell) transplant that uses donor stem cells (allogeneic); have had radiation treatment in your chest area; have a condition that affects your nervous system, such as myasthenia gravis or Guillain-Barré syndrome. 
+                                                    <p style="padding-top: 17px;">
+                                                        If you are pregnant or plan to become pregnant, <br>
+                                                        tell your health care provider. KEYTRUDA can harm your unborn baby. If you are able to become pregnant, you will be given a pregnancy test <br>
+                                                        before you start treatment. Use effective birth control during treatment and for 4 months after your last dose of KEYTRUDA. Tell them right away if you think you may be pregnant or you become pregnant during treatment with KEYTRUDA.
+                                                    </p>
+                                                    Tell your health care provider if you are breastfeeding or plan to breastfeed. It is not known if KEYTRUDA passes into  your breast milk. Do not breastfeed during treatment with KEYTRUDA <br>
+                                                    and for 4 months after your last dose of KEYTRUDA.
+                                                </li>
+        
+                                                <li>
+                                                    <strong>Tell your health care provider about all the medicines you take,</strong> including prescription and over-the-counter medicines, vitamins, and herbal supplements. 
+                                                    <p style="padding-top: 17px;">
+                                                    Common side effects of KEYTRUDA when used alone include feeling tired; pain, including pain in muscles; rash; diarrhea; fever; cough; decreased appetite; itching; shortness of breath; constipation; bones or joints and stomach-area (abdominal) pain; nausea; and low levels of thyroid hormone. 
+                                                    </p>
+                                                    These are not all the possible side effects of KEYTRUDA. Talk to your health care provider for medical advice about side effects.   
+                                                    
+                                                    <p style="padding-top: 17px;">
+                                                        <strong>
+                                                            Please read the accompanying <a href="http://www.merck.com/product/usa/pi_circulars/k/keytruda/keytruda_mg.pdf" target="_blank">Medication Guide</a> for KEYTRUDA and discuss it with your 
+                                                            doctor. The physician <a href="http://www.merck.com/product/usa/pi_circulars/k/keytruda/keytruda_pi.pdf" target="_blank">Prescribing Information</a> also is available.
+                                                        </strong>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                Copyright &copy; 2023 Merck & Co., Inc., Rahway, NJ, USA and its affiliates. All rights reserved.
+                                            </p>
+            
+                                            <div class="josb">
+                                                <p style="margin-bottom: 0;">US-OHN-01601 12/23</p>
+                                                <img src="assets/images/logo_merck.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-scrollbar"></div>
+                    <div class="top-button" style="display: none;"></div>
+                    <div class="bottom-button" style="display: none;"></div>
+                </div>
+
+                <div class="footer">
+                    <a href="http://www.merck.com/product/usa/pi_circulars/k/keytruda/keytruda_mg.pdf" target="_blank">Medication Guide</a>
+                    <a href="http://www.merck.com/product/usa/pi_circulars/k/keytruda/keytruda_pi.pdf" target="_blank">Prescribing Information</a>
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="assets/libs/swiper.4.0.2.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+
+        <script>
+            clickTag = "https://www.google.org";
+
+
+           var bannerTag = document.getElementById('clickTag');
+           var btnCTA = document.getElementById('mainBtn');
+
+           function gotoLink(){
+               window.open(clickTag,"_blank");
+           }
+       </script>
+
+            </body>
+</html>

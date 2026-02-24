@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>300x250</title>
+
+        <meta name="ad.size" content="width=300,height=250" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="UTF-8" />
+
+        <script>
+            var clickTag = "https://www.considernexplanon.com/patient-resources/";
+        </script>
+
+        <link rel="stylesheet" href="assets/libs/main.css" />
+    </head>
+
+    <body>
+        <button style="position:fixed;top:10px;left:10px;padding:8px 12px;background:rgba(0,0,0,0.9);color:white;border:1px solid rgba(255,255,255,0.6);cursor:pointer;font-size:12px;z-index:99999;border-radius:3px;font-family:Arial,sans-serif" onclick="history.back()">✕ Cerrar</button>
+        <div class="border"></div>
+        <div id="merkAdd">
+            <a id="clickTag" target="_blank"></a>
+
+            <!-- Frames -->
+            <div class="back_all"></div>
+
+            <div class="bg">
+                <img src="assets/images/bg.png" />
+            </div>
+            <div class="bubble_1">
+                <img src="assets/images/bubble-1.svg" />
+            </div>
+            <div class="bubble_2">
+                <img src="assets/images/bubble-2.svg" />
+            </div>
+            <div class="bubble_3">
+                <img src="assets/images/bubble-3.svg" />
+            </div>
+            <div class="square_1"></div>
+
+            <div class="primerFrame">
+                <div class="copy1">
+                    <p class="name1">
+                        Your patients <br />
+                        may be asking <br />
+                        for long-acting <br />
+                        birth control.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tercerFrame" style="opacity: 0;">
+                <div class="fondo_03"></div>
+                <div class="fondo_03b"></div>
+
+                <div class="bubble_4_y">
+                    <img src="assets/images/bubble-4_y.svg" />
+                </div>
+                <div class="square_2"></div>
+                <div class="copy2b">
+                    <p class="name2b">
+                        Let them know <br />
+                        about NEXPLANON
+                    </p>
+                </div>
+            </div>
+
+            <div class="logoFrame">
+                <div class="fondo_nex"></div>
+                <div class="logo_nex">
+                    <img src="assets/images/logo_nex.png" />
+                </div>
+                <div class="linea_gris"></div>
+                <div class="logo_organon">
+                    <img src="assets/images/logo_organon.png" />
+                </div>
+                <div class="copy2">
+                    <p class="name2">
+                        NEXPLANON is indicated for use<br />
+                        by women to prevent pregnancy.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bubble_4_b">
+                <img src="assets/images/bubble-4_b.svg" />
+            </div>
+
+            <div class="cuartoFrame">
+                <div class="copy2c">
+                    <p class="name2c">
+                        The only non-uterine <br />
+                        LARC that provides<span style="letter-spacing: 2px;">...</span>
+                    </p>
+                </div>
+                <div class="copy2d">
+                    <p class="name2d">
+                        LARC = long-acting reversible <br />
+                        contraception.
+                    </p>
+                </div>
+            </div>
+
+            <div class="quintoFrame">
+                <div class="text7">
+                    <img src="assets/images/text7.png" />
+                </div>
+                
+                <!-- <div class="copy2e">
+                    <p class="name2e">
+                        <span style="letter-spacing: 2px;">...</span>continuous pregnancy  <br />prevention<span style="letter-spacing: 2px;">...</span>
+                    </p>
+                </div> -->
+            </div>
+
+            <div class="sextoFrame">
+                <div class="square_3"></div>
+
+                <div class="text8">
+                    <img src="assets/images/text8.png" />
+                </div>
+
+                <!-- <div class="copy2g">
+                    <p class="name2g">
+                        <span style="letter-spacing: 2px;">...</span>for up to 3 years.*
+                    </p>
+                </div> -->
+                <div class="copy2f">
+                    <img src="assets/images/leg.png" />
+                </div>
+            </div>
+
+            <div class="last">
+                <div class="fondo_blue"><img src="assets/images/blue.png" /></div>
+                <div class="bubble_5">
+                    <img src="assets/images/bubble-5.svg" />
+                </div>
+                <div class="square_4"></div>
+                <div class="text9">
+                    <img src="assets/images/text9.png" />
+                </div>
+                <!-- <div class="copylast">
+                    <p class="namelast">
+                        Get the resources you <br />
+                        need for your patients.
+                    </p>
+                </div> -->
+                <div class="cta">
+                    <img src="assets/images/cta.svg" />
+                </div>
+            </div>
+
+            <div id="animation"></div>
+
+            <div id="ssi">
+                <div class="title">
+                    <h3>Selected Safety Information</h3>
+                </div>
+
+                <div class="content">
+                    <div class="swiper-container">
+                        <div class="top-title" style="display: none;">
+                            <div class="title-box">
+                                <div class="title1-2">
+                                    <h2></h2>
+                                </div>
+                                <div class="title2-2">
+                                    <h2></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="slide-inner">
+                                    <p style="margin-bottom: 3px;"><strong>Who is not appropriate for NEXPLANON</strong></p>
+                                    <ul>
+                                        <li style="margin-bottom: 6px;">
+                                            NEXPLANON should not be used in women who have known or suspected pregnancy; current or past history of thrombosis or thromboembolic disorders; liver tumors or active liver disease; undiagnosed
+                                            abnormal genital bleeding; known or suspected breast cancer, personal history of breast cancer, or other progestin-sensitive cancer now or in the past; or allergy to any component of NEXPLANON.
+                                        </li>
+                                    </ul>
+
+                                    <p><strong>WARNINGS and PRECAUTIONS</strong></p>
+                                    <p><strong>Complications of insertion and removal</strong></p>
+                                    <ul>
+                                        <li>
+                                            Palpate immediately after insertion to ensure proper placement. Undetected failure to insert<br />
+                                            the implant may lead to unintended pregnancy.
+                                        </li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>
+                                            Insertion and removal-related complications<br />
+                                            may include pain, paresthesias, bleeding, hematoma, scarring, or infection. If<br />
+                                            NEXPLANON is inserted too deeply (intramuscular or in the fascia), neural<br />
+                                            or vascular injury may occur. Implant removal may be difficult or impossible if the implant is not inserted correctly, inserted too deeply, not palpable, encased in fibrous tissue, or has
+                                            migrated. If at any time the implant cannot be palpated, it should be localized and removed.
+                                        </li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>
+                                            There have been postmarketing reports of implants located within the vessels of the arm<br />
+                                            and the pulmonary artery; in these cases, endovascular or surgical procedures may be needed for removal.
+                                        </li>
+                                    </ul>
+
+                                    <ul>
+                                        <li style="margin-bottom: 6px;">
+                                            Failure to remove the implant may result in continued effects of etonogestrel, such as compromised fertility, ectopic pregnancy, or persistence or occurrence of a drug-related adverse event.
+                                        </li>
+                                    </ul>
+
+                                    <p><strong>NEXPLANON and pregnancy</strong></p>
+                                    <ul>
+                                        <li>
+                                            Should pregnancy or lower abdominal pain<br />
+                                            occur while using NEXPLANON, be alert to the possibility of an ectopic pregnancy.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li style="margin-bottom: 6px;">
+                                            <strong>Rule out pregnancy before inserting NEXPLANON.</strong>
+                                        </li>
+                                    </ul>
+
+                                    <p><strong>Educate her about the risk of serious vascular events</strong></p>
+                                    <ul>
+                                        <li>
+                                            There have been postmarketing reports of serious arterial thrombotic and venous thromboembolic events, including cases of pulmonary emboli (some fatal), deep vein thrombosis, myocardial
+                                            infarction, and strokes,<br />
+                                            in women using etonogestrel implants. Assess women with known risk factors. NEXPLANON should be removed if thrombosis occurs.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            NEXPLANON should not be used prior to 21<br />
+                                            days postpartum due to risk of<br />
+                                            thromboembolism.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Women with a history of thromboembolic disorders should be made aware of the<br />
+                                            possibility of a recurrence.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li style="margin-bottom: 6px;">
+                                            In case of long-term immobilization, consider removing NEXPLANON.
+                                        </li>
+                                    </ul>
+
+                                    <p><strong>Counsel her about changes in bleeding patterns</strong></p>
+                                    <ul>
+                                        <li style="margin-bottom: 6px;">
+                                            Women are likely to have changes in their menstrual bleeding pattern with NEXPLANON, including changes in frequency, intensity, or duration. Evaluate abnormal bleeding as needed to exclude
+                                            pathologic conditions or pregnancy.<br />
+                                            In clinical studies of the non-radiopaque etonogestrel implant, the most common reason for discontinuation was changes in bleeding patterns (11.1%).
+                                        </li>
+                                    </ul>
+
+                                    <p><strong>Be aware of other serious complications, adverse reactions, and drug interactions</strong></p>
+                                    <ul>
+                                        <li>
+                                            Remove NEXPLANON if jaundice occurs or<br />
+                                            blood pressure rises significantly and becomes uncontrolled.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Monitor prediabetic and diabetic women using NEXPLANON.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Observe women with a history of depressed mood. Consider removing NEXPLANON in patients who become significantly depressed.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            The most common adverse reactions (≥10%) reported in clinical trials were headache (24.9%), vaginitis (14.5%), weight increase (13.7%), acne (13.5%), breast pain (12.8%), abdominal pain (10.9%),
+                                            and pharyngitis (10.5%).
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            Drugs or herbal products that induce enzymes, including CYP3A4, may decrease the effectiveness of NEXPLANON or increase breakthrough bleeding.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            The efficacy of NEXPLANON in women<br />
+                                            weighing more than 130% of their ideal body weight has not been studied. Serum concentrations of etonogestrel are inversely related to body weight and decrease with time after implant insertion.
+                                            NEXPLANON may be<br />
+                                            less effective in overweight women.
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            NEXPLANON does not protect against HIV or other STDs.
+                                        </li>
+                                    </ul>
+
+                                    <p style="margin-bottom: 6px; color: #000;">
+                                        <strong>
+                                            Before prescribing NEXPLANON, please read the accompanying <a href="https://www.organon.com/product/usa/pi_circulars/n/nexplanon/nexplanon_pi.pdf" target="_blank">Prescribing Information</a>.
+                                            <br />
+                                            The <a href="https://www.organon.com/product/usa/pi_circulars/n/nexplanon/nexplanon_ppi.pdf" target="_blank">Patient Information</a> also is available.
+                                        </strong>
+                                    </p>
+
+                                    <p style="color: #000; margin-bottom: 10px;">
+                                        &copy; 2022 Organon group of companies. All rights<br />
+                                        reserved. ORGANON and the ORGANON Logo<br />
+                                        are trademarks of the Organon group of<br />
+                                        companies. US-XPL-116492 12/22
+                                    </p>
+
+                                    <img style="margin-bottom: 6px;" src="assets/images/logo_organon_final.svg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-scrollbar"></div>
+                    <div class="top-button" style="display: none;"></div>
+                    <div class="bottom-button" style="display: none;"></div>
+                </div>
+
+                <div class="footer">
+                    <a href="https://www.organon.com/product/usa/pi_circulars/n/nexplanon/nexplanon_pi.pdf" target="_blank">Please see full Prescribing Information</a>
+                    <!-- <a class="pi_link" onclick="openPI()" target="_blank">Please see full Prescribing Information</a> -->
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="assets/libs/gsap3.8.0.js"></script>
+        <script type="text/javascript" src="assets/libs/swiper.4.0.2.js"></script>
+
+        <script src="main.js"></script>
+
+        <script>
+            clickTag = "https://www.considernexplanon.com/patient-resources/";
+
+            var bannerTag = document.getElementById("clickTag");
+            var btnCTA = document.getElementById("mainBtn");
+
+            bannerTag.addEventListener("click", onClickBanner);
+
+            function onClickBanner() {
+                gotoLink();
+            }
+
+            function onClickCta() {
+                gotoLink();
+            }
+
+            function gotoLink() {
+                window.open(clickTag, "_blank");
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,699 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+	opacity: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+	padding-left: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+sup {
+    font-size: .5rem;
+}
+
+.buttons {
+    position: relative;
+    margin-top: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: none; 
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent; 
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: transparent; 
+}
+
+#merkAdd {
+    width: 300px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.border {
+    position: absolute;
+    border: 1px solid #000000;
+    width: 298px;
+    height: 248px;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+#animation {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+    overflow: hidden;
+    backface-visibility: hidden;
+    background-color: #fff;
+}
+
+#ssi {
+    width: 300px;
+    height: 152px;
+    position: absolute;
+    overflow: hidden;
+    backface-visibility: hidden;
+    background-color: #ffffff;
+	opacity: 1;
+	top:260px;
+	z-index: 9999;
+}
+
+#clickTag {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    z-index: 9998;
+    cursor: pointer;
+}
+.isiclicks {
+    position: relative;
+    cursor: pointer;
+    z-index: 1011;
+    cursor: pointer;
+}
+
+/*SSI style*/
+
+#ssi .title {
+    height: 20px;
+    background-color: #ffffff;
+    color: #48a548;
+    display: flex;	
+    align-items: center;
+	margin-bottom: 1px;
+	
+	 
+}
+
+#ssi .title h5 {
+    font-size: 14px;
+    margin: 0;
+    padding-left: 10px;
+    padding-top: 0px;
+}
+
+#ssi .content {
+    height: 81px;
+    overflow: auto;
+    background-color: #ffffff;
+}
+
+#ssi .footer {
+	width: 100%;
+    height: 30px;
+    background-color: #ffffff;
+    color: #007DB8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	bottom: 19px;
+	position: absolute;
+	z-index: 2222;
+}
+
+#ssi .footer a {
+    color: #007DB8;
+    text-decoration: none;
+    font-size: 10px;
+    line-height: 13px;
+    padding: 0px 10px 2px 10px; margin: 0;
+    font-weight:bold;
+}
+
+
+/*Animation*/
+#animation .frame {
+    position: absolute;
+    width: 300px;
+    height: 130px;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.swiper-container {position: absolute;width: 300px;height: 83px;bottom: 48px;left: 0px;overflow: hidden;opacity: 1;transform: translate(0, 100%);z-index: 1000;background-color: #fff;}
+.swiper-container::before {content: "";position: absolute;width: 100%;height: 4px;display: block;background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));z-index: 1}
+.swiper-container.active {opacity: 1;visibility: visible;transform: translate(0, 0);transition: opacity 0s linear, transform 0s linear}
+        
+.swiper-scrollbar {position: absolute;right: 12px;top: 31px;z-index: 50;width: 2px;height: 75px;background: #D8D8D8;opacity: 1;z-index: 1001;cursor: pointer}
+.swiper-scrollbar .swiper-scrollbar-drag{background-color: #1E71BA;cursor: pointer;z-index: 1002; width:6px; height: 6px !important; position: relative; right: 2px;border-radius: 50% !important;}
+.swiper-scrollbar.active{opacity: 1;visibility: visible;transition: opacity 0s linear 0s}
+        
+.top-button {position: absolute;top: 35px;right: 2px;height: 0;border-width: 0 5px 5px;border-style: solid;border-color: transparent transparent #0856a2;cursor: pointer;z-index: 1003}
+.bottom-button {top: 76px;right: 2px;position: absolute;width: 0;height: 0;border-width: 0 5px 5px;border-style: solid;transform: scaleY(-1);border-color: transparent transparent #0856a2;cursor: pointer;z-index: 1004}
+        
+.swiper-wrapper {width: 100%; transition: all linear;}
+.swiper-wrapper.autoplay {transition: all linear;}
+.slide-inner img.icon{position: relative;width: 110px;margin-bottom: 0.8em; margin-top: 1.4em;}
+.top-title {position: absolute;width: 453px;top: 0;overflow: hidden;background-color: #fff;z-index: 1}
+.title1-2 {padding: 1px 0}
+.title2-2 {position: absolute}
+.slide-inner {width: 93%;}
+
+#ssi .content .slide-inner {
+    padding: 5px 5px 5px 10px;
+    color: #333333;
+}
+
+#ssi .content .slide-inner p {
+    font-size: 11px;
+    line-height: 13px;
+    margin-bottom: 3px;
+}
+
+#ssi .content .slide-inner ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#ssi .content .slide-inner ul li {
+    font-size: 11px;
+    line-height: 13px;
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+#ssi .content .slide-inner ul li::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #48a548;
+    top: 4px;
+    left: 2px;
+    border-radius: 50%;
+}
+
+.no-line-break {
+    hyphens: none;
+    white-space: nowrap;
+	font-family: Arial, sans-serif !important;
+}
+
+#ssi .content .slide-inner img {
+    margin-left: 5px;
+    width: 80px;
+    margin-top: 10px;
+}
+
+#ssi .content .slide-inner .footnote {
+    font-size: 11px;
+    line-height: 13px;
+    margin-bottom: 10px;
+}
+
+.swiper-slide {
+    padding-right: 22px;
+}
+
+.logoKey{
+    position: absolute;
+    width: 100%;
+	height: 100%;
+    top: 0px;
+    left: 0px;
+    right: 0;
+	 z-index: 1;
+    margin: auto;
+}
+
+  .frame3 .logoKey, .frame4 .logoKey {
+    position: absolute;
+    left: 7px;
+    bottom: 92px;
+    height: 32px;
+    width: 120px;
+    z-index: 2;
+}
+
+
+
+.frame1 .background {
+    width: 300px;
+    height: 250px;
+}
+
+.frame1 .background img {
+   
+    position: absolute;
+    top: 0px;
+    z-index: 0;
+    right: 0px;
+}
+
+
+
+.hand2{
+	 position: absolute;
+    z-index: 1;
+    left: 0px;
+   top:0px;
+	width: 100%;
+	opacity: 0;
+}
+
+.frame1 .info-frame1 {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    width: 100%;
+    color: #fff;
+   
+
+}
+
+.frame1 .info-frame1 p {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    letter-spacing: -.4px;
+}
+
+
+
+
+.frame3 .title-frame3, .frame4 .title-frame3 {
+    color: #fff;
+    padding-left: 20px;
+    padding-top: 15px;
+    position: relative;
+    z-index: 2;
+    left: 10px;
+}
+
+.frame3 .title-frame3 p, .frame4 .title-frame3 p {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 600;
+}
+
+.frame3 .footnote, .frame4 .footnote {
+    position: absolute;
+    bottom: 10px;
+    left: 110px;
+    color: #fff;
+    z-index: 1;
+}
+
+.frame3 .footnote p, .frame4 .footnote p {
+    font-size: 10px;
+    line-height: 12px;
+}
+
+.frame5 .brand {
+    position: absolute;
+    left: 10px;
+    bottom: 92px;
+    height: 32px;
+    width: 120px;
+    z-index: 2;
+  
+}
+
+.frame5 .brand img {
+    width: 100%;
+}
+
+.frame5 .mainBtn {
+    position: absolute;
+    width: 150px;
+    right: 20px;
+    bottom: 5px;
+}
+
+.frame5 .mainBtn img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.frame5 .mano {
+    position: absolute;
+    z-index: 1;
+    left: 3px;
+    bottom: -35px;
+    width: 100px;
+}
+
+.frame5 .mano img  {
+    width: 100%;
+}
+
+
+.frame5 .info-frame3 {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: -230px;
+    padding: 3px 5px;
+    color: #fff;
+}
+
+.frame5 .info-frame3 p {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 600;
+    letter-spacing: -.4px;
+}
+
+
+
+.info-frame2 {
+    font-family:  Arial, sans-serif;;
+    text-shadow: 3px 3px 7px #347734;  
+}
+
+span {
+    font-family:  Arial, sans-serif;;
+    font-weight: 100;
+  }
+
+
+.footer-logomerck {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 5px;
+    margin-top: 4px;
+
+}
+.merck-logo{
+	left: 0px;
+}
+.eg_hunk_img{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+}
+
+
+
+.eg_hunk_img_eg_bg{position:absolute;
+	width: 276px;
+	height: auto;
+    top: 12px;
+    left: 12px;
+}
+.eg_hunk_img_eg_bg2{position:absolute;
+	width: 276px;
+	height: auto;
+    top: 12px;
+    left: 12px;
+}
+
+
+#greenline {
+    width: 142px; 
+    height: 4px; 
+    position: absolute;
+    top:237px;
+	left: 79px;
+    background-color: #6CC04A;
+	
+	overflow: hidden;
+}
+
+
+.unoFrame1 {
+    position: absolute;
+    width: 300px;
+    height: 47px;
+    top: 190px;
+    left: 0px;
+    overflow: hidden;
+}
+.copy1 {
+    width: 300px;
+    position: absolute;
+    top: 47px;
+}
+.copy1 img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+}
+
+.unoFrame2 {
+    position: absolute;
+    width: 300px;
+    height: 47px;
+    top: 190px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.copy2 {
+    width: 300px;
+    position: absolute;
+    top: 47px;
+}
+.copy2 img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+}
+
+.Frame2 {
+    position: absolute;
+    width: 276px;
+    height: 165px;
+    top: 12px;
+    left: 12px;
+}
+
+.Frame2 img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+.Frame-3 {
+    position: absolute;
+    width: 272px;
+    height: auto;
+    top: 56px;
+    left: 12px;
+}
+
+.Frame-3 img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+.Frame-logo {
+    position: absolute;
+    width: 101px;
+    height: auto;
+    top: 9px;
+    left: 12px;
+}
+
+.Frame-logo img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+.Frame-merck {
+    position: absolute;
+    width: 78px;
+    height: auto;
+    top: 1px;
+    left: 218px;
+}
+
+.Frame-merck img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+.Frame-4 {
+    position: absolute;
+    width: 274px;
+    height: auto;
+    top: 56px;
+    left: 12px;
+}
+
+.Frame-4 img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+.eg_cta {
+    position: absolute;
+    width: 104px;
+    height: auto;
+    top: 78px;
+    left: 186px;
+}
+
+.eg_cta img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    opacity: 0;
+}
+#eg_progress_bar{
+    width: 200px; 
+    height: 4px; 
+    position: absolute;
+	left: 12px;
+    background-color: #E6E6E6;
+	top:8px;
+	border-radius: 50px !important;
+	overflow: hidden;
+}
+#eg_strip{width:100%; height:100%; background-color:#444444;border-radius: 50px !important;}
+
+/* circle timer */
+
+.circle_all {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 9.9px;
+    left: 264.5px;
+    opacity: 0;
+ }
+
+.circle_complete {
+    width: 20px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+.circle_complete img {
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.circle_mask {
+    width: 12px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    /* opacity: 0.5; */
+}
+
+.circle_mask img {
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.circle_tapa {
+    position: absolute;
+    width: 12px;
+    height: 24px;
+    top: 0px;
+    left: 12px;
+    background-color: #fff;
+}
+
+.circle_half {
+    width: 10px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    /* opacity: 0.5; */
+}
+
+.circle_half img {
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.circle_half_02 {
+    width: 10px;
+    position: absolute;
+    top: 2px;
+    left: 12px;
+    opacity: 0.5;
+}
+
+.circle_half_02 img {
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+/* reloj */
+.imagesFrame {
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    top: -20px;  /* tenia -23px */
+    left: 234.5px;
+    overflow: hidden;
+    transform: scale(0.25);
+    /* border: 1px solid #f5e38f; */
+    opacity: 0;
+}
+
+.box {
+    width: 84px;
+    height: 84px;
+    position:relative;
+    margin-bottom: 2px;
+    background:url(../images/timer.png);  /* hay que refrescar la imagen con cada cambio */
+}
+  
+.red {
+    background-color:rgba(100, 85, 17, 0);
+}
+
+.tapa {
+    position: absolute;
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    right: 8px;
+    bottom: 22px;
+    z-index: 10000;
+}
