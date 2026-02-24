@@ -68,7 +68,7 @@ html {
     width: 100vw;
     height: 100vh;
     background-color: var(--color-black);
-    opacity: 0.34;
+    opacity: 0.1;
     z-index: 1;
 }
 
@@ -186,7 +186,7 @@ html {
     font-family: var(--font-sans);
     font-style: italic;
     font-weight: 900;
-    font-size: 1.3rem;
+    font-size: 3rem;
     letter-spacing: 0rem;
     padding: 20px;
 }
@@ -978,7 +978,7 @@ html {
     /* Título Principal */
     .principal-text {
         top: 35%;
-        font-size: 4.5rem;
+        font-size: 6rem;
         animation: none;
         max-width: 90%;
         line-height: 0.9;
@@ -1179,7 +1179,7 @@ html {
     /* Título Principal */
     .principal-text {
         top: 38%;
-        font-size: 3.5rem;
+        font-size: 5rem;
     }
 
     /* Subtítulo */
