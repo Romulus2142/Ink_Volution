@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Usar el título del documento como texto principal para ser coherente
     const flowText = document.getElementById('flow-text');
-    const text = document.title || 'PORTAFOLIO';
+    const text = document.title || 'Julio Portafolio';
     flowText.innerHTML = '';
 
     const letters = text.split('').map((char) => {
