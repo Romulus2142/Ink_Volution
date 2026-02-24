@@ -238,7 +238,7 @@ html {
     padding: 12px 28px;
     border: 1px solid white;
     border-radius: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.4);
     overflow: hidden;
     transition: all 0.3s ease;
 }
@@ -572,6 +572,51 @@ html {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
+
+/* Project Cards Styling */
+.gallery-project-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.gallery-project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+}
+
+.project-image {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.05) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    font-size: 2rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom: 2px solid rgba(76, 175, 80, 0.3);
+    height: auto;
+    min-height: 150px;
+}
+
+.project-caption {
+    padding: 20px 18px;
+}
+
+.project-caption strong {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.project-description {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+}
+
 
 /* Gallery item image container */
 .gallery-item-image {
