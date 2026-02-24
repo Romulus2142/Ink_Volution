@@ -568,7 +568,9 @@ html {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    height: fit-content; /* Asegura que la altura se ajuste al contenido */
+    height: fit-content;
+    color: #000;
+    text-decoration: none;
 }
 
 /* Hover effect for gallery items */
@@ -599,7 +601,7 @@ html {
     padding: 40px 20px;
     font-size: 2rem;
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.8);
+    color: #000;
     border-bottom: 2px solid rgba(76, 175, 80, 0.3);
     height: auto;
     min-height: 150px;
@@ -607,17 +609,19 @@ html {
 
 .project-caption {
     padding: 20px 18px;
+    color: #000;
 }
 
 .project-caption strong {
     font-size: 1rem;
     display: block;
     margin-bottom: 8px;
+    color: #000;
 }
 
 .project-description {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(0, 0, 0, 0.6);
     display: block;
 }
 
