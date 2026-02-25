@@ -118,56 +118,7 @@ html {
     filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
-/* Botón de control de música */
-.music-toggle {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    width: auto;
-    min-width: 50px;
-    height: 50px;
-    padding: 0 15px;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: var(--color-white);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.music-status {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: color 0.3s ease;
-}
-
-.music-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
-}
-
-.music-toggle.playing {
-    color: #4CAF50;
-    border-color: rgba(76, 175, 80, 0.5);
-}
-
-.music-toggle.playing .music-status {
-    color: #4CAF50;
-}
-
-.music-toggle.paused {
-    opacity: 0.6;
-}
+/* Music controls removed from UI; styles deleted */
 
 /* ============================================
    SECCIÓN PRINCIPAL - CONTENIDO HEROICO
@@ -225,7 +176,6 @@ html {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-}
 }
 
 .color-text {
@@ -291,9 +241,12 @@ html {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 20, 0.95) 100%);
-    padding: 80px 20px;
-    scroll-margin-top: 80px;
+    /* Fondo gris claro para la galería */
+    background: #f5f5f5;
+    /* Reduce top padding so gallery appears closer to top when scrolled into view */
+    padding: 20px 20px;
+    /* Ensure the section scrolls flush to the top */
+    scroll-margin-top: 0;
 }
 
 .gallery-modal {
@@ -640,6 +593,14 @@ html {
     border-bottom: 2px solid rgba(76, 175, 80, 0.3);
     height: auto;
     min-height: 150px;
+}
+
+/* Ensure thumbnail images fill the project image area */
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .project-caption {
@@ -1103,21 +1064,7 @@ html {
         height: 28px;
     }
 
-    /* Botón de música en mobile */
-    .music-toggle {
-        top: auto;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: 35px;
-        height: 35px;
-        padding: 0 10px;
-        gap: 5px;
-    }
-    
-    .music-status {
-        font-size: 0.6rem;
-    }
+    /* Mobile music control styles removed */
 
     /* Botón Explorar */
     .explore-btn {

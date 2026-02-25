@@ -179,9 +179,9 @@ const musicToggle = document.getElementById('musicToggle');
 const musicStatus = document.querySelector('.music-status');
 let isPlaying = false;
 
-// Actualizar texto del estado
+// Actualizar texto del estado (seguro si el elemento existe)
 function updateMusicStatus(playing) {
-    musicStatus.textContent = playing ? 'ON' : 'OFF';
+    if (musicStatus) musicStatus.textContent = playing ? 'ON' : 'OFF';
 }
 
 // Intentar reproducir música al interactuar con la página
@@ -213,27 +213,31 @@ function initMusic(e) {
 // Intentar iniciar música cuando el usuario interactúe
 document.addEventListener('click', initMusic, { once: true });
 
-// Toggle música al hacer click en el botón
-musicToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevenir que active el initMusic
-    
-    if (isPlaying) {
-        backgroundMusic.pause();
-        isPlaying = false;
-        musicToggle.classList.remove('playing');
-        musicToggle.classList.add('paused');
-        updateMusicStatus(false);
-    } else {
-        backgroundMusic.play()
-            .then(() => {
-                isPlaying = true;
-                musicToggle.classList.add('playing');
-                musicToggle.classList.remove('paused');
-                updateMusicStatus(true);
-            })
-            .catch(err => console.log('Error al reproducir:', err));
-    }
-});
+// Toggle música al hacer click en el botón (solo si existe)
+if (musicToggle) {
+    musicToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevenir que active el initMusic
+
+        if (isPlaying) {
+            backgroundMusic.pause();
+            isPlaying = false;
+            musicToggle.classList.remove('playing');
+            musicToggle.classList.add('paused');
+            updateMusicStatus(false);
+        } else {
+            backgroundMusic.play()
+                .then(() => {
+                    isPlaying = true;
+                    if (musicToggle) {
+                        musicToggle.classList.add('playing');
+                        musicToggle.classList.remove('paused');
+                    }
+                    updateMusicStatus(true);
+                })
+                .catch(err => console.log('Error al reproducir:', err));
+        }
+    });
+}
 
 /* ============================================
    ANIMACIONES GSAP
@@ -432,6 +436,7 @@ function handleSwipe() {
 // Abrir galería y scrollear a sección
 // Reusable function to open the gallery (used by the button and on hash navigation)
 function openGallery() {
+    console.log('openGallery() called');
     // Scrollear a la sección de galería
     const gallerySection = document.getElementById('gallery-section');
     if (gallerySection) {
@@ -461,6 +466,7 @@ function openGallery() {
 
     const hidePreloaderAndShow = () => {
         setTimeout(() => {
+            console.log('hidePreloaderAndShow: hiding preloader and showing gallery content');
             galleryPreloader.classList.add('hidden');
             // Asegurarse de que todas las imágenes estén visibles
             preloadAllImages();
@@ -521,15 +527,52 @@ const closeModal = () => {
         duration: 0.3,
         ease: "power2.in",
         onComplete: () => {
+            // Remove active state and ensure preloader is hidden
             galleryModal.classList.remove('active');
+            const galleryPreloader = document.getElementById('galleryPreloader');
+            if (galleryPreloader) galleryPreloader.classList.add('hidden');
+
+            // Restore page scrolling
             document.body.style.overflow = 'auto';
-            // Scrollear hacia arriba
+
+            // Remove #gallery-section hash from URL so it doesn't reopen automatically
+            try {
+                if (window.location.hash === '#gallery-section') {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                }
+            } catch (err) {
+                // ignore
+            }
+
+            // Smooth scroll back to top (home)
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 };
 
-closeGalleryBtn.addEventListener('click', closeModal);
+// Attach close handler robustly and log clicks
+if (closeGalleryBtn) {
+    closeGalleryBtn.addEventListener('click', () => {
+        console.log('closeGalleryBtn clicked');
+        closeModal();
+    });
+} else {
+    const fallbackClose = document.querySelector('.gallery-close-btn');
+    if (fallbackClose) {
+        fallbackClose.addEventListener('click', () => {
+            console.log('fallback gallery-close-btn clicked');
+            closeModal();
+        });
+    }
+}
+
+// Global fallback: if any element with class "gallery-close-btn" is clicked
+document.addEventListener('click', (e) => {
+    if (e.target && e.target.closest && e.target.closest('.gallery-close-btn')) {
+        console.log('document delegated gallery-close-btn click');
+        closeModal();
+    }
+});
 
 // Cerrar al hacer clic fuera del contenido
 galleryModal.addEventListener('click', (e) => {
@@ -571,6 +614,7 @@ let zoomLevel = 1;
 // Abrir lightbox al hacer click en imagen
 galleryItems.forEach(item => {
     const img = item.querySelector('.gallery-item-image img');
+    if (!img) return; // proteger si el item no contiene una etiqueta img (project cards)
     img.addEventListener('click', () => {
         lightboxImage.src = img.src;
         lightbox.classList.add('active');
