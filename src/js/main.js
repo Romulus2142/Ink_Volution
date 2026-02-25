@@ -430,41 +430,41 @@ function handleSwipe() {
 }
 
 // Abrir galería y scrollear a sección
-openGalleryBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    
+// Reusable function to open the gallery (used by the button and on hash navigation)
+function openGallery() {
     // Scrollear a la sección de galería
     const gallerySection = document.getElementById('gallery-section');
     if (gallerySection) {
         gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    
+
     // Agregar clase activa al modal
     galleryModal.classList.add('active');
     const galleryPreloader = document.getElementById('galleryPreloader');
     galleryPreloader.classList.remove('hidden');
-    
+
     currentIndex = 0;
-    
+
     // Precargar todas las imágenes para mostrar el grid completo
     const imagesToPreload = [];
     for (let i = 0; i < galleryItems.length; i++) {
         const img = galleryItems[i].querySelector('img');
         if (img) {
-            imagesToPreload.push(img.src);
+            // prefer dataset src if present
+            imagesToPreload.push(img.dataset && img.dataset.src ? img.dataset.src : img.src);
         }
     }
-    
+
     // Cargar imágenes
     let loadedImages = 0;
     const totalToLoad = imagesToPreload.length;
-    
+
     const hidePreloaderAndShow = () => {
         setTimeout(() => {
             galleryPreloader.classList.add('hidden');
             // Asegurarse de que todas las imágenes estén visibles
             preloadAllImages();
-            
+
             // Animaciones GSAP después de cargar
             gsap.fromTo('.gallery-modal-content', 
                 { scale: 0.8, opacity: 0 }, 
@@ -472,36 +472,45 @@ openGalleryBtn.addEventListener('click', (e) => {
             );
         }, 300);
     };
-    
-    imagesToPreload.forEach(src => {
-        const img = new Image();
-        img.onload = () => {
-            loadedImages++;
-            if (loadedImages >= totalToLoad) {
+
+    if (totalToLoad === 0) {
+        hidePreloaderAndShow();
+    } else {
+        imagesToPreload.forEach(src => {
+            const img = new Image();
+            img.onload = () => {
+                loadedImages++;
+                if (loadedImages >= totalToLoad) {
+                    hidePreloaderAndShow();
+                }
+            };
+            img.onerror = () => {
+                loadedImages++;
+                if (loadedImages >= totalToLoad) {
+                    hidePreloaderAndShow();
+                }
+            };
+            img.src = src;
+        });
+
+        // Fallback: ocultar preloader después de 2 segundos si algo falla
+        setTimeout(() => {
+            if (!galleryPreloader.classList.contains('hidden')) {
                 hidePreloaderAndShow();
             }
-        };
-        img.onerror = () => {
-            loadedImages++;
-            if (loadedImages >= totalToLoad) {
-                hidePreloaderAndShow();
-            }
-        };
-        img.src = src;
-    });
-    
-    // Fallback: ocultar preloader después de 2 segundos si algo falla
-    setTimeout(() => {
-        if (!galleryPreloader.classList.contains('hidden')) {
-            hidePreloaderAndShow();
-        }
-    }, 2000);
-    
+        }, 2000);
+    }
+
     // Animación parallax al abrir
     gsap.fromTo(galleryModal, 
         { opacity: 0, y: 50 }, 
         { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
     );
+}
+
+openGalleryBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openGallery();
 });
 
 // Cerrar galería
@@ -533,6 +542,16 @@ galleryModal.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && galleryModal.classList.contains('active')) {
         closeModal();
+    }
+});
+
+// Si se llega con el hash #gallery-section, abrir la galería automáticamente
+window.addEventListener('load', () => {
+    if (window.location.hash === '#gallery-section') {
+        // Dejar un pequeño delay para que el navegador haga scroll al anchor
+        setTimeout(() => {
+            openGallery();
+        }, 120);
     }
 });
 
