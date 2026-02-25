@@ -604,19 +604,21 @@ html {
 }
 
 .project-caption {
-    padding: 20px 18px;
+    padding: 12px 18px;
 }
 
 .project-caption strong {
     font-size: 1rem;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 .project-description {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(87, 87, 87, 0.6);
     display: block;
+    margin-top: 0;
+    line-height: 1.3;
 }
 
 
@@ -1154,14 +1156,21 @@ html {
     .gallery-caption {
         max-width: 85%;
         width: 85%;
-        padding: 15px;
+        padding: 10px 15px;
         font-size: 0.75rem;
         align-self: center;
         margin: 0 auto;
     }
-    
-    .gallery-caption strong {
+
+    .gallery-caption strong,
+    .project-caption strong {
         font-size: 0.85rem;
+        margin-bottom: 2px;
+    }
+
+    /* Project card caption in mobile */
+    .project-caption {
+        padding: 10px 15px;
     }
     
     .lightbox-zoom-controls {

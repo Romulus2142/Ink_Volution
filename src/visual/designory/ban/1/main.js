@@ -1,7 +1,8 @@
-	// 327 lines
+// 327 lines
 // 654s
 (function(){
 
+    //do not modify from here
     // SCROLL FUNCTIONS
     var titleBreakPoints = [{
         point: -1788,
@@ -32,7 +33,7 @@
         freeMode: true,
         freeModeMomentumRatio: .5, 
         //Update scrolling time
-        speed: 314000,
+        speed: 254000,
         touchReleaseOnEdges: true,
         scrollbar: {
             el: '.swiper-scrollbar',
@@ -137,7 +138,7 @@
         isInteraction = true;
         autoMoveLocked = true;
         return false;
-    }); 
+    });
 
     swiper.autoplay.stop();
     
@@ -146,52 +147,80 @@
         setTimeout(function(){ swiper.slideTo(0, 1, false); }, 5000);
     });
 
+    //from here you can modify
+
     //Animation
-	
-	var tl_bar = gsap.timeline();
-	tl_bar.from('#eg_strip', {duration: 21, ease:"none",x:-200});
-	tl_bar.to('.eg_bg', {duration: 3,ease:"none"});
-
     var tl = gsap.timeline();
+    tl.set('body', {opacity: 1});
 
-	tl.set('body', {opacity: 1});
-    tl.to('.copy1', {duration: 1, y:-47, ease: 'power4.inOut'} );
+    tl.addLabel('frame1'); 
+    tl.to('.bubble_1 img', {duration: 0.7, scale: 2, x:0, y:0, opacity:1, transformOrigin:'center center', ease: 'elastic.out'}, 'frame1');
+    tl.to('.bubble_2 img', {duration: 0.7, scale: 2, x:0, y:0, opacity:1, transformOrigin:'center center', delay:0.3, ease: 'elastic.out'}, 'frame1');
+    tl.to('.bubble_3 img', {duration: 0.7, scale: 2, x:0, y:0, opacity:1, transformOrigin:'center center', delay:0.7, ease: 'elastic.out'}, 'frame1');
+    tl.to('.copy1', {duration: 0.6, opacity:1,ease: 'power2.out'},'+=0');
+    tl.to('.square_1', {duration: 0.3, width: 156,opacity:1,ease: 'power2.out'},'+=0.1');
 
-	tl.addLabel('frame1', '+=2'); //3sec
+    tl.addLabel('frame2', '+=3.4'); //4 sec frame 1
+    tl.to('#clickTag', {duration: 0.6, height: 160, ease: 'power2.out'}, 'frame2');
+    tl.to('.logoFrame', {duration: 0.6, x: 300, ease: 'power2.out'}, 'frame2');
+    tl.from('#ssi', {duration: 0.6, opacity:0, ease: 'power2.out'}, 'frame2');
+    tl.to('.bubble_4_b img', {duration: 0.5, delay:0.6, opacity:1, ease: 'power2.out'}, 'frame2');
+    tl.to('.circle_nex, .tercerFrame', {duration: 0.3, opacity:1, delay:0.5, ease: 'power2.out'}, 'frame2');
+    tl.to('.fondo_nex', {duration: 0.3, opacity:0, delay:0.7, ease: 'power2.out'}, 'frame2');
+    tl.to('.logoFrame', {duration: 1, opacity:0, delay:3, ease: 'power2.out'}, 'frame2');
+    tl.to('.bubble_4_b img', {duration: 0.7, y:-225, transformOrigin:'bottom center', delay:2.9, ease: 'power2.out'}, 'frame2');
+    tl.to('.bubble_4_b img', {duration: 0.7, x:-100,y:-240, width:146, transformOrigin:'bottom center', delay:0.2, ease: 'power2.out'},'-=0.5');
+    tl.to('.bubble_4_y img', {duration: 0.7, y:-120, transformOrigin:'bottom center', delay:0.2, ease: 'power2.out'},'-=0.5');
 
-    tl.to('.copy1, .eg_bg', {duration: 1, opacity:0, ease: 'power4.inOut'}, 'frame1');
-	tl.to('.copy2', {duration: 1, y:-47, ease: 'power4.inOut'} );
-    tl.to('.Frame2 img', {delay:0.5, duration: 1, opacity:1, ease: 'none'}, 'frame1');
+    tl.to('.fondo_03b', {duration: 0.5, x:-150, transformOrigin:'bottom center', delay:0.2, ease: 'power2.out'},'-=0.5');
 
-    tl.addLabel('frame2', '+=2'); //3sec
+    tl.addLabel('frame3', '+=1');  
+    tl.to('.bubble_4_b img', {duration: 0.4, x:-203,y:-240, width: 82, transformOrigin:'bottom center', ease: 'power2.out'}, 'frame3');
+    tl.to('.name2b', {duration: 1, opacity:1, ease: 'power2.out'}, 'frame3');
+    tl.to('.bubble_4_y img', {duration: 0.4, x:61,y:-95, width: 82, transformOrigin:'bottom center', ease: 'power2.out'}, 'frame3');
+    tl.to('.square_2', {duration: 0.3, width: 216,opacity:1,ease: 'power2.out'},'+=0');
 
-    tl.to('.circle_all, .imagesFrame', {delay:0.4, duration: 0.3, opacity:1, ease: 'none'}, 'frame2');
-    tl.to('.Frame2 img, .copy2, #greenline', {duration: 0.5, opacity:0, ease: 'none'}, 'frame2');
-    tl.to('.Frame-3 img, .Frame-logo img', {delay:0.5, duration: 1, opacity:1, ease: 'none'}, 'frame2');
-
-    tl.to('.circle_mask', {duration: 11, rotate:360, transformOrigin:'100% 50%', delay:.9, ease: 'power0.out' }, 'frame2');
-    tl.to('.circle_tapa, .circle_half_02', {duration: 0.1, opacity:1, delay:6.4, ease: 'power4.out'}, 'frame2');
-    tl.to('.circle_half', {duration: 0.1, opacity:0, delay:6.4, ease: 'power4.out'}, 'frame2');
-    tl.to("#redBox", { duration: 11, backgroundPosition:"-916px 0px", delay:1, ease: "steps(11)", repeat:0}, 'frame2');
-    //tl.to(".circle_all, .imagesFrame", { duration: 0.2, opacity:0, delay:12.4, ease: 'power1.out'}, 'frame2');
+    tl.addLabel('frame4', '+=3');  // 4 sec
+    tl.to('.name2b, .square_2', {duration: 0.5, opacity:0, ease: 'power2.out'}, 'frame4');
+    tl.to('.bubble_4_b img', {duration: 0.4, x:70, transformOrigin:'bottom center', scaleX:-1, ease: 'power2.out'}, 'frame4');
+    tl.to('.bubble_4_y img', {duration: 0.4, x:-200, transformOrigin:'bottom center', scaleX:-1, ease: 'power2.out'}, 'frame4');
+    tl.to('.name2c, .name2d', {duration: 0.6, delay:0.5, opacity:1, ease: 'power2.out'}, 'frame4');
     
-    tl.addLabel('frame3', '+=0');  // 12 sec  ---- +1
+    tl.addLabel('frame5', '+=3');  // 4 sec
+    tl.to('.name2c, .name2d', {duration: 0.5, opacity:0, ease: 'power2.out'}, 'frame5');
+    tl.to('.bubble_4_b img', {duration: 0.4, x:-190, transformOrigin:'bottom center', scaleX:1,ease: 'power2.out'}, 'frame5');
+    tl.to('.bubble_4_y img', {duration: 0.4, x: 59, transformOrigin:'bottom center', scaleX:1, ease: 'power2.out'}, 'frame5');
+    tl.to('.text7 img', {duration: 0.6, delay:0.5, opacity:1, ease: 'power2.out'}, 'frame5');
 
-    tl.to('.circle_all, .imagesFrame', {duration: 0.3, opacity:0, ease: 'none'}, 'frame3');
-	tl.set('#ssi', {opacity: 0,top:118},'frame3');
-    tl.to('.Frame-3 img', {duration: 0.5, opacity:0, ease: 'none'}, 'frame3');
-	tl.to('#ssi', {duration: .8,opacity:1,delay:.6}, 'frame3');
-    tl.to('.Frame-4 img, .eg_cta img, .Frame-merck img', {delay:0.5, duration: 1, opacity:1, ease: 'none'}, 'frame3');
-	tl.to('.eg_cta img', {duration: .1,delay:2.5,onComplete: endAnimation}, 'frame3');
+    tl.addLabel('frame6', '+=2.4');  // 3 sec
+    tl.to('.text7 img', {duration: 0.5, opacity:1, opacity:0, ease: 'power2.out'}, 'frame6');
+    tl.to('.bubble_4_b img', {duration: 0.4, x:70, transformOrigin:'bottom center', scaleX:-1, ease: 'power2.out'}, 'frame6');
+    tl.to('.bubble_4_y img', {duration: 0.4, x:-200, transformOrigin:'bottom center', scaleX:-1, ease: 'power2.out'}, 'frame6');
+    tl.to('.text8 img, .copy2f img', {duration: 0.6, delay:0.5, opacity:1, ease: 'power2.out'}, 'frame6');
+    tl.to('.square_3', {duration: 0.3, width: 225, opacity:1, ease: 'power2.out'},'+=0');
 
-	
-   //end
+    tl.addLabel('last', '+=5.4'); //6 sec
+    tl.to('.copy2f img, .bubble_4_b img, .bubble_4_y img', {duration: 0.5, opacity:0, ease: 'power2.out'}, 'last');
+    tl.to('.fondo_blue img', {duration: 0.3, opacity:1, ease: 'power2.out'}, 'last');
+    tl.to('.bubble_5 img', {duration: 0.3, width:264, opacity:1, transformOrigin:'center center',ease: 'power2.out'}, 'last');
+    tl.to('.text9 img', {duration: 0.3, delay: 0.3, opacity:1, ease: 'power2.out'}, 'last');
+    tl.to('.square_4', {duration: 0.3, width: 218, opacity:1,ease: 'power2.out'},'+=0');
+    tl.to('.cta img', {duration: 0.3, delay: 0.6, opacity:1, ease: 'power2.out'}, 'last');
+
+    tl.add(endAnimation, "+=2.6");
+    tl.to('#ssi', {onComplete: endAnimation},'+=0');
+
+    //End animation
+
     
+
+    //neither modify
     function endAnimation(){
-       // btnCTA.addEventListener('click', onClickCta);
-       // btnCTA.style.zIndex = 802;
+        //btnCTA.addEventListener('click', onClickCta);
+        //btnCTA.style.zIndex = 802;
 
         startAutoPlay();
     }
+    
 
 }());
