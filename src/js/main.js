@@ -396,10 +396,12 @@ thumbnails.forEach((thumb, index) => {
 
 // Navegación con teclado
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-        goToIndex(currentIndex - 1);
-    } else if (e.key === 'ArrowRight') {
-        goToIndex(currentIndex + 1);
+    if (galleryModal.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') {
+            goToIndex(currentIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+            goToIndex(currentIndex + 1);
+        }
     }
 });
 
@@ -427,33 +429,112 @@ function handleSwipe() {
     }
 }
 
-// Abrir galería (scroll a la sección)
+// Abrir galería y scrollear a sección
 openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
     
-    // Scroll a la galería
-    galleryModal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Scrollear a la sección de galería
+    const gallerySection = document.getElementById('gallery-section');
+    if (gallerySection) {
+        gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Agregar clase activa al modal
+    galleryModal.classList.add('active');
+    const galleryPreloader = document.getElementById('galleryPreloader');
+    galleryPreloader.classList.remove('hidden');
     
     currentIndex = 0;
     
-    // Ocultar preloader (galería está siempre visible)
-    const galleryPreloader = document.getElementById('galleryPreloader');
-    setTimeout(() => {
-        galleryPreloader.classList.add('hidden');
-    }, 300);
+    // Precargar todas las imágenes para mostrar el grid completo
+    const imagesToPreload = [];
+    for (let i = 0; i < galleryItems.length; i++) {
+        const img = galleryItems[i].querySelector('img');
+        if (img) {
+            imagesToPreload.push(img.src);
+        }
+    }
     
-    // Precargar todas las imágenes
-    preloadAllImages();
+    // Cargar imágenes
+    let loadedImages = 0;
+    const totalToLoad = imagesToPreload.length;
+    
+    const hidePreloaderAndShow = () => {
+        setTimeout(() => {
+            galleryPreloader.classList.add('hidden');
+            // Asegurarse de que todas las imágenes estén visibles
+            preloadAllImages();
+            
+            // Animaciones GSAP después de cargar
+            gsap.fromTo('.gallery-modal-content', 
+                { scale: 0.8, opacity: 0 }, 
+                { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)" }
+            );
+        }, 300);
+    };
+    
+    imagesToPreload.forEach(src => {
+        const img = new Image();
+        img.onload = () => {
+            loadedImages++;
+            if (loadedImages >= totalToLoad) {
+                hidePreloaderAndShow();
+            }
+        };
+        img.onerror = () => {
+            loadedImages++;
+            if (loadedImages >= totalToLoad) {
+                hidePreloaderAndShow();
+            }
+        };
+        img.src = src;
+    });
+    
+    // Fallback: ocultar preloader después de 2 segundos si algo falla
+    setTimeout(() => {
+        if (!galleryPreloader.classList.contains('hidden')) {
+            hidePreloaderAndShow();
+        }
+    }, 2000);
+    
+    // Animación parallax al abrir
+    gsap.fromTo(galleryModal, 
+        { opacity: 0, y: 50 }, 
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+    );
 });
 
-// Cerrar galería (scroll arriba)
+// Cerrar galería
 const closeModal = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    gsap.to(galleryModal, {
+        opacity: 0,
+        y: 50,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: () => {
+            galleryModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Scrollear hacia arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
 };
 
-if (closeGalleryBtn) {
-    closeGalleryBtn.addEventListener('click', closeModal);
-}
+closeGalleryBtn.addEventListener('click', closeModal);
+
+// Cerrar al hacer clic fuera del contenido
+galleryModal.addEventListener('click', (e) => {
+    if (e.target === galleryModal) {
+        closeModal();
+    }
+});
+
+// Cerrar con tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && galleryModal.classList.contains('active')) {
+        closeModal();
+    }
+});
 
 /* ============================================
    LIGHTBOX FULLSCREEN

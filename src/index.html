@@ -110,17 +110,7 @@
 
     <!-- Video de fondo -->
     <video id="video-background-1" class="video-background active" autoplay loop muted playsinline poster="assets/images/bg_poster.jpg" preload="auto">
-        <source src="assets/videos/bg_video_1.mp4" type="video/mp4">
-        Tu navegador no soporta el video.
-    </video>
-    
-    <video id="video-background-2" class="video-background" autoplay loop muted playsinline preload="auto">
-        <source src="assets/videos/bg_video_2.mp4" type="video/mp4">
-        Tu navegador no soporta el video.
-    </video>
-    
-    <video id="video-background-3" class="video-background" autoplay loop muted playsinline preload="auto">
-        <source src="assets/videos/bg_video_3.mp4" type="video/mp4">
+        <source src="assets/videos/bg_vid.mp4" type="video/mp4">
         Tu navegador no soporta el video.
     </video>
    
@@ -156,11 +146,12 @@
     <div class="subtitle-text"><strong>Hi, mi nombre es Julio Guadarrama, he recopilado un poco de mi trabajo.</strong></div>
     
     <!-- cta -->      
-    <div><a href="#" class="explore-btn" id="openGalleryBtn"><span class="explore-label">Explorar galería</span></a></div>
+    <div><a href="#gallery-section" class="explore-btn" id="openGalleryBtn"><span class="explore-label">Explorar galería</span></a></div>
 
 
-    <!-- Modal Galería -->
-    <div id="galleryModal" class="gallery-modal">
+    <!-- Galería como sección parallax -->
+    <section id="gallery-section" class="gallery-section">
+        <div id="galleryModal" class="gallery-modal gallery-parallax">
         <!-- Preloader de galería -->
         <div id="galleryPreloader" class="gallery-preloader">
             <div class="gallery-preloader-spinner"></div>
@@ -265,6 +256,7 @@
             
         </div>
     </div>
+    </section>
     
     <!-- Lightbox Fullscreen -->
     <div id="lightbox" class="lightbox">
