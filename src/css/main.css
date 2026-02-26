@@ -1,99 +1,164 @@
-/* ============================================
-   VARIABLES Y CONFIGURACIÓN
-   ============================================ */
-
-:root {
-    --color-white: #fff;
-    --color-black: #000;
-    --color-yellow: yellow;
-    --color-text-secondary: rgba(189, 189, 189, 0.12);
-    --font-sans: "Albert Sans", sans-serif;
-    --font-serif: "Noto Serif Display", serif;
-    --transition-smooth: 120ms ease;
+.logo-container a,
+.logo-container a:visited,
+.logo-container a:active,
+.logo-container a:hover,
+.logo-container .instagram-handle {
+    font-size: 0.7rem !important;
+}
+/* Forzar sin subrayado solo al texto Instagram */
+.logo-container .instagram-handle {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    display: inline-block;
+}
+/* SUBTÍTULO ESTÁTICO INICIO */
+.main-subtitle-static {
+    display: block;
+    font-family: 'Albert Sans', 'Arial', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 200;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1.7em;
+    margin-top: -1.2em;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    z-index: 10;
+    position: relative;
+    pointer-events: none;
+    opacity: 1 !important;
 }
 
-/* ============================================
-   ANIMACIONES KEYFRAMES
-   ============================================ */
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes titleFloat {
-
-    0%,
-    100% {
-        transform: translate(-50%, -50%);
-    }
-
-    50% {
-        transform: translate(-50%, -48%);
+@media (max-width: 768px) {
+    .main-subtitle-static {
+        font-size: 1rem;
+        margin-bottom: 0.7em;
     }
 }
-
-/* ============================================
-   RESET Y ESTILOS BASE
-   ============================================ */
-
-* {
-    box-sizing: border-box;
+/* TÍTULO ESTÁTICO INICIO */
+.main-title-static {
+    display: block;
+    font-family: 'Albert Sans', 'Arial', sans-serif;
+    font-size: 6rem;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0.2em;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    z-index: 10;
+    position: relative;
+    pointer-events: none;
+    opacity: 1 !important;
 }
 
-body,
-html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+@media (max-width: 768px) {
+    .main-title-static {
+        font-size: 2rem;
+        margin-bottom: 0.1em;
+    }
 }
 
-/* ============================================
-   LAYOUT PRINCIPAL - FONDO
-   ============================================ */
-
-.bg-color {
+/* LOGO FIJO Y CENTRADO */
+.logo-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--color-black);
-    opacity: 0.1;
-    z-index: 1;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    opacity: 1 !important;
+    pointer-events: auto;
+    transition: transform 0.3s;
 }
-
+.logo-container a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc !important; /* Gris claro */
+    text-decoration: none !important;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+.logo-container a:hover {
+    color: #ccc;
+}
+.logo-container:hover {
+    /* Sin efecto de escala en hover */
+    transform: translateX(-50%);
+}
+.site-logo {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0.8);
+    opacity: 0.85;
+    transition: opacity 0.3s, filter 0.3s;
+}
+.site-logo:hover {
+    opacity: 1;
+    filter: grayscale(1) brightness(0.8) drop-shadow(0 0 10px #ccc8);
+}
+.logo-container .instagram-handle {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    display: inline-block;
+}
+@media (max-width: 768px) {
+    .logo-container {
+        top: 20px;
+    }
+    .site-logo {
+        width: 28px;
+        height: 28px;
+    }
+}
+/* (Fragmento eliminado por error de sintaxis. Si alguna regla era necesaria, reubicarla en el selector correcto.) */
 /* ============================================
    LOGO
    ============================================ */
 
 .logo-container {
     position: fixed;
-    top: 30px;
-    right: 50px;
-    z-index: 100;
+    top: 35px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    z-index: 10;
     transition: transform 0.3s ease;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
 }
+
+.logo-container[style*="opacity: 0"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 
 .logo-container a {
     display: flex;
     align-items: center;
     gap: 10px;
-    text-decoration: none;
-    color: #ededed;
+    text-decoration: none !important;
+}
+.logo-container a:visited,
+.logo-container a:active,
+.logo-container a:hover {
+    text-decoration: none !important;
+    color: #fff !important;
+}
+.logo-container a:visited,
+.logo-container a:active,
+.logo-container a:hover {
+    color: #fff !important;
     font-family: var(--font-sans);
-    font-size: 0.7rem;
+    font-size: 0.4rem;
     font-weight: 400;
-    transition: color 0.3s ease;
+    
 }
 
 .logo-container a:hover {
@@ -101,7 +166,7 @@ html {
 }
 
 .logo-container:hover {
-    transform: scale(1.1);
+    transform: translateX(-50%) scale(1.1);
 }
 
 .site-logo {
@@ -144,7 +209,7 @@ html {
 
 .subtitle-text {
     position: fixed;
-    top: 45%;
+    top: 25%;
     left: 0;
     right: 0;
     width: 100%;
@@ -185,10 +250,10 @@ html {
 /* Botón Explorar */
 .explore-btn {
     position: fixed;
-    bottom: 340px;
+    bottom: 260px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: var(--font-sans);
+    font-family:Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-style: italic;
     font-size: 1rem;
@@ -257,7 +322,7 @@ html {
     width: 100%;
     height: auto;
     background: transparent;
-    z-index: 100;
+    z-index: 10000;
     overflow: visible;
     opacity: 1;
     transition: none;
@@ -537,7 +602,7 @@ html {
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: auto; /* Permite que las filas se creen automáticamente */
+    grid-auto-rows: 1fr; /* Hace que todas las filas tengan la misma altura */
     gap: 20px;
     padding: 80px 40px 100px 40px; /* Más padding top/bottom para respirar */
     max-width: 1200px;
@@ -558,7 +623,9 @@ html {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    height: fit-content; /* Asegura que la altura se ajuste al contenido */
+    height: 100%; /* Ocupa toda la altura de la celda del grid */
+    min-height: 0; /* Permite que los hijos flexibles se contraigan correctamente */
+    align-items: stretch;
 }
 
 /* Hover effect for gallery items */
@@ -586,13 +653,13 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding: 0; /* quitar padding para que la imagen ocupe todo el contenedor */
     font-size: 2rem;
     font-weight: 900;
     color: rgba(255, 255, 255, 0.8);
     border-bottom: 2px solid rgba(76, 175, 80, 0.3);
     height: auto;
-    min-height: 150px;
+    min-height: 0;
 }
 
 /* Ensure thumbnail images fill the project image area */
@@ -625,13 +692,15 @@ html {
 /* Gallery item image container */
 .gallery-item-image {
     width: 100%;
-    height: auto; /* Permite altura automática según proporción original */
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     position: relative;
     background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+    flex: 1 1 0%; /* Permite que el contenedor de la imagen crezca y ocupe el espacio disponible */
+    min-height: 160px; /* Altura mínima consistente para las cards */
 }
 
 /* Like Button */
@@ -686,8 +755,8 @@ html {
 
 .gallery-item-image img {
     width: 100%;
-    height: auto; /* Mantiene proporción original */
-    object-fit: contain; /* Muestra imagen completa sin recortar */
+    height: 100%; /* Rellena el contenedor para tener altura uniforme */
+    object-fit: cover; /* Recorta la imagen para mantener proporción y llenar el contenedor */
     display: block;
     transition: transform 0.5s ease;
 }
@@ -861,7 +930,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(0, 0, 0, 0.1);
     z-index: 10000;
     justify-content: center;
     align-items: center;
@@ -1034,7 +1103,7 @@ html {
     /* Subtítulo separado */
     .subtitle-text {
         bottom: auto;
-        top: 50%;
+        top: 20%;
         transform: translateY(-50%);
         font-size: 0.55rem;
         line-height: 1.9;
@@ -1055,6 +1124,7 @@ html {
         left: 50%;
         right: auto;
         transform: translateX(-50%);
+        
     }
     
     .logo-container:hover {
