@@ -1,3 +1,39 @@
+// Mostrar textos y logo al hacer scroll hacia arriba si la galería ya no es visible
+let galleryWasVisible = false;
+function checkGalleryVisibility() {
+    const gallerySection = document.getElementById('gallery-section');
+    const rect = gallerySection.getBoundingClientRect();
+    // Consideramos "no visible" si la parte inferior está por encima del viewport
+    const notVisible = rect.bottom < 0;
+    if (notVisible && galleryWasVisible) {
+        // Galería ya no visible, mostrar textos y logo
+        gsap.fromTo([
+            '.principal-text',
+            '.subtitle-text'
+        ],
+        { y: -60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' });
+        gsap.set('.logo-container', { y: 0, opacity: 1 });
+        galleryWasVisible = false;
+    } else if (!notVisible && !galleryWasVisible) {
+        // Galería visible, ocultar textos y logo
+        gsap.to([
+            '.principal-text',
+            '.subtitle-text'
+        ], {
+            y: -60,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.inOut'
+        });
+        gsap.set('.logo-container', { y: 0, opacity: 1 });
+        galleryWasVisible = true;
+    }
+}
+window.addEventListener('scroll', checkGalleryVisibility);
+window.addEventListener('resize', checkGalleryVisibility);
+// Inicializar estado
+setTimeout(checkGalleryVisibility, 500);
 /* ============================================
    VISITOR ANALYTICS
    ============================================ */
@@ -263,6 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const targets = ['.logo-container', '.subtitle-text', '.explore-btn', '.bottom-text'];
 
+    // Siempre forzar textos y logo visibles al cargar
+    gsap.set(['.principal-text', '.subtitle-text', '.logo-container'], { y: 0, opacity: 1 });
+
     if (prefersReduced) {
         gsap.set([...targets, ...letters], { clearProps: 'all', opacity: 1, x: 0, y: 0 });
         return;
@@ -516,7 +555,14 @@ function openGallery() {
 
 openGalleryBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    openGallery();
+    // Animar solo textos principales hacia arriba y desvanecer, el logo queda fijo
+    gsap.to(['.principal-text', '.subtitle-text'], {
+        y: -60,
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: openGallery
+    });
 });
 
 // Cerrar galería
@@ -531,6 +577,15 @@ const closeModal = () => {
             galleryModal.classList.remove('active');
             const galleryPreloader = document.getElementById('galleryPreloader');
             if (galleryPreloader) galleryPreloader.classList.add('hidden');
+
+            // Restaurar textos y logo con animación descendente
+            gsap.fromTo([
+                '.principal-text',
+                '.subtitle-text',
+                '.logo-container'
+            ],
+            { y: -60, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' });
 
             // Restore page scrolling
             document.body.style.overflow = 'auto';
